@@ -6,10 +6,9 @@ BirdWeather remains the data source; this app is not an official BirdWeather pro
 Unzip this entire folder. Double-click index.html to open it in Brave.
 No server, installation, account, token, dependencies or Terminal required.
 
-The small Credits link at the bottom opens credits.html in a NEW TAB, leaving
-viewer filters, period and auto-refresh state untouched in the original tab.
-Keep all three files together. Credits can also be opened directly (defaults
-to rolling 24 hours). Its Back link opens index.html in that credits tab.
+credits.html remains available by direct URL only (not linked from the main page;
+defaults to rolling 24 hours when opened that way). Its Back link opens index.html.
+Keep the files together if you also use the Credits page.
 
 The viewer has no photo-credit overlays or info buttons. Photos still open
 species Wikipedia articles in a new tab. Cards and table thumbnails remain.
@@ -21,9 +20,10 @@ and is clearly labeled; it is not relabeled Today. Missing authors/licenses
 are honestly marked unavailable. Images are displayed even without credit
 metadata. Unsafe or absent URLs and failed images use placeholders.
 
-Last 24 hours remains the default. Today uses America/New_York midnight until
-each request time, including DST transitions, independent of computer timezone.
-Changing period updates the Credits link's period too. Refresh now and automatic
+Today is the default Time Period (still computed from America/New_York midnight until
+each request time, including DST transitions, independent of computer timezone).
+Most recent is the default Sort. Last 24 hours remains available in the list.
+Refresh now and automatic
 refresh (default 5 minutes, any integer 1–1440, or off) work as before. Invalid
 intervals pause automatic refresh. Browser background throttling and computer
 sleep can delay timers. Fetch errors retain last-good data and its true window.
@@ -92,7 +92,7 @@ Sort/search/view changes make no extra web requests. The included timestamps
 remain tied to the genuine saved snapshot; no retrieval time is substituted.
 
 LAYOUT
-Sort options: Most detections, Most recent, Name A-Z. Toolbar order is Time Period,
+Sort options: Most detections (optional), Most recent (default), Name A-Z. Toolbar order is Time Period,
 Sort, View, Search species, Refresh. Both pages use Tweet Sheet's verified
 light paper base color #f9f3e4 (not its texture or radial-gradient shading):
 https://tweetsheet.app/assets/index-DisDh1UW.css

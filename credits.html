@@ -14,7 +14,7 @@ function periodWindow(mode,now=new Date()){
   return {period:{from:new Date(now.getTime()-days*86400000).toISOString(),to:now.toISOString(),timezone:'America/New_York'},label:days===1?'Rolling last 24 hours at retrieval time':'Rolling last '+days+' days at retrieval time'};
  }
  const day=easternDate(now);
- return {period:{from:day+'T00:00:00',to:now.toISOString(),timezone:'America/New_York'},label:'Today · '+day+' · 00:00–'+now.toLocaleTimeString('en-US',{timeZone:'America/New_York',hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'})+' Eastern (America/New_York)'};
+ return {period:{from:day+'T00:00:00',to:now.toISOString(),timezone:'America/New_York'},label:'Today · '+day+' · 00:00–'+now.toLocaleTimeString('en-US',{timeZone:'America/New_York',hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'})};
 }
 async function requestJson(body,signal){
  const controller=new AbortController(),abort=()=>controller.abort();
