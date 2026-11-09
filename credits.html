@@ -11,7 +11,8 @@ function easternDate(now){
 function periodWindow(mode,now=new Date()){
  if(mode!=='today'){
   const days=({week:7,month:30,year:365})[mode]||1;
-  return {period:{from:new Date(now.getTime()-days*86400000).toISOString(),to:now.toISOString(),timezone:'America/New_York'},label:days===1?'Rolling last 24 hours at retrieval time':'Rolling last '+days+' days at retrieval time'};
+  const name=({1:'Last 24 hours',7:'Last week',30:'Last month',365:'Last year'})[days]||'Last 24 hours';
+  return {period:{from:new Date(now.getTime()-days*86400000).toISOString(),to:now.toISOString(),timezone:'America/New_York'},label:name+' at retrieval time'};
  }
  const day=easternDate(now);
  return {period:{from:day+'T00:00:00',to:now.toISOString(),timezone:'America/New_York'},label:'Today · '+day+' · 00:00–'+now.toLocaleTimeString('en-US',{timeZone:'America/New_York',hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'})};
@@ -84,7 +85,7 @@ function display(payload){
  });
  $('list').replaceChildren(...items);$('empty').hidden=items.length!==0;
 }
-try{display(JSON.parse($('saved').textContent));$('scope').textContent='Included saved metadata · Rolling last 24 hours · 2026-11-08 11:04:52 AM Eastern';}catch(e){$('status').textContent=e.message;}
+try{display(JSON.parse($('saved').textContent));$('scope').textContent='Included saved metadata · Last 24 hours · 2026-11-08 11:04:52 AM Eastern';}catch(e){$('status').textContent=e.message;}
 (async()=>{
  const window=periodWindow(mode),controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),120000);
  $('status').textContent='Updating photo credits…';

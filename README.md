@@ -105,7 +105,7 @@ as well as page backgrounds. Functional green accents and photo content stay
 unchanged. Search text and its placeholder are italic. Historical period controls are described below.
 
 HISTORICAL PERIODS
-The selector now includes Last 7 days, Last 30 days and Last 365 days. These
+The selector now includes Last week, Last month and Last year. These
 are rolling exact 24-hour-day windows ending at request time, not previous
 calendar weeks/months/years. Today remains Eastern midnight-to-now.
 Both viewer and Credits request 200 species initially; if aggregate counts
