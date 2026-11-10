@@ -14,9 +14,9 @@ function ordinal(n){const v=n%100,d=n%10;if(v>=11&&v<=13)return n+'th';if(d===1)
 function displayDate(value){
  const t=value instanceof Date?value:new Date(value);
  if(!Number.isFinite(t.getTime()))return '';
- const p=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',month:'long',day:'numeric'}).formatToParts(t);
- const month=p.find(x=>x.type==='month').value,day=Number(p.find(x=>x.type==='day').value);
- return month+' '+ordinal(day);
+ const p=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',month:'long',day:'numeric',year:'numeric'}).formatToParts(t);
+ const month=p.find(x=>x.type==='month').value,day=Number(p.find(x=>x.type==='day').value),year=p.find(x=>x.type==='year').value;
+ return month+' '+ordinal(day)+', '+year;
 }
 function periodWindow(mode,now=new Date()){
  const name=periodName(mode),phrase=periodPhrase(mode),date=displayDate(now),label='Species heard '+phrase;
