@@ -22,9 +22,9 @@ metadata. Unsafe or absent URLs and failed images use placeholders.
 
 Today is the default Time Period (still computed from America/New_York midnight until
 each request time, including DST transitions, independent of computer timezone).
-Most recent is the default Sort. Last 24 hours remains available in the list.
+Most recent is the default Sort. 24 hours remains available in the list.
 Refresh now and automatic
-refresh (default 5 minutes, any integer 1–1440, or off) work as before. Invalid
+refresh (default 5 minutes, any integer 1–99, or off) work as before. Invalid
 intervals pause automatic refresh. Browser background throttling and computer
 sleep can delay timers. Fetch errors retain last-good data and its true window.
 Switching period during a fetch discards stale results without overlapping
@@ -105,7 +105,7 @@ as well as page backgrounds. Functional green accents and photo content stay
 unchanged. Search text and its placeholder are italic. Historical period controls are described below.
 
 HISTORICAL PERIODS
-The selector now includes Last week, Last month and Last year. These
+The selector now includes week, month and year. These
 are rolling exact 24-hour-day windows ending at request time, not previous
 calendar weeks/months/years. Today remains Eastern midnight-to-now.
 Both viewer and Credits request 200 species initially; if aggregate counts
