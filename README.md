@@ -23,6 +23,9 @@ metadata. Unsafe or absent URLs and failed images use placeholders.
 Today is the default Time Period (still computed from America/New_York midnight until
 each request time, including DST transitions, independent of computer timezone).
 Most recent is the default Sort. 24 hours remains available in the list.
+The auto-refresh line shows the last-updated time to the minute (Eastern, no
+seconds or zone label; the embedded snapshot first paints as “Updated 12:03 PM”),
+then Auto-refresh every [minutes], then Refresh now (moved off the toolbar).
 Refresh now and automatic
 refresh (default 5 minutes, any integer 1–99, or off) work as before. The
 minutes field is a short text box (no stepper arrows); non-digits are stripped
@@ -94,7 +97,7 @@ remain tied to the genuine saved snapshot; no retrieval time is substituted.
 
 LAYOUT
 Sort options: Most detections (optional), Most recent (default), Name A-Z. Toolbar order is Time Period,
-Sort, View, Search species, Refresh. Both pages use Tweet Sheet's verified
+Sort, View, Search species. Both pages use Tweet Sheet's verified
 light paper base color #f9f3e4 (not its texture or radial-gradient shading):
 https://tweetsheet.app/assets/index-DisDh1UW.css
 :root --paper; body background-color: var(--paper).
