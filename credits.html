@@ -9,20 +9,23 @@ function easternDate(now){
  const get=k=>p.find(x=>x.type===k).value;return get('year')+'-'+get('month')+'-'+get('day');
 }
 function periodName(mode){return ({today:'Today',rolling:'24 hours',week:'week',month:'month',year:'year'})[mode]||'24 hours';}
+function periodPhrase(mode){return ({today:'today',rolling:'the last 24 hours',week:'last week',month:'last month',year:'last year'})[mode]||'the last 24 hours';}
+function ordinal(n){const v=n%100,d=n%10;if(v>=11&&v<=13)return n+'th';if(d===1)return n+'st';if(d===2)return n+'nd';if(d===3)return n+'rd';return n+'th';}
 function displayDate(value){
  const t=value instanceof Date?value:new Date(value);
  if(!Number.isFinite(t.getTime()))return '';
- return new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',month:'long',day:'numeric'}).format(t);
+ const p=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',month:'long',day:'numeric'}).formatToParts(t);
+ const month=p.find(x=>x.type==='month').value,day=Number(p.find(x=>x.type==='day').value);
+ return month+' '+ordinal(day);
 }
 function periodWindow(mode,now=new Date()){
- const name=periodName(mode);
- const label=displayDate(now)+' · '+name;
+ const name=periodName(mode),phrase=periodPhrase(mode),date=displayDate(now),label=date+'. Species heard '+phrase;
  if(mode!=='today'){
   const days=({week:7,month:30,year:365})[mode]||1;
-  return {period:{from:new Date(now.getTime()-days*86400000).toISOString(),to:now.toISOString(),timezone:'America/New_York'},name,mode:({1:'rolling',7:'week',30:'month',365:'year'})[days]||'rolling',label};
+  return {period:{from:new Date(now.getTime()-days*86400000).toISOString(),to:now.toISOString(),timezone:'America/New_York'},name,phrase,mode:({1:'rolling',7:'week',30:'month',365:'year'})[days]||'rolling',label};
  }
  const day=easternDate(now);
- return {period:{from:day+'T00:00:00',to:now.toISOString(),timezone:'America/New_York'},name,mode:'today',label};
+ return {period:{from:day+'T00:00:00',to:now.toISOString(),timezone:'America/New_York'},name,phrase,mode:'today',label};
 }
 async function requestJson(body,signal){
  const controller=new AbortController(),abort=()=>controller.abort();
@@ -92,7 +95,7 @@ function display(payload){
  });
  $('list').replaceChildren(...items);$('empty').hidden=items.length!==0;
 }
-try{display(JSON.parse($('saved').textContent));$('scope').textContent='Included saved metadata · 24 hours · 2026-11-08 11:04:52 AM Eastern';}catch(e){$('status').textContent=e.message;}
+try{display(JSON.parse($('saved').textContent));$('scope').textContent='Included saved metadata · the last 24 hours · 2026-11-08 11:04:52 AM Eastern';}catch(e){$('status').textContent=e.message;}
 (async()=>{
  const window=periodWindow(mode),controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),120000);
  $('status').textContent='Updating photo credits…';
