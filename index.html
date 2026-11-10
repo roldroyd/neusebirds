@@ -1,6 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,600;1,500;1,600&family=Dancing+Script:wght@500;600&display=swap" rel="stylesheet"><meta name="apple-mobile-web-app-title" content="NeuseBirds"><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"><link rel="icon" href="favicon.png"><meta name="application-name" content="NeuseBirds"><title>NeuseBirds · Neuse River</title>
 <style>
-:root{--paper:#f9f3e4;color-scheme:light;--ink:#213d30;--muted:#55645b;--line:#dce2d8;--green:#255a3d}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 system-ui,-apple-system,sans-serif}main{max-width:1200px;margin:auto;padding:46px 28px}h1,.site-title{font-size:clamp(2rem,5vw,3rem);line-height:1.1;letter-spacing:-.04em;margin:8px 0 12px}.site-title{display:flex;align-items:baseline;flex-wrap:wrap;gap:.25em .5em}.title-date{font-family:"Source Serif 4","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-style:italic;font-weight:500;font-size:clamp(.95rem,2.2vw,1.15rem);letter-spacing:0;line-height:1;color:var(--ink)}.site-icon{height:1em;width:1em;border-radius:22%;object-fit:cover;flex:0 0 auto;display:block;align-self:center}h3{font-size:1.05rem;line-height:1.35;margin:0}.muted,.latin{color:var(--muted)}.intro{margin:0 0 26px;display:flex;flex-wrap:wrap;align-items:baseline;column-gap:.7em;row-gap:.2em;font-family:"Source Serif 4","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-size:clamp(1.05rem,2.2vw,1.3rem);font-weight:600;color:var(--ink);line-height:1.3}#window-accent{font-style:italic;font-weight:500;color:#b17a23}.counts{font-family:"Dancing Script","Snell Roundhand","Apple Chancery",Palatino,cursive;font-size:1.05em;font-weight:500;color:#6e5e52;line-height:1.2}.toolbar{padding:18px;background:var(--paper);border:1px solid var(--line);border-radius:12px;display:flex;gap:12px;align-items:end;flex-wrap:wrap}.field{display:flex;flex-direction:column;gap:5px;font-size:.76rem;font-weight:600}.search{flex:1;min-width:200px}input,select,button{font:inherit;color:inherit}input[type=search],select,#minutes{border:1px solid #aab7ab;border-radius:7px;background:var(--paper);padding:9px 11px;min-height:42px}input[type=search]{width:100%}#minutes{-moz-appearance:textfield;appearance:textfield}#minutes::-webkit-outer-spin-button,#minutes::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;display:none}button{cursor:pointer;min-height:42px;border:1px solid #aab7ab;border-radius:7px;padding:9px 15px;background:var(--paper);font-weight:600;font-size:.86rem}button[aria-pressed=true]{background:#e5eee3;color:#214e33;border-color:#72977d}#refresh{background:var(--green);border-color:var(--green);color:#fff;white-space:nowrap}#refresh:disabled{cursor:wait;background:#49735a}input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #b17a23;outline-offset:3px}.view-switch{display:flex;gap:5px}.auto-line{display:flex;gap:8px 16px;align-items:center;font-size:.7rem;line-height:1.4;margin-top:13px;flex-wrap:wrap}.auto-line #updated{color:var(--muted);white-space:nowrap;flex:0 0 auto}.auto-line .auto-controls{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}.auto-line .auto-phrase{display:inline-flex;align-items:center;gap:.28em;white-space:nowrap}.auto-line #refresh{width:auto;min-width:0;min-height:28px;height:28px;padding:2px 8px;font-size:inherit;font-weight:600;line-height:inherit;border-radius:7px;box-sizing:border-box;flex:0 0 auto}.auto-line #minutes{min-height:28px;padding:2px 4px;width:2.8em;max-width:2.8em;text-align:center}.auto-line input[type=checkbox]{accent-color:var(--green);width:16px;height:16px}.feedback{min-height:36px;padding:8px 0;font-size:.83rem}#status{color:var(--muted)}#error,#interval-error{color:#8c2925}#status:empty,#error:empty,#interval-error:empty{display:none}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:22px}.card{background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}.photo{aspect-ratio:4/3;background:var(--paper);position:relative;display:grid;place-items:center;overflow:hidden}.photo img{position:absolute;width:100%;height:100%;object-fit:cover}.placeholder{font-size:.82rem;color:#55664c}.card-body{padding:18px 18px 4px}.latin{font-size:.83rem;font-style:italic;margin:5px 0}.badge{font-size:.78rem;background:var(--paper);color:#31573d;padding:5px 9px;border-radius:5px;display:inline-block;margin:12px 0}#table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--paper)}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:16px 22px;border-bottom:1px solid var(--line)}th{font-size:.8rem;background:var(--paper)}th:last-child,.table-count{text-align:right;font-variant-numeric:tabular-nums}td h3{font-size:.95rem}tbody tr:last-child td{border:0}#empty{padding:36px;text-align:center;background:var(--paper);border-radius:10px}[hidden]{display:none!important}@media(max-width:640px){main{padding:28px 18px}.site-title{row-gap:.1em}.toolbar{gap:10px}.search{flex:1 1 150px;min-width:150px}#period,#sort{max-width:100%;box-sizing:border-box}.grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+:root{--paper:#f9f3e4;color-scheme:light;--ink:#213d30;--muted:#55645b;--line:#dce2d8;--green:#255a3d}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 system-ui,-apple-system,sans-serif}main{max-width:1200px;margin:auto;padding:46px 28px}h1,.site-title{font-size:clamp(2rem,5vw,3rem);line-height:1.1;letter-spacing:-.04em;margin:8px 0 12px}.site-title{display:flex;align-items:baseline;flex-wrap:wrap;gap:.25em .5em}.title-date{font-family:"Source Serif 4","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-style:italic;font-weight:500;font-size:clamp(.95rem,2.2vw,1.15rem);letter-spacing:0;line-height:1;color:var(--ink)}.date-nav{display:inline-flex;align-items:center;gap:.15em;flex:0 1 auto;min-width:0;white-space:nowrap;font-size:clamp(.95rem,2.2vw,1.15rem);line-height:1;letter-spacing:0}.date-nav button{appearance:none;-webkit-appearance:none;background:transparent;border:0;box-shadow:none;color:var(--muted);cursor:pointer;font:inherit;font-size:.85em;font-style:normal;font-weight:500;line-height:1;padding:0 .12em;margin:0;min-height:0;min-width:0;width:auto;border-radius:4px;vertical-align:middle}.date-nav button:disabled{opacity:.28;cursor:default}.date-nav button:not(:disabled):hover{color:var(--ink)}.date-nav[data-nav=off] button{display:none}.site-icon{height:1em;width:1em;border-radius:22%;object-fit:cover;flex:0 0 auto;display:block;align-self:center}h3{font-size:1.05rem;line-height:1.35;margin:0}.muted,.latin{color:var(--muted)}.intro{margin:0 0 26px;display:flex;flex-wrap:wrap;align-items:baseline;column-gap:.7em;row-gap:.2em;font-family:"Source Serif 4","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-size:clamp(1.05rem,2.2vw,1.3rem);font-weight:600;color:var(--ink);line-height:1.3}#window-accent{font-style:italic;font-weight:500;color:#b17a23}.counts{font-family:"Dancing Script","Snell Roundhand","Apple Chancery",Palatino,cursive;font-size:1.05em;font-weight:500;color:#6e5e52;line-height:1.2}.toolbar{padding:18px;background:var(--paper);border:1px solid var(--line);border-radius:12px;display:flex;gap:12px;align-items:end;flex-wrap:wrap}.field{display:flex;flex-direction:column;gap:5px;font-size:.76rem;font-weight:600}.search{flex:1;min-width:200px}input,select,button{font:inherit;color:inherit}input[type=search],select,#minutes{border:1px solid #aab7ab;border-radius:7px;background:var(--paper);padding:9px 11px;min-height:42px}input[type=search]{width:100%}#minutes{-moz-appearance:textfield;appearance:textfield}#minutes::-webkit-outer-spin-button,#minutes::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;display:none}button{cursor:pointer;min-height:42px;border:1px solid #aab7ab;border-radius:7px;padding:9px 15px;background:var(--paper);font-weight:600;font-size:.86rem}button[aria-pressed=true]{background:#e5eee3;color:#214e33;border-color:#72977d}#refresh{background:var(--green);border-color:var(--green);color:#fff;white-space:nowrap}#refresh:disabled{cursor:wait;background:#49735a}input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #b17a23;outline-offset:3px}.view-switch{display:flex;gap:5px}.auto-line{display:flex;gap:8px 16px;align-items:center;font-size:.7rem;line-height:1.4;margin-top:13px;flex-wrap:wrap}.auto-line #updated{color:var(--muted);white-space:nowrap;flex:0 0 auto}.auto-line .auto-controls{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}.auto-line .auto-phrase{display:inline-flex;align-items:center;gap:.28em;white-space:nowrap}.auto-line #refresh{width:auto;min-width:0;min-height:28px;height:28px;padding:2px 8px;font-size:inherit;font-weight:600;line-height:inherit;border-radius:7px;box-sizing:border-box;flex:0 0 auto}.auto-line #minutes{min-height:28px;padding:2px 4px;width:2.8em;max-width:2.8em;text-align:center}.auto-line input[type=checkbox]{accent-color:var(--green);width:16px;height:16px}.feedback{min-height:36px;padding:8px 0;font-size:.83rem}#status{color:var(--muted)}#error,#interval-error{color:#8c2925}#status:empty,#error:empty,#interval-error:empty{display:none}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:22px}.card{background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}.photo{aspect-ratio:4/3;background:var(--paper);position:relative;display:grid;place-items:center;overflow:hidden}.photo img{position:absolute;width:100%;height:100%;object-fit:cover}.placeholder{font-size:.82rem;color:#55664c}.card-body{padding:18px 18px 4px}.latin{font-size:.83rem;font-style:italic;margin:5px 0}.badge{font-size:.78rem;background:var(--paper);color:#31573d;padding:5px 9px;border-radius:5px;display:inline-block;margin:12px 0}#table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--paper)}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:16px 22px;border-bottom:1px solid var(--line)}th{font-size:.8rem;background:var(--paper)}th:last-child,.table-count{text-align:right;font-variant-numeric:tabular-nums}td h3{font-size:.95rem}tbody tr:last-child td{border:0}#empty{padding:36px;text-align:center;background:var(--paper);border-radius:10px}[hidden]{display:none!important}@media(max-width:640px){main{padding:28px 18px}.site-title{row-gap:.1em}.toolbar{gap:10px}.search{flex:1 1 150px;min-width:150px}#period,#sort{max-width:100%;box-sizing:border-box}.grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 
 .photo-link{position:absolute;inset:0;display:grid;place-items:center;color:inherit;text-decoration:none}.photo-link:focus-visible{outline-offset:-4px;z-index:1}
 
@@ -8,7 +8,7 @@
 .detection-badge{position:absolute;top:10px;right:10px;z-index:2;pointer-events:none;background:#193c2d;color:#fff;border-radius:999px;padding:5px 10px;font-size:.84rem;font-weight:700;line-height:1.2;font-variant-numeric:tabular-nums}.card-links{display:flex;align-items:center;flex-wrap:wrap;gap:8px 14px;margin-top:auto;padding:12px 18px 16px;font-size:.74rem;line-height:1.5}.card-links a{color:#31573d;text-underline-offset:3px}.card-links .unavailable{color:#68736c;cursor:default}.last-heard{font-size:.76rem;color:#596b5f;margin:6px 0 8px;line-height:1.4}#filter,#filter::placeholder{font-style:italic}#period,#sort{appearance:none;-webkit-appearance:none;text-align:center;text-align-last:center;width:max-content;max-width:100%;min-width:0;padding:9px 28px 9px 10px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23213d30' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;background-size:12px 8px}#period option,#sort option{text-align:center}
 .auto-line .auto-toggle{position:relative;padding-left:24px;line-height:inherit;cursor:pointer}.auto-line .auto-toggle input[type=checkbox]{position:absolute;left:0;top:50%;transform:translateY(-50%);margin:0}.auto-line label,.auto-line>span,.auto-line #minutes,.auto-line #refresh{line-height:inherit}.auto-line #minutes{font:inherit;line-height:inherit}
 </style></head><body><main>
-<header><h1 class="site-title"><img class="site-icon" src="apple-touch-icon.png" width="48" height="48" alt=""><span id="station">Neuse River</span><span id="window-date" class="title-date">November 8th, 2026</span></h1><p class="intro"><span id="window-label" class="summary-heading">Species heard <em id="window-accent">in the last 24 hours</em></span><span class="counts"><span id="species-total">28</span> <span id="species-word">species</span>, <span id="detections-total">842</span> <span id="detections-word">detections</span></span></p></header>
+<header><h1 class="site-title"><img class="site-icon" src="apple-touch-icon.png" width="48" height="48" alt=""><span id="station">Neuse River</span><span class="date-nav"><button type="button" id="date-back" aria-label="Previous period">◀</button><span id="window-date" class="title-date">November 8th, 2026</span><button type="button" id="date-forward" aria-label="Next period" disabled>▶</button></span></h1><p class="intro"><span id="window-label" class="summary-heading">Species heard <em id="window-accent">in the last 24 hours</em></span><span class="counts"><span id="species-total">28</span> <span id="species-word">species</span>, <span id="detections-total">842</span> <span id="detections-word">detections</span></span></p></header>
 <section aria-label="Display and refresh controls"><div class="toolbar"><label class="field" for="period">Time Period<select id="period"><option value="today" selected>Today</option><option value="rolling">24 hours</option><option value="week">week</option><option value="month">month</option><option value="year">year</option><option value="all">all time</option></select></label><label class="field" for="sort">Sort by<select id="sort"><option value="count">Most detections</option><option value="recent" selected>Most recent</option><option value="name">Name A–Z</option></select></label><div class="field"><span>View</span><div class="view-switch" role="group" aria-label="Species view"><button id="view-cards" type="button" aria-pressed="true">Cards</button><button id="view-table" type="button" aria-pressed="false">Table</button></div></div><label class="field search" for="filter">Search species<input id="filter" type="search" placeholder="Common or scientific name"></label></div>
 <div class="auto-line"><span id="updated">Updated 12:03 PM</span><span class="auto-controls"><span class="auto-phrase"><label class="auto-toggle" for="auto"><input id="auto" type="checkbox" checked> Auto-refresh</label><label for="minutes">every</label></span><input id="minutes" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="5" aria-label="Refresh interval in minutes" autocomplete="off"><span>minutes</span></span><button id="refresh" type="button">Refresh now</button></div><div id="interval-error" role="alert"></div></section>
 <div class="feedback"><span id="status" role="status" aria-live="polite"></span><div id="error" role="alert"></div></div><section id="cards" class="grid" aria-label="Species cards"></section><div id="table-wrap" hidden><table><thead><tr><th scope="col">Species</th><th scope="col">Detections</th></tr></thead><tbody id="rows"></tbody></table></div><p id="empty" hidden></p>
@@ -17,13 +17,13 @@
 'use strict';
 const $=id=>document.getElementById(id);
 const queryText="query($period: InputDuration, $limit:Int) { station(id: 22946) { id name earliestDetectionAt counts(period: $period) { detections species } topSpecies(limit: $limit, period: $period) { count species { id commonName scientificName imageUrl thumbnailUrl imageCredit imageLicense imageLicenseUrl birdweatherUrl wikipediaUrl ebirdUrl ebirdCode } } } }";
-let current=null,busy=false,timer=null,view="cards",generation=0,queued=false,earliestDetectionAt=null,lastMinutes=5,currentWindow={"period": {"from": "2026-11-07T17:03:21.904875+00:00", "to": "2026-11-08T17:03:21.904875+00:00", "timezone": "America/New_York"}, "label": "Species heard in the last 24 hours", "name": "24 hours", "phrase": "in the last 24 hours", "mode": "rolling"};
+let current=null,busy=false,timer=null,view="cards",generation=0,queued=false,earliestDetectionAt=null,historyOffset=0,lastMinutes=5,currentWindow={"period": {"from": "2026-11-07T17:03:21.904875+00:00", "to": "2026-11-08T17:03:21.904875+00:00", "timezone": "America/New_York"}, "label": "Species heard in the last 24 hours", "name": "24 hours", "phrase": "in the last 24 hours", "mode": "rolling"};
 function easternDate(now){
  const p=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(now);
  const get=k=>p.find(x=>x.type===k).value;return get('year')+'-'+get('month')+'-'+get('day');
 }
 function periodName(mode){return ({today:'Today',rolling:'24 hours',week:'week',month:'month',year:'year',all:'all time'})[mode]||'24 hours';}
-function periodPhrase(mode){return ({today:'today',rolling:'in the last 24 hours',week:'in the last week',month:'in the last month',year:'in the last year',all:'all time'})[mode]||'in the last 24 hours';}
+function periodPhrase(mode,offset=0){if(!offset)return ({today:'today',rolling:'in the last 24 hours',week:'in the last week',month:'in the last month',year:'in the last year',all:'all time'})[mode]||'in the last 24 hours';return ({today:'that day',rolling:'in those 24 hours',week:'that week',month:'that month',year:'that year',all:'all time'})[mode]||'in those 24 hours';}
 function ordinal(n){const v=n%100,d=n%10;if(v>=11&&v<=13)return n+'th';if(d===1)return n+'st';if(d===2)return n+'nd';if(d===3)return n+'rd';return n+'th';}
 function displayDate(value){
  const t=value instanceof Date?value:new Date(value);
@@ -43,18 +43,90 @@ function applyUpdated(value){
  const el=$('updated');
  if(el)el.textContent=formatUpdated(value);
 }
-function periodWindow(mode,now=new Date()){
- const name=periodName(mode),phrase=periodPhrase(mode),date=displayDate(now),label='Species heard '+phrase;
+function civilShift(day,delta){
+ const [y,m,d]=day.split('-').map(Number);
+ const dt=new Date(Date.UTC(y,m-1,d+delta));
+ return dt.getUTCFullYear()+'-'+String(dt.getUTCMonth()+1).padStart(2,'0')+'-'+String(dt.getUTCDate()).padStart(2,'0');
+}
+function earliestStamp(){
+ const t=Date.parse(earliestDetectionAt);
+ return Number.isFinite(t)?t:Date.parse('2026-02-19T07:27:12-05:00');
+}
+function earliestCivil(){return easternDate(new Date(earliestStamp()));}
+function displayCivilDate(day){
+ const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+ const [y,m,d]=String(day).split('-').map(Number);
+ if(!y||!m||!d)return '';
+ return months[m-1]+' '+ordinal(d)+', '+y;
+}
+function civilFromValue(value){
+ if(typeof value==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(value))return value;
+ if(typeof value==='string'&&/^\d{4}-\d{2}-\d{2}T00:00:00$/.test(value))return value.slice(0,10);
+ const t=value instanceof Date?value:new Date(value);
+ return Number.isFinite(t.getTime())?easternDate(t):'';
+}
+function displayDateRange(from,to){
+ const a=civilFromValue(from),b=civilFromValue(to);
+ if(!a||!b||a===b)return displayCivilDate(b||a);
+ const [ay,am,ad]=a.split('-').map(Number),[by,bm,bd]=b.split('-').map(Number);
+ const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+ if(ay===by&&am===bm)return months[am-1]+' '+ordinal(ad)+' – '+ordinal(bd)+', '+by;
+ if(ay===by)return months[am-1]+' '+ordinal(ad)+' – '+months[bm-1]+' '+ordinal(bd)+', '+by;
+ return displayCivilDate(a)+' – '+displayCivilDate(b);
+}
+function periodWindow(mode,now=new Date(),offset=0){
+ offset=Number.isInteger(offset)&&offset>0?offset:0;
+ const name=periodName(mode),phrase=periodPhrase(mode,offset),label='Species heard '+phrase;
  if(mode==='all'){
   const start=Number.isFinite(Date.parse(earliestDetectionAt))?new Date(earliestDetectionAt).toISOString():'2000-01-01T00:00:00.000Z';
-  return {period:{from:start,to:now.toISOString(),timezone:'America/New_York'},name,phrase,mode:'all',label};
+  return {period:{from:start,to:now.toISOString(),timezone:'America/New_York'},name,phrase,mode:'all',offset:0,dateLabel:displayDate(now),label};
  }
- if(mode!=='today'){
-  const days=({week:7,month:30,year:365})[mode]||1;
-  return {period:{from:new Date(now.getTime()-days*86400000).toISOString(),to:now.toISOString(),timezone:'America/New_York'},name,phrase,mode:({1:'rolling',7:'week',30:'month',365:'year'})[days]||'rolling',label};
+ if(mode==='today'){
+  const day=civilShift(easternDate(now),-offset),dateLabel=displayCivilDate(day);
+  if(offset===0)return {period:{from:day+'T00:00:00',to:now.toISOString(),timezone:'America/New_York'},name,phrase,mode:'today',offset,dateLabel,label};
+  return {period:{from:day+'T00:00:00',to:civilShift(day,1)+'T00:00:00',timezone:'America/New_York'},name,phrase,mode:'today',offset,dateLabel,label};
  }
- const day=easternDate(now);
- return {period:{from:day+'T00:00:00',to:now.toISOString(),timezone:'America/New_York'},name,phrase,mode:'today',label};
+ const days=({week:7,month:30,year:365})[mode]||1;
+ const resolved=({1:'rolling',7:'week',30:'month',365:'year'})[days]||'rolling';
+ const end=new Date(now.getTime()-offset*days*86400000);
+ let start=new Date(end.getTime()-days*86400000);
+ if(offset>0&&start.getTime()<earliestStamp())start=new Date(earliestStamp());
+ const dateLabel=(resolved==='week'||resolved==='month'||resolved==='year')?displayDateRange(start,end):displayDate(end);
+ return {period:{from:start.toISOString(),to:end.toISOString(),timezone:'America/New_York'},name,phrase,mode:resolved,offset,dateLabel,label};
+}
+function canStepBack(mode,offset=historyOffset,now=new Date()){
+ if(mode==='all')return false;
+ if(mode==='today')return civilShift(easternDate(now),-(offset+1))>=earliestCivil();
+ const days=({week:7,month:30,year:365})[mode]||1;
+ return now.getTime()-(offset+1)*days*86400000>earliestStamp();
+}
+function updateDateNav(window){
+ const back=$('date-back'),fwd=$('date-forward'),nav=back&&back.parentElement;
+ if(!back||!fwd)return;
+ const mode=(window&&window.mode)||($('period')&&$('period').value)||'today';
+ const offset=window&&Number.isInteger(window.offset)?window.offset:historyOffset;
+ const hide=mode==='all';
+ back.hidden=fwd.hidden=hide;
+ if(nav&&nav.classList&&nav.classList.contains('date-nav')){
+  if(hide)nav.setAttribute('data-nav','off');else nav.removeAttribute('data-nav');
+ }
+ if(hide)return;
+ const labels={today:['Previous day','Next day'],rolling:['Previous 24 hours','Next 24 hours'],week:['Previous week','Next week'],month:['Previous month','Next month'],year:['Previous year','Next year']};
+ const pair=labels[mode]||labels.rolling;
+ back.setAttribute('aria-label',pair[0]);fwd.setAttribute('aria-label',pair[1]);
+ fwd.disabled=offset===0;
+ back.disabled=!canStepBack(mode,offset);
+}
+function stepHistory(step){
+ const mode=$('period').value;
+ if(mode==='all')return;
+ const next=historyOffset+step;
+ if(next<0||(step>0&&!canStepBack(mode,historyOffset)))return;
+ historyOffset=next;
+ if(current&&current.latestLoading){current.latestLoading=false;for(const bird of current.topSpecies)bird.latestPending=false;updateAges();}
+ generation++;
+ setSchedule();
+ if(busy){queued=true;$('status').textContent='Date change queued; displayed results retain their labeled window.';}else refresh();
 }
 function validate(payload){
  if(!payload||typeof payload!=='object'||payload.errors)throw new Error('BirdWeather returned an API error.');
@@ -142,10 +214,11 @@ function names(bird){const s=bird.species,box=element('div'),age=element('p',age
 
 function applySummary(window){
  if(window){
-  const date=window.period?displayDate(window.period.to):displayDate(new Date());
-  const phrase=window.phrase||periodPhrase(window.mode);
+  const date=window.dateLabel||(window.period?displayDate(window.period.to):displayDate(new Date()));
+  const phrase=window.phrase||periodPhrase(window.mode,window.offset||0);
   if($('window-date'))$('window-date').textContent=date;
   if($('window-accent'))$('window-accent').textContent=phrase;
+  updateDateNav(window);
  }
  if(!current)return;
  const species=current.counts.species,detections=current.counts.detections;
@@ -186,7 +259,7 @@ function setSchedule(){
  const used=valid?minutes:lastMinutes;
  if(valid)lastMinutes=minutes;
  $('interval-error').textContent='';
- if($('auto').checked)timer=setInterval(refresh,used*60000);
+ if($('auto').checked&&historyOffset===0)timer=setInterval(refresh,used*60000);
 }
 function commitMinutes(){
  sanitizeMinutes();
@@ -208,9 +281,9 @@ async function latestTimes(station,window,signal,version){
    const n=nodes[0];if(n&&(!n.station||n.station.id!=='22946'||n.speciesId!==b.species.id))throw new Error('Latest detection scope mismatch.');
    const time=n?Date.parse(n.timestamp):NaN;
    if(Number.isFinite(time)){
-    const from=window.period.from,to=Date.parse(window.period.to);
+    const from=window.period.from,to=Date.parse(window.period.to),pastDay=from.length===19&&String(window.period.to).length===19;
     const inStart=from.length===19?easternDate(new Date(time))===from.slice(0,10):time>=Date.parse(from);
-    if(!inStart||time>to)throw new Error('Latest detection outside the selected window.');
+    if(!inStart||(pastDay?time>=to:time>to))throw new Error('Latest detection outside the selected window.');
    }
    b.latestAt=Number.isFinite(time)?n.timestamp:null;b.latestPending=false;
   });
@@ -228,7 +301,7 @@ function compareBirds(a,b){
 async function refresh(reuse=false){
  if(busy)return;
  const version=generation,usingCache=reuse===true&&current&&currentWindow;
- const window=usingCache?currentWindow:periodWindow($('period').value);
+ const window=usingCache?currentWindow:periodWindow($('period').value,new Date(),historyOffset);
  busy=true;$('refresh').disabled=true;$('refresh').textContent='Refreshing…';$('status').textContent='';$('error').textContent='';
  const controller=new AbortController();let timedOut=false,published=false,next=null;
  const timeout=setTimeout(()=>{timedOut=true;controller.abort();},120000);
@@ -263,14 +336,16 @@ async function refresh(reuse=false){
   $('error').textContent=timedOut?'The update timed out (up to 120 seconds overall; 30 seconds per request). Try again.':(e instanceof SyntaxError?'BirdWeather returned invalid JSON. Try again.':e.message||'Network error.');
  }finally{clearTimeout(timeout);busy=false;$('refresh').disabled=false;$('refresh').textContent='Refresh now';if(queued){queued=false;refresh();}}
 }
-try{current=validate(JSON.parse($('saved').textContent));render();applyUpdated(currentWindow.period.to);}
+try{current=validate(JSON.parse($('saved').textContent));render();applyUpdated(currentWindow.period.to);updateDateNav(currentWindow);}
 catch(e){$('error').textContent='Included snapshot unavailable: '+e.message;}
-$('period').addEventListener('change',()=>{if(current&&current.latestLoading){current.latestLoading=false;for(const bird of current.topSpecies)bird.latestPending=false;updateAges();}generation++;if(busy){queued=true;$('status').textContent='Period change queued; displayed results retain their labeled window.';}else refresh();});
+$('period').addEventListener('change',()=>{historyOffset=0;setSchedule();if(current&&current.latestLoading){current.latestLoading=false;for(const bird of current.topSpecies)bird.latestPending=false;updateAges();}generation++;if(busy){queued=true;$('status').textContent='Period change queued; displayed results retain their labeled window.';}else refresh();});
 $('filter').addEventListener('input',render);
 $('sort').addEventListener('change',render);
 $('view-cards').addEventListener('click',()=>{view='cards';render();});
 $('view-table').addEventListener('click',()=>{view='table';render();});
 $('refresh').addEventListener('click',refresh);
+$('date-back').addEventListener('click',()=>stepHistory(1));
+$('date-forward').addEventListener('click',()=>stepHistory(-1));
 $('auto').addEventListener('change',setSchedule);
 $('minutes').addEventListener('input',setSchedule);
 $('minutes').addEventListener('blur',commitMinutes);

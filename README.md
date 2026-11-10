@@ -96,7 +96,14 @@ Sort/search/view changes make no extra web requests. The included timestamps
 remain tied to the genuine saved snapshot; no retrieval time is substituted.
 
 LAYOUT
-Sort options: Most detections (optional), Most recent (default), Name A-Z. Toolbar order is Time Period,
+Sort options: Most detections (optional), Most recent (default), Name A-Z. ◀ and ▶ buttons beside the title date step back and forward by the selected Time Period
+(Today is calendar days in Eastern Time; 24 hours, week, month and year are rolling windows).
+The forward control is disabled on the live window, and the back control stops at the
+station’s first detection (2026-02-19). All time hides the arrows. Changing Time Period
+returns to the live window; auto-refresh runs only there. Past Today headings read
+“Species heard that day”; past 24 hours / week / month / year read “in those 24 hours”
+or “that week/month/year”. Week, month and year dates use a compact range.
+Toolbar order is Time Period,
 Sort, View, Search species. Both pages use Tweet Sheet's verified
 light paper base color #f9f3e4 (not its texture or radial-gradient shading):
 https://tweetsheet.app/assets/index-DisDh1UW.css
