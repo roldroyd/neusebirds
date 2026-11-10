@@ -24,8 +24,9 @@ Today is the default Time Period (still computed from America/New_York midnight 
 each request time, including DST transitions, independent of computer timezone).
 Most recent is the default Sort. 24 hours remains available in the list.
 Refresh now and automatic
-refresh (default 5 minutes, any integer 1–99, or off) work as before. Invalid
-intervals pause automatic refresh. Browser background throttling and computer
+refresh (default 5 minutes, any integer 1–99, or off) work as before. The
+minutes field is a short text box (no stepper arrows); non-digits are stripped
+as you type. Empty or 0 values fall back to the previous or default interval. Browser background throttling and computer
 sleep can delay timers. Fetch errors retain last-good data and its true window.
 Switching period during a fetch discards stale results without overlapping
 requests. Search, sort and Cards/Table selections survive refreshes.
@@ -105,9 +106,12 @@ as well as page backgrounds. Functional green accents and photo content stay
 unchanged. Search text and its placeholder are italic. Historical period controls are described below.
 
 HISTORICAL PERIODS
-The selector now includes week, month and year. These
+The selector now includes week, month, year and all time. Week, month and year
 are rolling exact 24-hour-day windows ending at request time, not previous
-calendar weeks/months/years. Today remains Eastern midnight-to-now.
+calendar weeks/months/years. All time covers the station's first detection
+through request time (a safe early date is used until that timestamp is known).
+Today remains Eastern midnight-to-now. The heading for all time is
+“Species heard all time.”
 Both viewer and Credits request 200 species initially; if aggregate counts
 report more, they request that full count with the same frozen window.
 Species coverage and summed detection totals are checked before replacing
