@@ -535,8 +535,10 @@ function routeSpecies(){
   return;
  }
  if(speciesActive!==id){if($('species-sort'))$('species-sort').value='recent';todOffset=0;if($('tod-period'))$('tod-period').value='today';}
+ const isNewSpecies=speciesActive!==id;
  speciesActive=id;
  applySpeciesMode();
+ if(isNewSpecies)scrollToY(0);
  loadSpeciesPage(id);
 }
 function clearSpeciesBody(){
