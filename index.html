@@ -44,10 +44,10 @@
 .species-nav{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 16px;margin:0 0 12px}
 .species-nav .date-nav{font-size:1rem}
 #tod-date{font-family:"Source Serif 4","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-style:italic;font-weight:500;color:var(--ink)}
-.tod-wrap{min-width:0;overflow:hidden}
-.tod-plot{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:1fr auto;column-gap:6px;align-items:stretch;min-width:0;--tod-h:160px}
+.tod-wrap{min-width:0;overflow-x:hidden;overflow-y:visible}
+.tod-plot{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:1fr auto;column-gap:6px;align-items:stretch;min-width:0;--tod-h:160px;padding-top:.55em}
 .tod-y{grid-column:1;grid-row:1;position:relative;height:var(--tod-h);min-width:1.6em}
-.tod-ylabel{position:absolute;right:0;transform:translateY(50%);font-size:.68rem;color:var(--muted);font-variant-numeric:tabular-nums;line-height:1;text-align:right;padding-right:2px;white-space:nowrap}
+.tod-ylabel{position:absolute;right:0;transform:translateY(50%);font-size:.68rem;color:var(--muted);font-variant-numeric:tabular-nums;line-height:1;text-align:right;padding-right:2px;white-space:nowrap}.tod-ylabel.tod-y-top{transform:translateY(35%)}
 .tod-plot-main{grid-column:2;grid-row:1;position:relative;height:var(--tod-h);min-width:0}
 .tod-grid{position:absolute;inset:0;pointer-events:none;z-index:0}
 .tod-grid-line{position:absolute;left:0;right:0;border-top:1px solid rgba(33,61,48,.12)}
@@ -892,6 +892,7 @@ function renderTodChart(payload){
  if(yAxis){
   for(const tick of scale.ticks){
    const label=element('span',String(tick),'tod-ylabel');
+   if(tick===scale.top)label.className+=' tod-y-top';
    label.style.bottom=(tick/scale.top*100)+'%';
    yAxis.append(label);
   }
