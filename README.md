@@ -57,6 +57,9 @@ Automated DOM/fetch/timer checks are not real browser visual QA.
 
 CARD COUNT AND MOST RECENT
 Card detection counts are now badges over the photo; table counts are unchanged.
+Species cards use tighter vertical spacing in the text block (name,
+scientific name, last-heard line, and pills), with font sizes, photos,
+and count badges unchanged.
 Most recent sorts by each species' actual latest station-22946 detection within
 the displayed exact window, newest first; missing/invalid dates sort last.
 Ties sort by name. It uses documented detections(first:1, stationIds:[22946],
@@ -102,9 +105,9 @@ or the table) opens a detail view at #species/<id> (slugs such as
 Wikipedia. The browser back button and a “← All species” link return to
 the list and keep the current period, sort, view, and search where
 practical. The page stays on station 22946. It shows the official
-BirdWeather photo with credit and license in a small, transparent-background badge on the photo,
-the same Wiki / eBird / Sightings / BW / Images pills, and the Wikipedia
-summary with a Read more link.
+BirdWeather photo, the same Wiki / eBird / Sightings / BW / Images pills,
+and the Wikipedia summary with a Read more link. Photo credit is not
+shown on the species page.
 Time of day, then Calendar, then Recordings. The hour chart heading reads
 “Detections by hour of day for today”, “for last week”, “for past month”,
 “for past year”, or “for all time”, with past windows worded “for that
