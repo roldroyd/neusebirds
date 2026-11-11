@@ -96,25 +96,39 @@ Sort/search/view changes make no extra web requests. The included timestamps
 remain tied to the genuine saved snapshot; no retrieval time is substituted.
 
 SPECIES PAGE
-Clicking a species name, card, or table row opens a detail view at
-#species/<id> (slugs such as #species/belted-kingfisher also work). The
-browser back button and a “← All species” link return to the list and keep
-the current period, sort, view, and search where practical. The page stays
-on station 22946. It shows the official BirdWeather photo with credit and
-license, the same Wiki / eBird / Sightings / BW / Images pills, and the
-Wikipedia summary with a Read more link.
-Recordings lead, defaulting to score 7.0 or higher, with most recent or
-highest score sort, ten clips at a time, and Show more. Times are Eastern
-(“Nov 11, 2026, 10:43 AM”). Clips are FLAC from BirdWeather; browsers that
-cannot play FLAC (notably iOS Safari) get a download link and a short note.
-Only one clip plays at a time. There is no spectrogram and no worldwide map.
-Time of day is a by-hour chart for Today, Week, Month, or Year, with the
-same ◀ ▶ date stepping as the main list, still at score 7.0 or higher.
+Clicking a species name, card, table row, or the bird’s photo (in cards
+or the table) opens a detail view at #species/<id> (slugs such as
+#species/belted-kingfisher also work). The Wiki pill still goes to
+Wikipedia. The browser back button and a “← All species” link return to
+the list and keep the current period, sort, view, and search where
+practical. The page stays on station 22946. It shows the official
+BirdWeather photo with credit and license in a small badge on the photo,
+the same Wiki / eBird / Sightings / BW / Images pills, and the Wikipedia
+summary with a Read more link.
+Time of day, then Calendar, then Recordings. The hour chart heading reads
+“Detections by hour of day for today”, “for last week”, “for past month”,
+“for past year”, or “for all time”, with past windows worded “for that
+day/week/month/year” and the date shown beside the period control. The
+period list includes All time (station earliest detection through now;
+arrows are hidden, as on the main list). The chart has a tick and label
+for each hour (labels thin to every 2–3 hours when space is tight; hour
+ticks stay on phones) and integer Y-axis ticks with a nice step. Score
+7.0 or higher still applies to the hour chart and recordings.
 The calendar heatmap uses unfiltered daily counts, with first seen / peak /
 still present or departed (days with more than 3 detections; departure is
 hidden if anything was heard in the last 14 days; “first seen” if that falls
 on the station’s first day, 2026-02-19), plus Today, this week, year-to-date,
 and all-time totals. The calendar states that it is not score-filtered.
+Recordings default to score 7.0 or higher, with most recent or highest
+score sort, ten clips at a time, and Show more. Times are Eastern
+(“Nov 11, 2026, 10:43 AM”). Clips are FLAC from BirdWeather. The page
+fetches each clip and decodes it in the browser with a vendored copy of
+libflacjs (MIT; based on the FLAC reference decoder, BSD) to a WAV blob
+played in a normal audio element, so playback does not depend on the
+browser’s FLAC support. If decoding fails, native FLAC playback is tried
+when the browser reports support, otherwise a download link is offered.
+Only one clip plays at a time, and a short loading state is shown. There
+is no spectrogram and no worldwide map. See libflacjs.LICENSE.
 
 LAYOUT
 Sort options: Most detections (optional), Most recent (default), Name A-Z. ◀ and ▶ buttons beside the title date step back and forward by the selected Time Period

@@ -19,7 +19,7 @@
 .species-photo{min-width:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--paper)}
 .species-photo .frame{position:relative;aspect-ratio:4/3;display:grid;place-items:center;background:var(--paper)}
 .species-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.species-credit{font-size:.72rem;color:var(--muted);line-height:1.4;padding:8px 12px 10px;overflow-wrap:anywhere}
+.species-credit{position:absolute;z-index:2;left:8px;bottom:8px;max-width:calc(100% - 16px);margin:0;padding:3px 7px;border-radius:4px;background:rgba(16,22,16,.72);color:#f4efe3;font-size:.62rem;line-height:1.3;overflow-wrap:anywhere;pointer-events:auto}.species-credit a{color:#f4efe3;font-weight:600;text-decoration:underline}.species-credit a:hover{color:#fff}#species-credit:empty{display:none}
 .species-ident h2{font-family:var(--title-font);font-weight:700;font-synthesis:none;letter-spacing:-.02em;font-size:clamp(1.6rem,3.2vw,2.2rem);line-height:1.15;margin:0 0 4px}
 .species-ident .latin{font-family:"Source Serif 4","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-size:1.02rem;margin:0 0 12px}
 .species-ident .card-links{margin:0 0 14px;padding:0;flex-wrap:wrap}
@@ -45,10 +45,21 @@
 .species-nav .date-nav{font-size:1rem}
 #tod-date{font-family:"Source Serif 4","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-style:italic;font-weight:500;color:var(--ink)}
 .tod-wrap{min-width:0;overflow:hidden}
-.tod-chart{display:flex;align-items:flex-end;gap:2px;height:160px;width:100%;padding:0 0 4px}
+.tod-plot{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:1fr auto;column-gap:6px;align-items:stretch;min-width:0;--tod-h:160px}
+.tod-y{grid-column:1;grid-row:1;position:relative;height:var(--tod-h);min-width:1.6em}
+.tod-ylabel{position:absolute;right:0;transform:translateY(50%);font-size:.68rem;color:var(--muted);font-variant-numeric:tabular-nums;line-height:1;text-align:right;padding-right:2px;white-space:nowrap}
+.tod-plot-main{grid-column:2;grid-row:1;position:relative;height:var(--tod-h);min-width:0}
+.tod-grid{position:absolute;inset:0;pointer-events:none;z-index:0}
+.tod-grid-line{position:absolute;left:0;right:0;border-top:1px solid rgba(33,61,48,.12)}
+.tod-chart{display:flex;align-items:flex-end;gap:2px;height:100%;width:100%;position:relative;z-index:1;padding:0}
 .tod-col{flex:1 1 0;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}
 .tod-bar{width:70%;min-width:2px;max-width:16px;background:#7d9a4e;border-radius:2px 2px 0 0}
-.tod-axis{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);padding:4px 0 0;font-variant-numeric:tabular-nums}
+.tod-x{grid-column:2;grid-row:2;display:flex;align-items:flex-start;gap:2px;font-size:.62rem;color:var(--muted);font-variant-numeric:tabular-nums;padding-top:2px;min-width:0}
+.tod-xtick{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center}
+.tod-xmark{width:1px;height:5px;background:#8a9584;flex:0 0 auto}
+.tod-xlabel{margin-top:2px;white-space:nowrap;line-height:1;transform:translateX(-50%);position:relative;left:50%}
+@media(max-width:720px){.tod-xlabel{visibility:hidden}.tod-xlabel.tod-x-2{visibility:visible}}
+@media(max-width:520px){.tod-xlabel,.tod-xlabel.tod-x-2{visibility:hidden}.tod-xlabel.tod-x-3{visibility:visible}}
 .tod-total{font-size:.82rem;color:var(--muted);margin:8px 0 0}
 .cal-heat{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:3px;width:100%;min-width:0}
 .cal-month{min-width:0}
@@ -77,7 +88,8 @@
 .clip{padding:10px}
 .cal-days{grid-template-rows:repeat(31,6px);gap:1px}
 .cal-cell{height:6px}
-.tod-chart{height:130px}
+
+.tod-plot{--tod-h:130px}
 #species-sort,#tod-period{max-width:100%;box-sizing:border-box}
 }
 
@@ -91,21 +103,14 @@
 <div id="species-status" role="status" aria-live="polite"></div>
 <div id="species-error" role="alert"></div>
 <div class="species-header">
-<div class="species-photo"><div class="frame" id="species-photo-frame"><span class="placeholder">Photo unavailable</span></div><p class="species-credit" id="species-credit"></p></div>
+<div class="species-photo"><div class="frame" id="species-photo-frame"><span class="placeholder">Photo unavailable</span><p class="species-credit" id="species-credit"></p></div></div>
 <div class="species-ident"><h2 id="species-common"></h2><p id="species-sci" class="latin"></p><div id="species-pills"></div><p id="species-summary" class="species-summary"></p></div>
 </div>
-<section class="species-section" aria-label="Recordings">
-<h3>Recordings</h3>
-<div class="species-toolbar"><span class="score-note">≥7.0 score</span><label class="field" for="species-sort">Sort<select id="species-sort"><option value="recent" selected>most recent</option><option value="score">highest score</option></select></label></div>
-<ul id="species-clips"></ul>
-<p id="species-clips-empty" hidden></p>
-<button type="button" id="species-more" hidden>Show more</button>
-</section>
 <section class="species-section" aria-label="Time of day">
-<h3>Time of day</h3>
-<div class="species-nav"><label class="field" for="tod-period">Period<select id="tod-period"><option value="today" selected>Today</option><option value="week">Week</option><option value="month">Month</option><option value="year">Year</option></select></label><span class="date-nav"><button type="button" id="tod-back" aria-label="Previous period">◀</button><span id="tod-date" class="title-date"></span><button type="button" id="tod-forward" aria-label="Next period" disabled>▶</button></span></div>
+<h3 id="tod-heading">Detections by hour of day for today</h3>
+<div class="species-nav"><label class="field" for="tod-period">Period<select id="tod-period"><option value="today" selected>Today</option><option value="week">Week</option><option value="month">Month</option><option value="year">Year</option><option value="all">All time</option></select></label><span class="date-nav"><button type="button" id="tod-back" aria-label="Previous period">◀</button><span id="tod-date" class="title-date"></span><button type="button" id="tod-forward" aria-label="Next period" disabled>▶</button></span></div>
 <p class="score-note">≥7.0 score</p>
-<div class="tod-wrap"><div class="tod-chart" id="tod-chart"></div><div class="tod-axis"><span>12:00a</span><span>3:00a</span><span>6:00a</span><span>9:00a</span><span>12:00p</span><span>3:00p</span><span>6:00p</span><span>9:00p</span></div></div>
+<div class="tod-wrap"><div class="tod-plot" id="tod-plot"><div class="tod-y" id="tod-y"></div><div class="tod-plot-main"><div class="tod-grid" id="tod-grid"></div><div class="tod-chart" id="tod-chart"></div></div><div class="tod-x" id="tod-x"></div></div></div>
 <p class="tod-total" id="tod-total"></p>
 </section>
 <section class="species-section" aria-label="Calendar">
@@ -115,9 +120,17 @@
 <p class="cal-caveat">Score filtering isn't applied to the calendar, so totals include lower-confidence detections and may be a bit inflated.</p>
 <div class="species-totals" id="species-totals"></div>
 </section>
+<section class="species-section" aria-label="Recordings">
+<h3>Recordings</h3>
+<div class="species-toolbar"><span class="score-note">≥7.0 score</span><label class="field" for="species-sort">Sort<select id="species-sort"><option value="recent" selected>most recent</option><option value="score">highest score</option></select></label></div>
+<ul id="species-clips"></ul>
+<p id="species-clips-empty" hidden></p>
+<button type="button" id="species-more" hidden>Show more</button>
+</section>
 </section>
 </main>
-<script id="saved" type="application/json">{"data": {"station": {"id": "22946", "name": "Neuse River", "counts": {"detections": 842, "species": 28}, "topSpecies": [{"count": 190, "species": {"id": "148", "commonName": "White-throated Sparrow", "scientificName": "Zonotrichia albicollis", "imageUrl": "https://media.birdweather.com/species/148/White-throatedSparrow-standard-298c9fc553f98b77d0e2916ade20a076.jpg", "thumbnailUrl": "https://media.birdweather.com/species/148/White-throatedSparrow-thumbnail-524c0dc237241ca45912a503819306af.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Cephas\" title=\"User:Cephas\"\u003eCephas\u003c/a\u003e", "imageLicense": "CC BY-SA 3.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0", "birdweatherUrl": "https://app.birdweather.com/species/white-throated-sparrow", "wikipediaUrl": "https://en.wikipedia.org/wiki/White-throated_sparrow", "ebirdUrl": "https://ebird.org/species/whtspa", "ebirdCode": "whtspa"}, "latestAt": "2026-11-08T11:48:52-05:00"}, {"count": 128, "species": {"id": "134", "commonName": "House Finch", "scientificName": "Haemorhous mexicanus", "imageUrl": "https://media.birdweather.com/species/134/HouseFinch-standard-3329463dada4a864431241d37400ba54.jpg", "thumbnailUrl": "https://media.birdweather.com/species/134/HouseFinch-thumbnail-ea7d4c693d0ac395d440407b51951f22.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/13836948@N04\"\u003eJohn Benson\u003c/a\u003e from Madison WI", "imageLicense": "CC BY 2.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by/2.0", "birdweatherUrl": "https://app.birdweather.com/species/house-finch", "wikipediaUrl": "https://en.wikipedia.org/wiki/House_finch", "ebirdUrl": "https://ebird.org/species/houfin", "ebirdCode": "houfin"}, "latestAt": "2026-11-08T11:38:08-05:00"}, {"count": 116, "species": {"id": "144", "commonName": "Northern Cardinal", "scientificName": "Cardinalis cardinalis", "imageUrl": "https://media.birdweather.com/species/144/NorthernCardinal-standard-823c8a4c9a2440b918aeee186d795296.jpg", "thumbnailUrl": "https://media.birdweather.com/species/144/NorthernCardinal-thumbnail-a7b853614903f78e58b41703c018e9e2.jpg", "imageCredit": "FWS", "imageLicense": "Public domain", "imageLicenseUrl": null, "birdweatherUrl": "https://app.birdweather.com/species/northern-cardinal", "wikipediaUrl": "https://en.wikipedia.org/wiki/Northern_cardinal", "ebirdUrl": "https://ebird.org/species/norcar", "ebirdCode": "norcar"}, "latestAt": "2026-11-08T10:26:51-05:00"}, {"count": 98, "species": {"id": "224", "commonName": "Carolina Chickadee", "scientificName": "Poecile carolinensis", "imageUrl": "https://media.birdweather.com/species/224/CarolinaChickadee-standard-67e9f7add57c81fdb339f7997e138474.jpg", "thumbnailUrl": "https://media.birdweather.com/species/224/CarolinaChickadee-thumbnail-344ebed0e9379c8dd9c55d7743393ad1.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/10017367@N03\"\u003eDan Pancamo\u003c/a\u003e", "imageLicense": "CC BY-SA 2.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/2.0", "birdweatherUrl": "https://app.birdweather.com/species/carolina-chickadee", "wikipediaUrl": "https://en.wikipedia.org/wiki/Carolina_chickadee", "ebirdUrl": "https://ebird.org/species/carchi", "ebirdCode": "carchi"}, "latestAt": "2026-11-08T11:23:39-05:00"}, {"count": 78, "species": {"id": "209", "commonName": "Belted Kingfisher", "scientificName": "Megaceryle alcyon", "imageUrl": "https://media.birdweather.com/species/209/BeltedKingfisher-standard-371f4b97741d652f760bb71134bf5162.jpg", "thumbnailUrl": "https://media.birdweather.com/species/209/BeltedKingfisher-thumbnail-8f16396dfb739d5aee7315abbbf33a28.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/8987759@N07\"\u003eKevin Cole\u003c/a\u003e from Pacific Coast, USA (\u003ca href=\"https://en.wikipedia.org/wiki/User:Kevinlcole\" class=\"extiw\" title=\"en:User:Kevinlcole\"\u003een:User:Kevinlcole\u003c/a\u003e)", "imageLicense": "CC BY 2.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by/2.0", "birdweatherUrl": "https://app.birdweather.com/species/belted-kingfisher", "wikipediaUrl": "https://en.wikipedia.org/wiki/Belted_kingfisher", "ebirdUrl": "https://ebird.org/species/belkin1", "ebirdCode": "belkin1"}, "latestAt": "2026-11-08T11:46:26-05:00"}, {"count": 49, "species": {"id": "248", "commonName": "Brown-headed Nuthatch", "scientificName": "Sitta pusilla", "imageUrl": "https://media.birdweather.com/species/248/Brown-headedNuthatch-standard-eed7aeac32827ee0f2a934019fb0851a.jpg", "thumbnailUrl": "https://media.birdweather.com/species/248/Brown-headedNuthatch-thumbnail-71bb333659dfb6840b79307207f35534.jpg", "imageCredit": "\u003cul\u003e\n\u003cli\u003ederivative work: \u003ca href=\"//commons.wikimedia.org/wiki/User:Snowmanradio\" title=\"User:Snowmanradio\"\u003eSnowmanradio\u003c/a\u003e (\u003ca href=\"//commons.wikimedia.org/wiki/User_talk:Snowmanradio\" title=\"User talk:Snowmanradio\"\u003etalk\u003c/a\u003e)\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"//commons.wikimedia.org/wiki/File:Brown-headed_Nuthatch-27527.jpg\" title=\"File:Brown-headed Nuthatch-27527.jpg\"\u003eBrown-headed_Nuthatch-27527.jpg\u003c/a\u003e: \u003ca href=\"//commons.wikimedia.org/wiki/User:Ken_Thomas\" title=\"User:Ken Thomas\"\u003eKen Thomas\u003c/a\u003e\n\u003c/li\u003e\n\u003c/ul\u003e", "imageLicense": "Public domain", "imageLicenseUrl": null, "birdweatherUrl": "https://app.birdweather.com/species/brown-headed-nuthatch", "wikipediaUrl": "https://en.wikipedia.org/wiki/Brown-headed_nuthatch", "ebirdUrl": "https://ebird.org/species/bnhnut", "ebirdCode": "bnhnut"}, "latestAt": "2026-11-08T11:58:48-05:00"}, {"count": 39, "species": {"id": "156", "commonName": "Tufted Titmouse", "scientificName": "Baeolophus bicolor", "imageUrl": "https://media.birdweather.com/species/156/TuftedTitmouse-standard-e78a4f2733cf5a1a90c7b1a3345f67fa.jpeg", "thumbnailUrl": "https://media.birdweather.com/species/156/TuftedTitmouse-thumbnail-4ba80406023f021ef9478cd05edc928b.jpeg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Basar\" title=\"User:Basar\"\u003eBasar\u003c/a\u003e", "imageLicense": "CC BY-SA 3.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0", "birdweatherUrl": "https://app.birdweather.com/species/tufted-titmouse", "wikipediaUrl": "https://en.wikipedia.org/wiki/Tufted_titmouse", "ebirdUrl": "https://ebird.org/species/tuftit", "ebirdCode": "tuftit"}, "latestAt": "2026-11-08T10:43:27-05:00"}, {"count": 27, "species": {"id": "111", "commonName": "Carolina Wren", "scientificName": "Thryothorus ludovicianus", "imageUrl": "https://media.birdweather.com/species/111/CarolinaWren-standard-3442638fa059c1d94e69d5e063dd536f.jpg", "thumbnailUrl": "https://media.birdweather.com/species/111/CarolinaWren-thumbnail-35168f41d860a36b3dd915c9a043177d.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/10017367@N03\"\u003eDan Pancamo\u003c/a\u003e", "imageLicense": "CC BY-SA 2.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/2.0", "birdweatherUrl": "https://app.birdweather.com/species/carolina-wren", "wikipediaUrl": "https://en.wikipedia.org/wiki/Carolina_wren", "ebirdUrl": "https://ebird.org/species/carwre", "ebirdCode": "carwre"}, "latestAt": "2026-11-08T11:33:13-05:00"}, {"count": 16, "species": {"id": "402", "commonName": "Yellow-rumped Warbler", "scientificName": "Setophaga coronata", "imageUrl": "https://media.birdweather.com/species/402/Yellow-rumpedWarbler-standard-219bc6f64fd9cd84c46814aff9cc61dc.jpg", "thumbnailUrl": "https://media.birdweather.com/species/402/Yellow-rumpedWarbler-thumbnail-498ba4f522f3a28ad63e6d76004e8335.jpg", "imageCredit": "\u003ca href=\"https://en.wikipedia.org/wiki/User:Pterzian\" class=\"extiw\" title=\"wikipedia:User:Pterzian\"\u003ePterzian\u003c/a\u003e at \u003ca href=\"https://en.wikipedia.org/wiki/\" class=\"extiw\" title=\"wikipedia:\"\u003eEnglish Wikipedia\u003c/a\u003e", "imageLicense": "CC-BY-SA-3.0", "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/", "birdweatherUrl": "https://app.birdweather.com/species/yellow-rumped-warbler", "wikipediaUrl": "https://en.wikipedia.org/wiki/Yellow-rumped_warbler", "ebirdUrl": "https://ebird.org/species/yerwar", "ebirdCode": "yerwar"}, "latestAt": "2026-11-08T11:23:15-05:00"}, {"count": 15, "species": {"id": "375", "commonName": "Osprey", "scientificName": "Pandion haliaetus", "imageUrl": "https://media.birdweather.com/species/375/Osprey-standard-86c8030b42ef1e93b509a463813c8687.jpg", "thumbnailUrl": "https://media.birdweather.com/species/375/Osprey-thumbnail-bb14caf333e22c1b44befe2ed6c78026.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Yathin_sk\" title=\"User:Yathin sk\"\u003eYathin S Krishnappa\u003c/a\u003e", "imageLicense": "CC BY-SA 3.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0", "birdweatherUrl": "https://app.birdweather.com/species/osprey", "wikipediaUrl": "https://en.wikipedia.org/wiki/Osprey", "ebirdUrl": "https://ebird.org/species/osprey", "ebirdCode": "osprey"}, "latestAt": "2026-11-08T10:28:56-05:00"}, {"count": 11, "species": {"id": "65", "commonName": "Northern Flicker", "scientificName": "Colaptes auratus", "imageUrl": "https://media.birdweather.com/species/65/NorthernFlicker-standard-981bd7e4c13509e1db15ba936807ddb4.jpg", "thumbnailUrl": "https://media.birdweather.com/species/65/NorthernFlicker-thumbnail-7e0c055da080666c647db31e799f9ed9.jpg", "imageCredit": "Nature's Pic's (www.naturespicsonline.com)", "imageLicense": "Attribution", "imageLicenseUrl": null, "birdweatherUrl": "https://app.birdweather.com/species/northern-flicker", "wikipediaUrl": "https://en.wikipedia.org/wiki/Northern_flicker", "ebirdUrl": "https://ebird.org/species/norfli", "ebirdCode": "norfli"}, "latestAt": "2026-11-08T10:01:43-05:00"}, {"count": 11, "species": {"id": "282", "commonName": "Fish Crow", "scientificName": "Corvus ossifragus", "imageUrl": "https://media.birdweather.com/species/282/FishCrow-standard-e001e4caddf4728d09f80709d805407e.jpg", "thumbnailUrl": "https://media.birdweather.com/species/282/FishCrow-thumbnail-00c69cb4680c92da462f3c0a7875e9fa.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Rhododendrites\" title=\"User:Rhododendrites\"\u003eRhododendrites\u003c/a\u003e", "imageLicense": "CC BY-SA 4.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "birdweatherUrl": "https://app.birdweather.com/species/fish-crow", "wikipediaUrl": "https://en.wikipedia.org/wiki/Fish_crow", "ebirdUrl": "https://ebird.org/species/fiscro", "ebirdCode": "fiscro"}, "latestAt": "2026-11-08T11:20:54-05:00"}, {"count": 10, "species": {"id": "374", "commonName": "Mourning Dove", "scientificName": "Zenaida macroura", "imageUrl": "https://media.birdweather.com/species/374/MourningDove-standard-3ed41f3700bb4d67633194f6b6e371ef.jpg", "thumbnailUrl": "https://media.birdweather.com/species/374/MourningDove-thumbnail-0b06ba7b2b1b6ebaa18f4bc282f782e3.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external free\" href=\"http://www.naturespicsonline.com/\"\u003ehttp://www.naturespicsonline.com/\u003c/a\u003e", "imageLicense": "CC BY-SA 2.5", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/2.5", "birdweatherUrl": "https://app.birdweather.com/species/mourning-dove", "wikipediaUrl": "https://en.wikipedia.org/wiki/Mourning_dove", "ebirdUrl": "https://ebird.org/species/moudov", "ebirdCode": "moudov"}, "latestAt": "2026-11-07T17:08:00-05:00"}, {"count": 7, "species": {"id": "24", "commonName": "Downy Woodpecker", "scientificName": "Dryobates pubescens", "imageUrl": "https://media.birdweather.com/species/24/DownyWoodpecker-standard-aac7c2b5dc2951fbe7d7cf3ec6c57f62.jpg", "thumbnailUrl": "https://media.birdweather.com/species/24/DownyWoodpecker-thumbnail-df846ad17e8b14828be5fb2d06f97e50.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Wwcsig\" title=\"User:Wwcsig\"\u003eWolfgang Wander\u003c/a\u003e", "imageLicense": "CC-BY-SA-3.0", "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/", "birdweatherUrl": "https://app.birdweather.com/species/downy-woodpecker", "wikipediaUrl": "https://en.wikipedia.org/wiki/Downy_woodpecker", "ebirdUrl": "https://ebird.org/species/dowwoo", "ebirdCode": "dowwoo"}, "latestAt": "2026-11-08T09:39:11-05:00"}, {"count": 7, "species": {"id": "41", "commonName": "Golden-crowned Kinglet", "scientificName": "Regulus satrapa", "imageUrl": "https://media.birdweather.com/species/41/Golden-crownedKinglet-standard-5a054aa6979fac7d1b338d4e7cb77887.jpg", "thumbnailUrl": "https://media.birdweather.com/species/41/Golden-crownedKinglet-thumbnail-04cbb251917690ca5baf03d0bca948a7.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/8775010@N02\"\u003eGary Irwin\u003c/a\u003e", "imageLicense": "CC BY-SA 2.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/2.0", "birdweatherUrl": "https://app.birdweather.com/species/golden-crowned-kinglet", "wikipediaUrl": "https://en.wikipedia.org/wiki/Golden-crowned_kinglet", "ebirdUrl": "https://ebird.org/species/gockin", "ebirdCode": "gockin"}, "latestAt": "2026-11-08T10:34:55-05:00"}, {"count": 6, "species": {"id": "31", "commonName": "Northern Mockingbird", "scientificName": "Mimus polyglottos", "imageUrl": "https://media.birdweather.com/species/31/NorthernMockingbird-standard-d56ac4e62a4882631962390f27276449.jpg", "thumbnailUrl": "https://media.birdweather.com/species/31/NorthernMockingbird-thumbnail-d004316be3b92925573183c458705206.jpg", "imageCredit": "Captain-tucker", "imageLicense": "CC BY-SA 3.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0", "birdweatherUrl": "https://app.birdweather.com/species/northern-mockingbird", "wikipediaUrl": "https://en.wikipedia.org/wiki/Northern_mockingbird", "ebirdUrl": "https://ebird.org/species/normoc", "ebirdCode": "normoc"}, "latestAt": "2026-11-08T06:06:10-05:00"}, {"count": 5, "species": {"id": "108", "commonName": "American Crow", "scientificName": "Corvus brachyrhynchos", "imageUrl": "https://media.birdweather.com/species/108/AmericanCrow-standard-207957a81f8b5bcf52bce4f4cac4abc6.jpg", "thumbnailUrl": "https://media.birdweather.com/species/108/AmericanCrow-thumbnail-15b9fb9a120e724c4a803c6056b57e84.jpg", "imageCredit": null, "imageLicense": "CC-BY-SA-3.0", "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/", "birdweatherUrl": "https://app.birdweather.com/species/american-crow", "wikipediaUrl": "https://en.wikipedia.org/wiki/American_crow", "ebirdUrl": "https://ebird.org/species/amecro", "ebirdCode": "amecro"}, "latestAt": "2026-11-08T09:54:02-05:00"}, {"count": 4, "species": {"id": "162", "commonName": "Eastern Phoebe", "scientificName": "Sayornis phoebe", "imageUrl": "https://media.birdweather.com/species/162/EasternPhoebe-standard-b54d9342d364dc9d840e539f4d81a1ae.jpg", "thumbnailUrl": "https://media.birdweather.com/species/162/EasternPhoebe-thumbnail-698b1d4110e26968da9ed24a416b2912.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/13836948@N04\"\u003eJohn Benson\u003c/a\u003e", "imageLicense": "CC BY 2.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by/2.0", "birdweatherUrl": "https://app.birdweather.com/species/eastern-phoebe", "wikipediaUrl": "https://en.wikipedia.org/wiki/Eastern_phoebe", "ebirdUrl": "https://ebird.org/species/easpho", "ebirdCode": "easpho"}, "latestAt": "2026-11-08T10:53:12-05:00"}, {"count": 4, "species": {"id": "168", "commonName": "White-breasted Nuthatch", "scientificName": "Sitta carolinensis", "imageUrl": "https://media.birdweather.com/species/168/White-breastedNuthatch-standard-411178837f646a1d6de6ccef3027ffbf.jpg", "thumbnailUrl": "https://media.birdweather.com/species/168/White-breastedNuthatch-thumbnail-2552d09961c164a82f1b199c01e0f607.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Mdf\" title=\"User:Mdf\"\u003eMdf\u003c/a\u003e", "imageLicense": "CC-BY-SA-3.0", "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/", "birdweatherUrl": "https://app.birdweather.com/species/white-breasted-nuthatch", "wikipediaUrl": "https://en.wikipedia.org/wiki/White-breasted_nuthatch", "ebirdUrl": "https://ebird.org/species/whbnut", "ebirdCode": "whbnut"}, "latestAt": "2026-11-08T11:29:00-05:00"}, {"count": 4, "species": {"id": "486", "commonName": "Swamp Sparrow", "scientificName": "Melospiza georgiana", "imageUrl": "https://media.birdweather.com/species/486/SwampSparrow-standard-6f6e460d7cf17455fb92dba23caceff8.jpg", "thumbnailUrl": "https://media.birdweather.com/species/486/SwampSparrow-thumbnail-83376b88da7f2f7de34204620e51d228.jpg", "imageCredit": "\u003cdiv class=\"fn value\"\u003e\n\u003ca href=\"//commons.wikimedia.org/wiki/User:Cephas\" title=\"User:Cephas\"\u003eCephas\u003c/a\u003e\n\u003c/div\u003e", "imageLicense": "CC BY-SA 3.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0", "birdweatherUrl": "https://app.birdweather.com/species/swamp-sparrow", "wikipediaUrl": "https://en.wikipedia.org/wiki/Swamp_sparrow", "ebirdUrl": "https://ebird.org/species/swaspa", "ebirdCode": "swaspa"}, "latestAt": "2026-11-08T10:30:09-05:00"}, {"count": 3, "species": {"id": "77", "commonName": "Blue Jay", "scientificName": "Cyanocitta cristata", "imageUrl": "https://media.birdweather.com/species/77/BlueJay-standard-ea70bbf50f71808c6a48964d46aef881.jpg", "thumbnailUrl": "https://media.birdweather.com/species/77/BlueJay-thumbnail-abdffb6ab0341e1264d77d71db6c185f.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Rhododendrites\" title=\"User:Rhododendrites\"\u003eRhododendrites\u003c/a\u003e", "imageLicense": "CC BY-SA 4.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "birdweatherUrl": "https://app.birdweather.com/species/blue-jay", "wikipediaUrl": "https://en.wikipedia.org/wiki/Blue_jay", "ebirdUrl": "https://ebird.org/species/blujay", "ebirdCode": "blujay"}, "latestAt": "2026-11-07T12:20:00-05:00"}, {"count": 3, "species": {"id": "100", "commonName": "Canada Goose", "scientificName": "Branta canadensis", "imageUrl": "https://media.birdweather.com/species/100/CanadaGoose-standard-cd1617f2500d71d064f7cecf3e81c1b1.jpg", "thumbnailUrl": "https://media.birdweather.com/species/100/CanadaGoose-thumbnail-bf828621d386d52d5de2a9a4f1f569d3.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/51986662@N05\"\u003eUSFWS Mountain-Prairie\u003c/a\u003e", "imageLicense": "Public domain", "imageLicenseUrl": null, "birdweatherUrl": "https://app.birdweather.com/species/canada-goose", "wikipediaUrl": "https://en.wikipedia.org/wiki/Canada_goose", "ebirdUrl": "https://ebird.org/species/cangoo", "ebirdCode": "cangoo"}, "latestAt": "2026-11-07T17:25:20-05:00"}, {"count": 3, "species": {"id": "120", "commonName": "Black-capped Chickadee", "scientificName": "Poecile atricapillus", "imageUrl": "https://media.birdweather.com/species/120/Black-cappedChickadee-standard-8ff37bd75ba774bdb7ae61cc453602dd.jpg", "thumbnailUrl": "https://media.birdweather.com/species/120/Black-cappedChickadee-thumbnail-14c10b64662c756159e97159a3546eee.jpg", "imageCredit": "No machine-readable author provided. \u003ca href=\"//commons.wikimedia.org/wiki/User:Mdf\" title=\"User:Mdf\"\u003eMdf\u003c/a\u003e assumed (based on copyright claims).", "imageLicense": "CC-BY-SA-3.0", "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/", "birdweatherUrl": "https://app.birdweather.com/species/black-capped-chickadee", "wikipediaUrl": "https://en.wikipedia.org/wiki/Black-capped_chickadee", "ebirdUrl": "https://ebird.org/species/bkcchi", "ebirdCode": "bkcchi"}, "latestAt": "2026-11-08T10:40:31-05:00"}, {"count": 3, "species": {"id": "470", "commonName": "Red-tailed Hawk", "scientificName": "Buteo jamaicensis", "imageUrl": "https://media.birdweather.com/species/470/Red-tailedHawk-standard-fc4b94163b961549400dea4d9b9318c6.jpg", "thumbnailUrl": "https://media.birdweather.com/species/470/Red-tailedHawk-thumbnail-f6b8c31f088f3f09e2f4f7a26cf8fea7.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external free\" href=\"http://www.naturespicsonline.com/\"\u003ehttp://www.naturespicsonline.com/\u003c/a\u003e", "imageLicense": "Copyrighted free use", "imageLicenseUrl": "//commons.wikimedia.org/wiki/File:Red-tailed_Hawk.jpg", "birdweatherUrl": "https://app.birdweather.com/species/red-tailed-hawk", "wikipediaUrl": "https://en.wikipedia.org/wiki/Red-tailed_hawk", "ebirdUrl": "https://ebird.org/species/rethaw", "ebirdCode": "rethaw"}, "latestAt": "2026-11-07T12:45:38-05:00"}, {"count": 2, "species": {"id": "268", "commonName": "Killdeer", "scientificName": "Charadrius vociferus", "imageUrl": "https://media.birdweather.com/species/268/Killdeer-standard-c4f04160a6d1034712f163fdcdbc20d7.jpg", "thumbnailUrl": "https://media.birdweather.com/species/268/Killdeer-thumbnail-1b8a984711404732fd94ac97c47108ef.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/w/index.php?title=User:Lashaull\u0026amp;action=edit\u0026amp;redlink=1\" class=\"new\" title=\"User:Lashaull (page does not exist)\"\u003eLorie Shaull\u003c/a\u003e", "imageLicense": "CC BY-SA 4.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "birdweatherUrl": "https://app.birdweather.com/species/killdeer", "wikipediaUrl": "https://en.wikipedia.org/wiki/Killdeer", "ebirdUrl": "https://ebird.org/species/killde", "ebirdCode": "killde"}, "latestAt": "2026-11-07T15:55:37-05:00"}, {"count": 1, "species": {"id": "131", "commonName": "Hairy Woodpecker", "scientificName": "Dryobates villosus", "imageUrl": "https://media.birdweather.com/species/131/HairyWoodpecker-standard-84f36595e039a1e39b755a557f6053f8.jpg", "thumbnailUrl": "https://media.birdweather.com/species/131/HairyWoodpecker-thumbnail-d9ed656a0b8256c16cdfdf77147a9ce2.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Mdf\" title=\"User:Mdf\"\u003eUser:Mdf\u003c/a\u003e", "imageLicense": "CC-BY-SA-3.0", "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/", "birdweatherUrl": "https://app.birdweather.com/species/hairy-woodpecker", "wikipediaUrl": "https://en.wikipedia.org/wiki/Hairy_woodpecker", "ebirdUrl": "https://ebird.org/species/haiwoo", "ebirdCode": "haiwoo"}, "latestAt": "2026-11-07T12:18:57-05:00"}, {"count": 1, "species": {"id": "483", "commonName": "Pine Siskin", "scientificName": "Spinus pinus", "imageUrl": "https://media.birdweather.com/species/483/PineSiskin-standard-2878d0c16cd3a63ad52c4c95404a35c0.jpg", "thumbnailUrl": "https://media.birdweather.com/species/483/PineSiskin-thumbnail-5b3d0fd08a2a5c7d755bb511dcc4b2e4.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Cephas\" title=\"User:Cephas\"\u003eCephas\u003c/a\u003e", "imageLicense": "CC BY-SA 3.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0", "birdweatherUrl": "https://app.birdweather.com/species/pine-siskin", "wikipediaUrl": "https://en.wikipedia.org/wiki/Pine_siskin", "ebirdUrl": "https://ebird.org/species/pinsis", "ebirdCode": "pinsis"}, "latestAt": "2026-11-08T09:21:18-05:00"}, {"count": 1, "species": {"id": "1288", "commonName": "American Pipit", "scientificName": "Anthus rubescens", "imageUrl": "https://media.birdweather.com/species/1288/AmericanPipit-standard-393ead82c0e2b65933247fc308c1228b.jpg", "thumbnailUrl": "https://media.birdweather.com/species/1288/AmericanPipit-thumbnail-cbae39e72b5d576ebf739bd0b6519b86.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/39871249@N07\"\u003eKathy \u0026amp; Sam\u003c/a\u003e from Beaverton OR, USA", "imageLicense": "CC BY 2.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by/2.0", "birdweatherUrl": "https://app.birdweather.com/species/american-pipit", "wikipediaUrl": "https://en.wikipedia.org/wiki/Buff-bellied_pipit", "ebirdUrl": "https://ebird.org/species/amepip", "ebirdCode": "amepip"}, "latestAt": "2026-11-08T07:47:01-05:00"}], "recentReady": true}}}</script><script>
+<script id="saved" type="application/json">{"data": {"station": {"id": "22946", "name": "Neuse River", "counts": {"detections": 842, "species": 28}, "topSpecies": [{"count": 190, "species": {"id": "148", "commonName": "White-throated Sparrow", "scientificName": "Zonotrichia albicollis", "imageUrl": "https://media.birdweather.com/species/148/White-throatedSparrow-standard-298c9fc553f98b77d0e2916ade20a076.jpg", "thumbnailUrl": "https://media.birdweather.com/species/148/White-throatedSparrow-thumbnail-524c0dc237241ca45912a503819306af.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Cephas\" title=\"User:Cephas\"\u003eCephas\u003c/a\u003e", "imageLicense": "CC BY-SA 3.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0", "birdweatherUrl": "https://app.birdweather.com/species/white-throated-sparrow", "wikipediaUrl": "https://en.wikipedia.org/wiki/White-throated_sparrow", "ebirdUrl": "https://ebird.org/species/whtspa", "ebirdCode": "whtspa"}, "latestAt": "2026-11-08T11:48:52-05:00"}, {"count": 128, "species": {"id": "134", "commonName": "House Finch", "scientificName": "Haemorhous mexicanus", "imageUrl": "https://media.birdweather.com/species/134/HouseFinch-standard-3329463dada4a864431241d37400ba54.jpg", "thumbnailUrl": "https://media.birdweather.com/species/134/HouseFinch-thumbnail-ea7d4c693d0ac395d440407b51951f22.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/13836948@N04\"\u003eJohn Benson\u003c/a\u003e from Madison WI", "imageLicense": "CC BY 2.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by/2.0", "birdweatherUrl": "https://app.birdweather.com/species/house-finch", "wikipediaUrl": "https://en.wikipedia.org/wiki/House_finch", "ebirdUrl": "https://ebird.org/species/houfin", "ebirdCode": "houfin"}, "latestAt": "2026-11-08T11:38:08-05:00"}, {"count": 116, "species": {"id": "144", "commonName": "Northern Cardinal", "scientificName": "Cardinalis cardinalis", "imageUrl": "https://media.birdweather.com/species/144/NorthernCardinal-standard-823c8a4c9a2440b918aeee186d795296.jpg", "thumbnailUrl": "https://media.birdweather.com/species/144/NorthernCardinal-thumbnail-a7b853614903f78e58b41703c018e9e2.jpg", "imageCredit": "FWS", "imageLicense": "Public domain", "imageLicenseUrl": null, "birdweatherUrl": "https://app.birdweather.com/species/northern-cardinal", "wikipediaUrl": "https://en.wikipedia.org/wiki/Northern_cardinal", "ebirdUrl": "https://ebird.org/species/norcar", "ebirdCode": "norcar"}, "latestAt": "2026-11-08T10:26:51-05:00"}, {"count": 98, "species": {"id": "224", "commonName": "Carolina Chickadee", "scientificName": "Poecile carolinensis", "imageUrl": "https://media.birdweather.com/species/224/CarolinaChickadee-standard-67e9f7add57c81fdb339f7997e138474.jpg", "thumbnailUrl": "https://media.birdweather.com/species/224/CarolinaChickadee-thumbnail-344ebed0e9379c8dd9c55d7743393ad1.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/10017367@N03\"\u003eDan Pancamo\u003c/a\u003e", "imageLicense": "CC BY-SA 2.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/2.0", "birdweatherUrl": "https://app.birdweather.com/species/carolina-chickadee", "wikipediaUrl": "https://en.wikipedia.org/wiki/Carolina_chickadee", "ebirdUrl": "https://ebird.org/species/carchi", "ebirdCode": "carchi"}, "latestAt": "2026-11-08T11:23:39-05:00"}, {"count": 78, "species": {"id": "209", "commonName": "Belted Kingfisher", "scientificName": "Megaceryle alcyon", "imageUrl": "https://media.birdweather.com/species/209/BeltedKingfisher-standard-371f4b97741d652f760bb71134bf5162.jpg", "thumbnailUrl": "https://media.birdweather.com/species/209/BeltedKingfisher-thumbnail-8f16396dfb739d5aee7315abbbf33a28.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/8987759@N07\"\u003eKevin Cole\u003c/a\u003e from Pacific Coast, USA (\u003ca href=\"https://en.wikipedia.org/wiki/User:Kevinlcole\" class=\"extiw\" title=\"en:User:Kevinlcole\"\u003een:User:Kevinlcole\u003c/a\u003e)", "imageLicense": "CC BY 2.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by/2.0", "birdweatherUrl": "https://app.birdweather.com/species/belted-kingfisher", "wikipediaUrl": "https://en.wikipedia.org/wiki/Belted_kingfisher", "ebirdUrl": "https://ebird.org/species/belkin1", "ebirdCode": "belkin1"}, "latestAt": "2026-11-08T11:46:26-05:00"}, {"count": 49, "species": {"id": "248", "commonName": "Brown-headed Nuthatch", "scientificName": "Sitta pusilla", "imageUrl": "https://media.birdweather.com/species/248/Brown-headedNuthatch-standard-eed7aeac32827ee0f2a934019fb0851a.jpg", "thumbnailUrl": "https://media.birdweather.com/species/248/Brown-headedNuthatch-thumbnail-71bb333659dfb6840b79307207f35534.jpg", "imageCredit": "\u003cul\u003e\n\u003cli\u003ederivative work: \u003ca href=\"//commons.wikimedia.org/wiki/User:Snowmanradio\" title=\"User:Snowmanradio\"\u003eSnowmanradio\u003c/a\u003e (\u003ca href=\"//commons.wikimedia.org/wiki/User_talk:Snowmanradio\" title=\"User talk:Snowmanradio\"\u003etalk\u003c/a\u003e)\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"//commons.wikimedia.org/wiki/File:Brown-headed_Nuthatch-27527.jpg\" title=\"File:Brown-headed Nuthatch-27527.jpg\"\u003eBrown-headed_Nuthatch-27527.jpg\u003c/a\u003e: \u003ca href=\"//commons.wikimedia.org/wiki/User:Ken_Thomas\" title=\"User:Ken Thomas\"\u003eKen Thomas\u003c/a\u003e\n\u003c/li\u003e\n\u003c/ul\u003e", "imageLicense": "Public domain", "imageLicenseUrl": null, "birdweatherUrl": "https://app.birdweather.com/species/brown-headed-nuthatch", "wikipediaUrl": "https://en.wikipedia.org/wiki/Brown-headed_nuthatch", "ebirdUrl": "https://ebird.org/species/bnhnut", "ebirdCode": "bnhnut"}, "latestAt": "2026-11-08T11:58:48-05:00"}, {"count": 39, "species": {"id": "156", "commonName": "Tufted Titmouse", "scientificName": "Baeolophus bicolor", "imageUrl": "https://media.birdweather.com/species/156/TuftedTitmouse-standard-e78a4f2733cf5a1a90c7b1a3345f67fa.jpeg", "thumbnailUrl": "https://media.birdweather.com/species/156/TuftedTitmouse-thumbnail-4ba80406023f021ef9478cd05edc928b.jpeg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Basar\" title=\"User:Basar\"\u003eBasar\u003c/a\u003e", "imageLicense": "CC BY-SA 3.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0", "birdweatherUrl": "https://app.birdweather.com/species/tufted-titmouse", "wikipediaUrl": "https://en.wikipedia.org/wiki/Tufted_titmouse", "ebirdUrl": "https://ebird.org/species/tuftit", "ebirdCode": "tuftit"}, "latestAt": "2026-11-08T10:43:27-05:00"}, {"count": 27, "species": {"id": "111", "commonName": "Carolina Wren", "scientificName": "Thryothorus ludovicianus", "imageUrl": "https://media.birdweather.com/species/111/CarolinaWren-standard-3442638fa059c1d94e69d5e063dd536f.jpg", "thumbnailUrl": "https://media.birdweather.com/species/111/CarolinaWren-thumbnail-35168f41d860a36b3dd915c9a043177d.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/10017367@N03\"\u003eDan Pancamo\u003c/a\u003e", "imageLicense": "CC BY-SA 2.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/2.0", "birdweatherUrl": "https://app.birdweather.com/species/carolina-wren", "wikipediaUrl": "https://en.wikipedia.org/wiki/Carolina_wren", "ebirdUrl": "https://ebird.org/species/carwre", "ebirdCode": "carwre"}, "latestAt": "2026-11-08T11:33:13-05:00"}, {"count": 16, "species": {"id": "402", "commonName": "Yellow-rumped Warbler", "scientificName": "Setophaga coronata", "imageUrl": "https://media.birdweather.com/species/402/Yellow-rumpedWarbler-standard-219bc6f64fd9cd84c46814aff9cc61dc.jpg", "thumbnailUrl": "https://media.birdweather.com/species/402/Yellow-rumpedWarbler-thumbnail-498ba4f522f3a28ad63e6d76004e8335.jpg", "imageCredit": "\u003ca href=\"https://en.wikipedia.org/wiki/User:Pterzian\" class=\"extiw\" title=\"wikipedia:User:Pterzian\"\u003ePterzian\u003c/a\u003e at \u003ca href=\"https://en.wikipedia.org/wiki/\" class=\"extiw\" title=\"wikipedia:\"\u003eEnglish Wikipedia\u003c/a\u003e", "imageLicense": "CC-BY-SA-3.0", "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/", "birdweatherUrl": "https://app.birdweather.com/species/yellow-rumped-warbler", "wikipediaUrl": "https://en.wikipedia.org/wiki/Yellow-rumped_warbler", "ebirdUrl": "https://ebird.org/species/yerwar", "ebirdCode": "yerwar"}, "latestAt": "2026-11-08T11:23:15-05:00"}, {"count": 15, "species": {"id": "375", "commonName": "Osprey", "scientificName": "Pandion haliaetus", "imageUrl": "https://media.birdweather.com/species/375/Osprey-standard-86c8030b42ef1e93b509a463813c8687.jpg", "thumbnailUrl": "https://media.birdweather.com/species/375/Osprey-thumbnail-bb14caf333e22c1b44befe2ed6c78026.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Yathin_sk\" title=\"User:Yathin sk\"\u003eYathin S Krishnappa\u003c/a\u003e", "imageLicense": "CC BY-SA 3.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0", "birdweatherUrl": "https://app.birdweather.com/species/osprey", "wikipediaUrl": "https://en.wikipedia.org/wiki/Osprey", "ebirdUrl": "https://ebird.org/species/osprey", "ebirdCode": "osprey"}, "latestAt": "2026-11-08T10:28:56-05:00"}, {"count": 11, "species": {"id": "65", "commonName": "Northern Flicker", "scientificName": "Colaptes auratus", "imageUrl": "https://media.birdweather.com/species/65/NorthernFlicker-standard-981bd7e4c13509e1db15ba936807ddb4.jpg", "thumbnailUrl": "https://media.birdweather.com/species/65/NorthernFlicker-thumbnail-7e0c055da080666c647db31e799f9ed9.jpg", "imageCredit": "Nature's Pic's (www.naturespicsonline.com)", "imageLicense": "Attribution", "imageLicenseUrl": null, "birdweatherUrl": "https://app.birdweather.com/species/northern-flicker", "wikipediaUrl": "https://en.wikipedia.org/wiki/Northern_flicker", "ebirdUrl": "https://ebird.org/species/norfli", "ebirdCode": "norfli"}, "latestAt": "2026-11-08T10:01:43-05:00"}, {"count": 11, "species": {"id": "282", "commonName": "Fish Crow", "scientificName": "Corvus ossifragus", "imageUrl": "https://media.birdweather.com/species/282/FishCrow-standard-e001e4caddf4728d09f80709d805407e.jpg", "thumbnailUrl": "https://media.birdweather.com/species/282/FishCrow-thumbnail-00c69cb4680c92da462f3c0a7875e9fa.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Rhododendrites\" title=\"User:Rhododendrites\"\u003eRhododendrites\u003c/a\u003e", "imageLicense": "CC BY-SA 4.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "birdweatherUrl": "https://app.birdweather.com/species/fish-crow", "wikipediaUrl": "https://en.wikipedia.org/wiki/Fish_crow", "ebirdUrl": "https://ebird.org/species/fiscro", "ebirdCode": "fiscro"}, "latestAt": "2026-11-08T11:20:54-05:00"}, {"count": 10, "species": {"id": "374", "commonName": "Mourning Dove", "scientificName": "Zenaida macroura", "imageUrl": "https://media.birdweather.com/species/374/MourningDove-standard-3ed41f3700bb4d67633194f6b6e371ef.jpg", "thumbnailUrl": "https://media.birdweather.com/species/374/MourningDove-thumbnail-0b06ba7b2b1b6ebaa18f4bc282f782e3.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external free\" href=\"http://www.naturespicsonline.com/\"\u003ehttp://www.naturespicsonline.com/\u003c/a\u003e", "imageLicense": "CC BY-SA 2.5", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/2.5", "birdweatherUrl": "https://app.birdweather.com/species/mourning-dove", "wikipediaUrl": "https://en.wikipedia.org/wiki/Mourning_dove", "ebirdUrl": "https://ebird.org/species/moudov", "ebirdCode": "moudov"}, "latestAt": "2026-11-07T17:08:00-05:00"}, {"count": 7, "species": {"id": "24", "commonName": "Downy Woodpecker", "scientificName": "Dryobates pubescens", "imageUrl": "https://media.birdweather.com/species/24/DownyWoodpecker-standard-aac7c2b5dc2951fbe7d7cf3ec6c57f62.jpg", "thumbnailUrl": "https://media.birdweather.com/species/24/DownyWoodpecker-thumbnail-df846ad17e8b14828be5fb2d06f97e50.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Wwcsig\" title=\"User:Wwcsig\"\u003eWolfgang Wander\u003c/a\u003e", "imageLicense": "CC-BY-SA-3.0", "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/", "birdweatherUrl": "https://app.birdweather.com/species/downy-woodpecker", "wikipediaUrl": "https://en.wikipedia.org/wiki/Downy_woodpecker", "ebirdUrl": "https://ebird.org/species/dowwoo", "ebirdCode": "dowwoo"}, "latestAt": "2026-11-08T09:39:11-05:00"}, {"count": 7, "species": {"id": "41", "commonName": "Golden-crowned Kinglet", "scientificName": "Regulus satrapa", "imageUrl": "https://media.birdweather.com/species/41/Golden-crownedKinglet-standard-5a054aa6979fac7d1b338d4e7cb77887.jpg", "thumbnailUrl": "https://media.birdweather.com/species/41/Golden-crownedKinglet-thumbnail-04cbb251917690ca5baf03d0bca948a7.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/8775010@N02\"\u003eGary Irwin\u003c/a\u003e", "imageLicense": "CC BY-SA 2.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/2.0", "birdweatherUrl": "https://app.birdweather.com/species/golden-crowned-kinglet", "wikipediaUrl": "https://en.wikipedia.org/wiki/Golden-crowned_kinglet", "ebirdUrl": "https://ebird.org/species/gockin", "ebirdCode": "gockin"}, "latestAt": "2026-11-08T10:34:55-05:00"}, {"count": 6, "species": {"id": "31", "commonName": "Northern Mockingbird", "scientificName": "Mimus polyglottos", "imageUrl": "https://media.birdweather.com/species/31/NorthernMockingbird-standard-d56ac4e62a4882631962390f27276449.jpg", "thumbnailUrl": "https://media.birdweather.com/species/31/NorthernMockingbird-thumbnail-d004316be3b92925573183c458705206.jpg", "imageCredit": "Captain-tucker", "imageLicense": "CC BY-SA 3.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0", "birdweatherUrl": "https://app.birdweather.com/species/northern-mockingbird", "wikipediaUrl": "https://en.wikipedia.org/wiki/Northern_mockingbird", "ebirdUrl": "https://ebird.org/species/normoc", "ebirdCode": "normoc"}, "latestAt": "2026-11-08T06:06:10-05:00"}, {"count": 5, "species": {"id": "108", "commonName": "American Crow", "scientificName": "Corvus brachyrhynchos", "imageUrl": "https://media.birdweather.com/species/108/AmericanCrow-standard-207957a81f8b5bcf52bce4f4cac4abc6.jpg", "thumbnailUrl": "https://media.birdweather.com/species/108/AmericanCrow-thumbnail-15b9fb9a120e724c4a803c6056b57e84.jpg", "imageCredit": null, "imageLicense": "CC-BY-SA-3.0", "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/", "birdweatherUrl": "https://app.birdweather.com/species/american-crow", "wikipediaUrl": "https://en.wikipedia.org/wiki/American_crow", "ebirdUrl": "https://ebird.org/species/amecro", "ebirdCode": "amecro"}, "latestAt": "2026-11-08T09:54:02-05:00"}, {"count": 4, "species": {"id": "162", "commonName": "Eastern Phoebe", "scientificName": "Sayornis phoebe", "imageUrl": "https://media.birdweather.com/species/162/EasternPhoebe-standard-b54d9342d364dc9d840e539f4d81a1ae.jpg", "thumbnailUrl": "https://media.birdweather.com/species/162/EasternPhoebe-thumbnail-698b1d4110e26968da9ed24a416b2912.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/13836948@N04\"\u003eJohn Benson\u003c/a\u003e", "imageLicense": "CC BY 2.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by/2.0", "birdweatherUrl": "https://app.birdweather.com/species/eastern-phoebe", "wikipediaUrl": "https://en.wikipedia.org/wiki/Eastern_phoebe", "ebirdUrl": "https://ebird.org/species/easpho", "ebirdCode": "easpho"}, "latestAt": "2026-11-08T10:53:12-05:00"}, {"count": 4, "species": {"id": "168", "commonName": "White-breasted Nuthatch", "scientificName": "Sitta carolinensis", "imageUrl": "https://media.birdweather.com/species/168/White-breastedNuthatch-standard-411178837f646a1d6de6ccef3027ffbf.jpg", "thumbnailUrl": "https://media.birdweather.com/species/168/White-breastedNuthatch-thumbnail-2552d09961c164a82f1b199c01e0f607.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Mdf\" title=\"User:Mdf\"\u003eMdf\u003c/a\u003e", "imageLicense": "CC-BY-SA-3.0", "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/", "birdweatherUrl": "https://app.birdweather.com/species/white-breasted-nuthatch", "wikipediaUrl": "https://en.wikipedia.org/wiki/White-breasted_nuthatch", "ebirdUrl": "https://ebird.org/species/whbnut", "ebirdCode": "whbnut"}, "latestAt": "2026-11-08T11:29:00-05:00"}, {"count": 4, "species": {"id": "486", "commonName": "Swamp Sparrow", "scientificName": "Melospiza georgiana", "imageUrl": "https://media.birdweather.com/species/486/SwampSparrow-standard-6f6e460d7cf17455fb92dba23caceff8.jpg", "thumbnailUrl": "https://media.birdweather.com/species/486/SwampSparrow-thumbnail-83376b88da7f2f7de34204620e51d228.jpg", "imageCredit": "\u003cdiv class=\"fn value\"\u003e\n\u003ca href=\"//commons.wikimedia.org/wiki/User:Cephas\" title=\"User:Cephas\"\u003eCephas\u003c/a\u003e\n\u003c/div\u003e", "imageLicense": "CC BY-SA 3.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0", "birdweatherUrl": "https://app.birdweather.com/species/swamp-sparrow", "wikipediaUrl": "https://en.wikipedia.org/wiki/Swamp_sparrow", "ebirdUrl": "https://ebird.org/species/swaspa", "ebirdCode": "swaspa"}, "latestAt": "2026-11-08T10:30:09-05:00"}, {"count": 3, "species": {"id": "77", "commonName": "Blue Jay", "scientificName": "Cyanocitta cristata", "imageUrl": "https://media.birdweather.com/species/77/BlueJay-standard-ea70bbf50f71808c6a48964d46aef881.jpg", "thumbnailUrl": "https://media.birdweather.com/species/77/BlueJay-thumbnail-abdffb6ab0341e1264d77d71db6c185f.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Rhododendrites\" title=\"User:Rhododendrites\"\u003eRhododendrites\u003c/a\u003e", "imageLicense": "CC BY-SA 4.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "birdweatherUrl": "https://app.birdweather.com/species/blue-jay", "wikipediaUrl": "https://en.wikipedia.org/wiki/Blue_jay", "ebirdUrl": "https://ebird.org/species/blujay", "ebirdCode": "blujay"}, "latestAt": "2026-11-07T12:20:00-05:00"}, {"count": 3, "species": {"id": "100", "commonName": "Canada Goose", "scientificName": "Branta canadensis", "imageUrl": "https://media.birdweather.com/species/100/CanadaGoose-standard-cd1617f2500d71d064f7cecf3e81c1b1.jpg", "thumbnailUrl": "https://media.birdweather.com/species/100/CanadaGoose-thumbnail-bf828621d386d52d5de2a9a4f1f569d3.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/51986662@N05\"\u003eUSFWS Mountain-Prairie\u003c/a\u003e", "imageLicense": "Public domain", "imageLicenseUrl": null, "birdweatherUrl": "https://app.birdweather.com/species/canada-goose", "wikipediaUrl": "https://en.wikipedia.org/wiki/Canada_goose", "ebirdUrl": "https://ebird.org/species/cangoo", "ebirdCode": "cangoo"}, "latestAt": "2026-11-07T17:25:20-05:00"}, {"count": 3, "species": {"id": "120", "commonName": "Black-capped Chickadee", "scientificName": "Poecile atricapillus", "imageUrl": "https://media.birdweather.com/species/120/Black-cappedChickadee-standard-8ff37bd75ba774bdb7ae61cc453602dd.jpg", "thumbnailUrl": "https://media.birdweather.com/species/120/Black-cappedChickadee-thumbnail-14c10b64662c756159e97159a3546eee.jpg", "imageCredit": "No machine-readable author provided. \u003ca href=\"//commons.wikimedia.org/wiki/User:Mdf\" title=\"User:Mdf\"\u003eMdf\u003c/a\u003e assumed (based on copyright claims).", "imageLicense": "CC-BY-SA-3.0", "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/", "birdweatherUrl": "https://app.birdweather.com/species/black-capped-chickadee", "wikipediaUrl": "https://en.wikipedia.org/wiki/Black-capped_chickadee", "ebirdUrl": "https://ebird.org/species/bkcchi", "ebirdCode": "bkcchi"}, "latestAt": "2026-11-08T10:40:31-05:00"}, {"count": 3, "species": {"id": "470", "commonName": "Red-tailed Hawk", "scientificName": "Buteo jamaicensis", "imageUrl": "https://media.birdweather.com/species/470/Red-tailedHawk-standard-fc4b94163b961549400dea4d9b9318c6.jpg", "thumbnailUrl": "https://media.birdweather.com/species/470/Red-tailedHawk-thumbnail-f6b8c31f088f3f09e2f4f7a26cf8fea7.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external free\" href=\"http://www.naturespicsonline.com/\"\u003ehttp://www.naturespicsonline.com/\u003c/a\u003e", "imageLicense": "Copyrighted free use", "imageLicenseUrl": "//commons.wikimedia.org/wiki/File:Red-tailed_Hawk.jpg", "birdweatherUrl": "https://app.birdweather.com/species/red-tailed-hawk", "wikipediaUrl": "https://en.wikipedia.org/wiki/Red-tailed_hawk", "ebirdUrl": "https://ebird.org/species/rethaw", "ebirdCode": "rethaw"}, "latestAt": "2026-11-07T12:45:38-05:00"}, {"count": 2, "species": {"id": "268", "commonName": "Killdeer", "scientificName": "Charadrius vociferus", "imageUrl": "https://media.birdweather.com/species/268/Killdeer-standard-c4f04160a6d1034712f163fdcdbc20d7.jpg", "thumbnailUrl": "https://media.birdweather.com/species/268/Killdeer-thumbnail-1b8a984711404732fd94ac97c47108ef.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/w/index.php?title=User:Lashaull\u0026amp;action=edit\u0026amp;redlink=1\" class=\"new\" title=\"User:Lashaull (page does not exist)\"\u003eLorie Shaull\u003c/a\u003e", "imageLicense": "CC BY-SA 4.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "birdweatherUrl": "https://app.birdweather.com/species/killdeer", "wikipediaUrl": "https://en.wikipedia.org/wiki/Killdeer", "ebirdUrl": "https://ebird.org/species/killde", "ebirdCode": "killde"}, "latestAt": "2026-11-07T15:55:37-05:00"}, {"count": 1, "species": {"id": "131", "commonName": "Hairy Woodpecker", "scientificName": "Dryobates villosus", "imageUrl": "https://media.birdweather.com/species/131/HairyWoodpecker-standard-84f36595e039a1e39b755a557f6053f8.jpg", "thumbnailUrl": "https://media.birdweather.com/species/131/HairyWoodpecker-thumbnail-d9ed656a0b8256c16cdfdf77147a9ce2.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Mdf\" title=\"User:Mdf\"\u003eUser:Mdf\u003c/a\u003e", "imageLicense": "CC-BY-SA-3.0", "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/", "birdweatherUrl": "https://app.birdweather.com/species/hairy-woodpecker", "wikipediaUrl": "https://en.wikipedia.org/wiki/Hairy_woodpecker", "ebirdUrl": "https://ebird.org/species/haiwoo", "ebirdCode": "haiwoo"}, "latestAt": "2026-11-07T12:18:57-05:00"}, {"count": 1, "species": {"id": "483", "commonName": "Pine Siskin", "scientificName": "Spinus pinus", "imageUrl": "https://media.birdweather.com/species/483/PineSiskin-standard-2878d0c16cd3a63ad52c4c95404a35c0.jpg", "thumbnailUrl": "https://media.birdweather.com/species/483/PineSiskin-thumbnail-5b3d0fd08a2a5c7d755bb511dcc4b2e4.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Cephas\" title=\"User:Cephas\"\u003eCephas\u003c/a\u003e", "imageLicense": "CC BY-SA 3.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0", "birdweatherUrl": "https://app.birdweather.com/species/pine-siskin", "wikipediaUrl": "https://en.wikipedia.org/wiki/Pine_siskin", "ebirdUrl": "https://ebird.org/species/pinsis", "ebirdCode": "pinsis"}, "latestAt": "2026-11-08T09:21:18-05:00"}, {"count": 1, "species": {"id": "1288", "commonName": "American Pipit", "scientificName": "Anthus rubescens", "imageUrl": "https://media.birdweather.com/species/1288/AmericanPipit-standard-393ead82c0e2b65933247fc308c1228b.jpg", "thumbnailUrl": "https://media.birdweather.com/species/1288/AmericanPipit-thumbnail-cbae39e72b5d576ebf739bd0b6519b86.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/39871249@N07\"\u003eKathy \u0026amp; Sam\u003c/a\u003e from Beaverton OR, USA", "imageLicense": "CC BY 2.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by/2.0", "birdweatherUrl": "https://app.birdweather.com/species/american-pipit", "wikipediaUrl": "https://en.wikipedia.org/wiki/Buff-bellied_pipit", "ebirdUrl": "https://ebird.org/species/amepip", "ebirdCode": "amepip"}, "latestAt": "2026-11-08T07:47:01-05:00"}], "recentReady": true}}}</script><script src="libflac.min.wasm.js" charset="UTF-8"></script>
+<script>
 'use strict';
 const $=id=>document.getElementById(id);
 const queryText="query($period: InputDuration, $limit:Int) { station(id: 22946) { id name earliestDetectionAt counts(period: $period) { detections species } topSpecies(limit: $limit, period: $period) { count species { id commonName scientificName imageUrl thumbnailUrl imageCredit imageLicense imageLicenseUrl birdweatherUrl wikipediaUrl ebirdUrl ebirdCode } } } }";
@@ -285,8 +298,9 @@ function wikipedia(value){
 }
 function photo(b,index,compact=false){
  const s=b.species,wrap=element('div',undefined,'photo'),placeholder=element('span','Photo unavailable','placeholder');
- const wiki=wikipedia(s.wikipediaUrl),surface=wiki?link('',wiki):element('div');surface.className='photo-link';
- surface.setAttribute('aria-label',wiki?'Read about '+s.commonName+' on Wikipedia (opens in a new tab)':'Photo of '+s.commonName+'; Wikipedia article unavailable');
+ const surface=element('a');surface.className='photo-link';surface.href=speciesHref(s);
+ surface.setAttribute('aria-label','Open details for '+s.commonName);
+ surface.addEventListener('click',e=>{if(e&&typeof e.preventDefault==='function')e.preventDefault();if(e&&typeof e.stopPropagation==='function')e.stopPropagation();openSpecies(s.id);});
  surface.append(placeholder);wrap.append(surface);
  const url=(compact?https(s.thumbnailUrl):null)||https(s.imageUrl);
  if(url){const img=element('img');img.alt=s.commonName;img.width=400;img.height=400;img.loading=index<3?'eager':'lazy';img.decoding='async';img.referrerPolicy='no-referrer';img.addEventListener('error',()=>{img.remove();placeholder.textContent='Photo unavailable';});img.src=url;surface.append(img);}
@@ -441,7 +455,7 @@ async function refresh(reuse=false){
  }finally{clearTimeout(timeout);busy=false;$('refresh').disabled=false;$('refresh').textContent='Refresh now';if(queued){queued=false;refresh();}}
 }
 
-let speciesActive=null,speciesBusy=false,speciesGeneration=0,speciesCursor=null,speciesHasMore=false,listScroll=0,todOffset=0,activeAudio=null,fallbackSource=null,fallbackContext=null;
+let speciesActive=null,speciesBusy=false,speciesGeneration=0,speciesCursor=null,speciesHasMore=false,listScroll=0,todOffset=0,activeAudio=null,clipObjectUrls=[];
 const SCORE_GTE=7,CLIP_PAGE=10;
 const speciesMetaQuery="query($id:ID!,$tod:InputDuration,$all:InputDuration,$today:InputDuration,$week:InputDuration,$ytd:InputDuration){ species(id:$id){ id commonName scientificName imageUrl thumbnailUrl imageCredit imageLicense imageLicenseUrl birdweatherUrl wikipediaUrl wikipediaSummary ebirdUrl ebirdCode } station(id:22946){ earliestDetectionAt timeOfDayDetectionCounts(speciesId:$id, period:$tod, scoreGte:7){ count bins { key count } } } dailyDetectionCounts(stationIds:[\"22946\"], speciesIds:[$id], period:$all){ date dayOfYear total } todayCounts: counts(period:$today, speciesId:$id, stationIds:[\"22946\"]){ detections } weekCounts: counts(period:$week, speciesId:$id, stationIds:[\"22946\"]){ detections } ytdCounts: counts(period:$ytd, speciesId:$id, stationIds:[\"22946\"]){ detections } allCounts: counts(period:$all, speciesId:$id, stationIds:[\"22946\"]){ detections } }";
 const speciesClipsQuery="query($id:ID!,$period:InputDuration,$first:Int!,$after:String,$sortBy:String){ station(id:22946){ detections(first:$first, after:$after, speciesId:$id, period:$period, sortBy:$sortBy, scoreGte:7, validSoundscape:true){ pageInfo { hasNextPage endCursor } nodes { id timestamp score soundscape { url duration startTime endTime downloadFilename } } } } }";
@@ -537,7 +551,8 @@ function clearSpeciesBody(){
  if($('cal-heat'))$('cal-heat').replaceChildren();
  if($('species-totals'))$('species-totals').replaceChildren();
  const frame=$('species-photo-frame');
- if(frame){const ph=element('span','Photo unavailable','placeholder');frame.replaceChildren(ph);}
+ if(frame){const ph=element('span','Photo unavailable','placeholder');const credit=$('species-credit')||element('p',undefined,'species-credit');if(!credit.id)credit.id='species-credit';credit.replaceChildren();frame.replaceChildren(ph,credit);}
+ if($('tod-y'))$('tod-y').replaceChildren();if($('tod-grid'))$('tod-grid').replaceChildren();if($('tod-x'))$('tod-x').replaceChildren();
  if($('species-more'))$('species-more').hidden=true;
  if($('species-clips-empty')){$('species-clips-empty').hidden=true;$('species-clips-empty').textContent='';}
 }
@@ -609,69 +624,213 @@ function canPlayFlac(){
   return t==='probably'||t==='maybe';
  }catch{return false;}
 }
-function stopFallbackAudio(){
- try{if(fallbackSource){fallbackSource.stop(0);} }catch{}
- fallbackSource=null;
+function revokeClipUrls(){
+ for(const u of clipObjectUrls){try{URL.revokeObjectURL(u);}catch{}}
+ clipObjectUrls=[];
 }
 function stopAllAudio(){
- stopFallbackAudio();
  try{
   const nodes=(typeof document.querySelectorAll==='function')?document.querySelectorAll('#species-clips audio'):[];
   for(const a of nodes){try{a.pause();}catch{}}
  }catch{}
+ revokeClipUrls();
  activeAudio=null;
 }
 function flacNote(url,filename){
  const p=element('p',undefined,'clip-fallback');
- p.append(element('span','This recording is FLAC, which iOS Safari often cannot play in the browser. '));
+ p.append(element('span','Couldn\'t play this recording in the browser. '));
  if(url){const a=link('Download the clip',url);if(filename)a.setAttribute('download',filename);p.append(a);p.append(element('span',' and open it in an app that supports FLAC.'));}
  return p;
 }
 function bindSingleAudio(audio){
  audio.addEventListener('play',()=>{
-  stopFallbackAudio();
   const nodes=(typeof document.querySelectorAll==='function')?document.querySelectorAll('#species-clips audio'):[];
   for(const a of nodes){if(a!==audio)try{a.pause();}catch{}}
   activeAudio=audio;
  });
 }
-async function tryDecodeFlac(url,host){
- const AudioCtx=(typeof window!=='undefined'&&(window.AudioContext||window.webkitAudioContext));
- if(!AudioCtx)return false;
+function flacReady(){
+ const F=typeof Flac!=='undefined'?Flac:null;
+ if(!F)return Promise.reject(new Error('FLAC decoder unavailable'));
+ if(typeof F.isReady==='function'&&F.isReady())return Promise.resolve(F);
+ return new Promise((resolve,reject)=>{
+  const timer=setTimeout(()=>reject(new Error('FLAC decoder timed out')),20000);
+  let settled=false;
+  const done=()=>{if(settled)return;settled=true;clearTimeout(timer);resolve(F);};
+  try{if(typeof F.on==='function')F.on('ready',done);}catch{}
+  try{
+   const prev=F.onready;
+   F.onready=function(){try{if(typeof prev==='function')prev.apply(this,arguments);}catch{}done();};
+  }catch{}
+  if(typeof F.isReady==='function'&&F.isReady())done();
+ });
+}
+function interleaveFlacFrames(frames,channels,bytesPerSample){
+ const ch=Math.max(1,channels||1),bps=Math.max(1,bytesPerSample||2);
+ let samples=0;
+ for(const frame of frames){
+  const first=frame&&frame[0];
+  if(!first||!first.length)continue;
+  samples+=Math.floor(first.length/bps);
+ }
+ const out=new Uint8Array(samples*ch*bps);
+ let o=0;
+ for(const frame of frames){
+  if(!frame||!frame[0])continue;
+  const n=Math.floor(frame[0].length/bps);
+  for(let s=0;s<n;s++){
+   for(let c=0;c<ch;c++){
+    const src=frame[c]||frame[0];
+    const i=s*bps;
+    for(let b=0;b<bps;b++)out[o++]=src[i+b]||0;
+   }
+  }
+ }
+ return out;
+}
+function encodeWav(pcm,sampleRate,channels,bitsPerSample){
+ const bytesPerSample=Math.max(1,Math.ceil((bitsPerSample||16)/8));
+ const ch=Math.max(1,channels||1);
+ const rate=sampleRate||44100;
+ const length=pcm.length;
+ const buffer=new ArrayBuffer(44+length);
+ const view=new DataView(buffer);
+ function writeString(off,str){for(let i=0;i<str.length;i++)view.setUint8(off+i,str.charCodeAt(i));}
+ writeString(0,'RIFF');
+ view.setUint32(4,36+length,true);
+ writeString(8,'WAVE');
+ writeString(12,'fmt ');
+ view.setUint32(16,16,true);
+ view.setUint16(20,1,true);
+ view.setUint16(22,ch,true);
+ view.setUint32(24,rate,true);
+ view.setUint32(28,rate*ch*bytesPerSample,true);
+ view.setUint16(32,ch*bytesPerSample,true);
+ view.setUint16(34,bitsPerSample||16,true);
+ writeString(36,'data');
+ view.setUint32(40,length,true);
+ new Uint8Array(buffer,44).set(pcm);
+ return new Blob([buffer],{type:'audio/wav'});
+}
+function decodeFlacToWav(arrayBuffer){
+ const F=typeof Flac!=='undefined'?Flac:null;
+ if(!F)throw new Error('FLAC decoder unavailable');
+ const data=arrayBuffer instanceof Uint8Array?arrayBuffer:new Uint8Array(arrayBuffer);
+ if(data.length<4||String.fromCharCode(data[0],data[1],data[2],data[3])!=='fLaC')throw new Error('Not a FLAC recording.');
+ let offset=0,meta=null,frames=[];
+ const dec=F.create_libflac_decoder(false);
+ if(!dec)throw new Error('Could not create the FLAC decoder.');
+ const status=F.init_decoder_stream(dec,
+  function read(bufferSize){
+   if(offset>=data.length)return {buffer:undefined,readDataLength:0,error:false};
+   const end=Math.min(offset+bufferSize,data.length);
+   const buf=data.subarray(offset,end);
+   const n=end-offset;offset=end;
+   return {buffer:buf,readDataLength:n,error:false};
+  },
+  function write(buffer){if(buffer)frames.push(buffer);},
+  function error(err,msg){throw new Error(msg||('FLAC decode error '+err));},
+  function metadata(dataBlock){if(dataBlock&&dataBlock.sampleRate)meta=dataBlock;}
+ );
+ if(status!==0){try{F.FLAC__stream_decoder_delete(dec);}catch{}throw new Error('Could not start the FLAC decoder.');}
+ const ok=F.FLAC__stream_decoder_process_until_end_of_stream(dec);
+ try{F.FLAC__stream_decoder_finish(dec);}catch{}
+ try{F.FLAC__stream_decoder_delete(dec);}catch{}
+ if(ok===false)throw new Error('FLAC decoding failed.');
+ if(!meta||!frames.length)throw new Error('FLAC decoder returned no audio.');
+ const bits=meta.bitsPerSample||16;
+ const channels=meta.channels||(frames[0]&&frames[0].length)||1;
+ let bytes=Math.max(1,Math.ceil(bits/8));
+ if(frames[0]&&frames[0][0]&&meta.total_samples){
+  const guessed=Math.round(frames.reduce((s,f)=>s+((f[0]&&f[0].length)||0),0)/Math.max(1,meta.total_samples));
+  if(guessed===3||guessed===4||guessed===2||guessed===1)bytes=guessed;
+ }
+ if(bits===24&&bytes===4)bytes=4;
+ const pcm=interleaveFlacFrames(frames,channels,bytes===4&&bits===24?4:Math.ceil(bits/8)<=bytes?bytes:Math.ceil(bits/8));
+ const wavBits=bytes===4&&bits===24?32:(bits||16);
+ return encodeWav(pcm,meta.sampleRate,channels,wavBits===24&&bytes===3?24:wavBits);
+}
+async function fetchAndDecodeFlac(url){
+ if(typeof Flac==='undefined')throw new Error('FLAC decoder unavailable');
+ const ready=flacReady();
+ const response=await fetch(url,{mode:'cors',credentials:'omit'});
+ if(!response.ok)throw new Error('Could not download the recording.');
+ const buf=await response.arrayBuffer();
+ await ready;
+ return decodeFlacToWav(buf);
+}
+async function loadClipAudio(url,filename,audio,status,host,token){
  try{
-  const response=await fetch(url,{mode:'cors',credentials:'omit'});
-  if(!response.ok)return false;
-  const buf=await response.arrayBuffer();
-  const ctx=fallbackContext||(fallbackContext=new AudioCtx());
-  const decoded=await ctx.decodeAudioData(buf.slice(0));
-  const play=element('button','Play clip');play.type='button';
-  play.addEventListener('click',()=>{
-   stopAllAudio();
-   if(ctx.state==='suspended')ctx.resume();
-   const src=ctx.createBufferSource();src.buffer=decoded;src.connect(ctx.destination);src.start(0);fallbackSource=src;
-   src.addEventListener('ended',()=>{if(fallbackSource===src)fallbackSource=null;play.textContent='Play clip';});
-   play.textContent='Playing…';
-  });
-  host.append(play);
-  return true;
- }catch{return false;}
+  const wav=await fetchAndDecodeFlac(url);
+  if(token.cancelled||host._clipToken!==token)return;
+  const obj=URL.createObjectURL(wav);
+  clipObjectUrls.push(obj);
+  audio.src=obj;
+  audio.hidden=false;
+  audio.setAttribute('data-playback','wav');
+  if(status&&status.remove)status.remove();
+ }catch{
+  if(token.cancelled||host._clipToken!==token)return;
+  audio.src=url;
+  audio.setAttribute('data-playback','flac');
+  const note=flacNote(url,filename);
+  if(canPlayFlac()){
+   audio.hidden=false;
+   if(status&&status.remove)status.remove();
+   audio.addEventListener('error',()=>{audio.hidden=true;if(!note.isConnected)host.append(note);});
+  }else{
+   audio.hidden=true;
+   if(status&&status.remove)status.remove();
+   host.append(note);
+  }
+ }
 }
 function mountClipPlayer(host,url,filename){
  if(!url){host.append(element('p','Audio clip unavailable.','clip-fallback'));return;}
- const audio=element('audio');audio.controls=true;audio.preload='none';audio.setAttribute('controlslist','nodownload');audio.src=url;
- const src=element('source');src.src=url;src.type='audio/flac';audio.append(src);
+ const audio=element('audio');audio.controls=true;audio.preload='metadata';audio.setAttribute('controlslist','nodownload');
  bindSingleAudio(audio);
- host.append(audio);
- const note=flacNote(url,filename);
- if(!canPlayFlac()){
-  audio.hidden=true;
-  host.append(note);
-  tryDecodeFlac(url,host).then(ok=>{if(ok){audio.remove();}});
- }else{
-  audio.addEventListener('error',()=>{audio.hidden=true;if(!note.isConnected)host.append(note);tryDecodeFlac(url,host);});
+ const status=element('p','Loading audio…','clip-fallback');
+ status.setAttribute('aria-live','polite');
+ host.append(audio,status);
+ const token={cancelled:false};
+ if(host._clipToken)host._clipToken.cancelled=true;
+ host._clipToken=token;
+ loadClipAudio(url,filename,audio,status,host,token);
+}
+function todHeading(mode,offset=0){
+ const live={today:'for today',week:'for last week',month:'for past month',year:'for past year',all:'for all time'};
+ const past={today:'for that day',week:'for that week',month:'for that month',year:'for that year',all:'for all time'};
+ const phrase=(offset?past:live)[mode]||(offset?past.today:live.today);
+ return 'Detections by hour of day '+phrase;
+}
+function niceNumber(value){
+ if(!(value>0)||!Number.isFinite(value))return 1;
+ const exp=Math.floor(Math.log10(value));
+ const f=value/Math.pow(10,exp);
+ const nice=f<=1?1:f<=2?2:f<=5?5:10;
+ return nice*Math.pow(10,exp);
+}
+function niceTicks(maxValue,target=5){
+ const max=Math.max(0,Number(maxValue)||0);
+ if(!Number.isFinite(max)||max<=0)return {top:1,step:1,ticks:[0,1]};
+ if(max<=5){
+  const top=Math.max(1,Math.ceil(max));
+  const ticks=[];
+  for(let i=0;i<=top;i++)ticks.push(i);
+  return {top,step:1,ticks};
  }
+ const step=Math.max(1,niceNumber(max/Math.max(1,(target||5)-1)));
+ const top=Math.ceil(max/step)*step;
+ const ticks=[];
+ for(let v=0;v<=top+1e-9;v+=step)ticks.push(Math.round(v));
+ return {top,step,ticks};
+}
+function hourTickLabel(i){
+ const h=(i%12)||12;
+ return h+':00'+(i<12?'a':'p');
 }
 function renderSpeciesHeader(s){
+
  if(!s)return;
  $('species-common').textContent=s.commonName||'';
  $('species-sci').textContent=s.scientificName||'';
@@ -686,11 +845,12 @@ function renderSpeciesHeader(s){
  if(wiki){const a=link('Read more',wiki);summary.append(a);}
  const frame=$('species-photo-frame');
  const ph=element('span','Photo unavailable','placeholder');
- frame.replaceChildren(ph);
+ const line=$('species-credit')||element('p',undefined,'species-credit');if(!line.id)line.id='species-credit';
+ frame.replaceChildren(ph,line);
  const url=https(s.imageUrl)||https(s.thumbnailUrl);
- if(url){const img=element('img');img.alt=s.commonName||'Species photo';img.width=400;img.height=400;img.loading='eager';img.decoding='async';img.referrerPolicy='no-referrer';img.addEventListener('error',()=>{img.remove();ph.textContent='Photo unavailable';});img.src=url;frame.append(img);}
+ if(url){const img=element('img');img.alt=s.commonName||'Species photo';img.width=400;img.height=400;img.loading='eager';img.decoding='async';img.referrerPolicy='no-referrer';img.addEventListener('error',()=>{img.remove();ph.textContent='Photo unavailable';});img.src=url;frame.append(img);frame.append(line);}
  const credit=creditInfo(s.imageCredit),licenseUrl=https(s.imageLicenseUrl),license=typeof s.imageLicense==='string'?s.imageLicense.trim():'';
- const line=$('species-credit');line.replaceChildren();
+ line.replaceChildren();
  if(credit.text||license){
   line.append(element('span','Photo: '));
   if(credit.text)line.append(credit.url?link(credit.text,credit.url):element('span',credit.text));
@@ -711,7 +871,8 @@ function renderTotals(today,week,ytd,all){
  }
 }
 function renderTodChart(payload){
- const chart=$('tod-chart');if(!chart)return;
+ const chart=$('tod-chart'),yAxis=$('tod-y'),grid=$('tod-grid'),xAxis=$('tod-x');
+ if(!chart)return;
  const block=payload&&payload[0];
  const bins=(block&&Array.isArray(block.bins))?block.bins:[];
  const hours=Array.from({length:24},()=>0);
@@ -722,15 +883,39 @@ function renderTodChart(payload){
   hours[hour]+=c;
  }
  const max=Math.max(0,...hours);
+ const scale=niceTicks(max);
  const total=block&&Number.isSafeInteger(block.count)?block.count:hours.reduce((s,n)=>s+n,0);
  chart.replaceChildren();
+ if(yAxis)yAxis.replaceChildren();
+ if(grid)grid.replaceChildren();
+ if(xAxis)xAxis.replaceChildren();
+ if(yAxis){
+  for(const tick of scale.ticks){
+   const label=element('span',String(tick),'tod-ylabel');
+   label.style.bottom=(tick/scale.top*100)+'%';
+   yAxis.append(label);
+  }
+ }
+ if(grid){
+  for(const tick of scale.ticks){
+   const line=element('span',undefined,'tod-grid-line');
+   line.style.bottom=(tick/scale.top*100)+'%';
+   grid.append(line);
+  }
+ }
  hours.forEach((c,i)=>{
   const col=element('div',undefined,'tod-col'),bar=element('div',undefined,'tod-bar');
-  bar.style.height=max?Math.max(c?4:0,Math.round((c/max)*140))+'px':'0px';
-  bar.title=((i%12)||12)+':00 '+(i<12?'AM':'PM')+' · '+c;
+  bar.style.height=c?Math.max(4,Math.round((c/scale.top)*1000)/10)+'%':'0%';
+  bar.title=hourTickLabel(i)+' · '+c;
   col.append(bar);chart.append(col);
+  if(xAxis){
+   const tick=element('div',undefined,'tod-xtick'),mark=element('span',undefined,'tod-xmark'),lab=element('span',hourTickLabel(i),'tod-xlabel');
+   if(i%2===0)lab.className+=' tod-x-2';
+   if(i%3===0)lab.className+=' tod-x-3';
+   tick.append(mark,lab);xAxis.append(tick);
+  }
  });
- $('tod-total').textContent=total?total.toLocaleString()+' detection'+(total===1?'':'s'):'No detections in this period.';
+ if($('tod-total'))$('tod-total').textContent=total?total.toLocaleString()+' detection'+(total===1?'':'s'):'No detections in this period.';
 }
 function renderCalendar(days){
  const heat=$('cal-heat');if(!heat)return;
@@ -790,12 +975,16 @@ function updateTodNav(window){
  if(!back||!fwd)return;
  const mode=(window&&window.mode)||($('tod-period')&&$('tod-period').value)||'today';
  const offset=window&&Number.isInteger(window.offset)?window.offset:todOffset;
- fwd.disabled=offset===0;
- back.disabled=!canStepBack(mode,offset);
+ const nav=back.parentElement;
+ const hide=mode==='all';
+ if(nav){if(hide)nav.setAttribute('data-nav','off');else nav.removeAttribute('data-nav');}
+ fwd.disabled=hide||offset===0;
+ back.disabled=hide||!canStepBack(mode,offset);
  const labels={today:['Previous day','Next day'],week:['Previous week','Next week'],month:['Previous month','Next month'],year:['Previous year','Next year']};
  const pair=labels[mode]||labels.today;
  back.setAttribute('aria-label',pair[0]);fwd.setAttribute('aria-label',pair[1]);
- if($('tod-date'))$('tod-date').textContent=(window&&window.dateLabel)||'';
+ if($('tod-date'))$('tod-date').textContent=hide?'':((window&&window.dateLabel)||'');
+ if($('tod-heading'))$('tod-heading').textContent=todHeading(mode,offset);
 }
 async function loadSpeciesPage(id){
  const version=++speciesGeneration;
