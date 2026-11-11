@@ -19,7 +19,7 @@
 .species-photo{min-width:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--paper)}
 .species-photo .frame{position:relative;aspect-ratio:4/3;display:grid;place-items:center;background:var(--paper)}
 .species-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.species-credit{position:absolute;z-index:2;left:8px;bottom:8px;max-width:calc(100% - 16px);margin:0;padding:3px 7px;border-radius:4px;background:rgba(16,22,16,.72);color:#f4efe3;font-size:.62rem;line-height:1.3;overflow-wrap:anywhere;pointer-events:auto}.species-credit a{color:#f4efe3;font-weight:600;text-decoration:underline}.species-credit a:hover{color:#fff}#species-credit:empty{display:none}
+.species-credit{position:absolute;z-index:2;left:8px;bottom:8px;max-width:calc(100% - 16px);margin:0;padding:0;background:transparent;color:#f7f3ea;font-size:.5rem;line-height:1.25;overflow-wrap:anywhere;pointer-events:auto;text-shadow:0 0 3px rgba(0,0,0,.9),0 1px 2px rgba(0,0,0,.85),0 0 8px rgba(0,0,0,.55)}.species-credit a{color:#f7f3ea;font-weight:600;text-decoration:underline;text-shadow:inherit}.species-credit a:hover{color:#fff}#species-credit:empty{display:none}
 .species-ident h2{font-family:var(--title-font);font-weight:700;font-synthesis:none;letter-spacing:-.02em;font-size:clamp(1.6rem,3.2vw,2.2rem);line-height:1.15;margin:0 0 4px}
 .species-ident .latin{font-family:"Source Serif 4","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-size:1.02rem;margin:0 0 12px}
 .species-ident .card-links{margin:0 0 14px;padding:0;flex-wrap:wrap}
@@ -45,22 +45,22 @@
 .species-nav .date-nav{font-size:1rem}
 #tod-date{font-family:"Source Serif 4","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-style:italic;font-weight:500;color:var(--ink)}
 .tod-wrap{min-width:0;overflow-x:hidden;overflow-y:visible}
-.tod-plot{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:1fr auto;column-gap:6px;align-items:stretch;min-width:0;--tod-h:160px;padding-top:.55em}
-.tod-y{grid-column:1;grid-row:1;position:relative;height:var(--tod-h);min-width:1.6em}
+.tod-plot{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:var(--tod-head) var(--tod-h) auto;column-gap:6px;align-items:stretch;min-width:0;--tod-h:160px;--tod-head:1.5em}
+.tod-total{grid-column:2;grid-row:1;justify-self:end;align-self:start;margin:0;padding:0 0 4px;font-size:.76rem;line-height:1.2;color:var(--muted);white-space:nowrap;z-index:2;pointer-events:none}
+.tod-y{grid-column:1;grid-row:2;position:relative;height:var(--tod-h);min-width:1.6em}
 .tod-ylabel{position:absolute;right:0;transform:translateY(50%);font-size:.68rem;color:var(--muted);font-variant-numeric:tabular-nums;line-height:1;text-align:right;padding-right:2px;white-space:nowrap}.tod-ylabel.tod-y-top{transform:translateY(35%)}
-.tod-plot-main{grid-column:2;grid-row:1;position:relative;height:var(--tod-h);min-width:0}
+.tod-plot-main{grid-column:2;grid-row:2;position:relative;height:var(--tod-h);min-width:0}
 .tod-grid{position:absolute;inset:0;pointer-events:none;z-index:0}
 .tod-grid-line{position:absolute;left:0;right:0;border-top:1px solid rgba(33,61,48,.12)}
-.tod-chart{display:flex;align-items:flex-end;gap:2px;height:100%;width:100%;position:relative;z-index:1;padding:0}
-.tod-col{flex:1 1 0;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}
-.tod-bar{width:70%;min-width:2px;max-width:16px;background:#7d9a4e;border-radius:2px 2px 0 0}
-.tod-x{grid-column:2;grid-row:2;display:flex;align-items:flex-start;gap:2px;font-size:.62rem;color:var(--muted);font-variant-numeric:tabular-nums;padding-top:2px;min-width:0}
-.tod-xtick{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center}
-.tod-xmark{width:1px;height:5px;background:#8a9584;flex:0 0 auto}
-.tod-xlabel{margin-top:2px;white-space:nowrap;line-height:1;transform:translateX(-50%);position:relative;left:50%}
-@media(max-width:720px){.tod-xlabel{visibility:hidden}.tod-xlabel.tod-x-2{visibility:visible}}
-@media(max-width:520px){.tod-xlabel,.tod-xlabel.tod-x-2{visibility:hidden}.tod-xlabel.tod-x-3{visibility:visible}}
-.tod-total{font-size:.82rem;color:var(--muted);margin:8px 0 0}
+.tod-chart{position:absolute;inset:0;z-index:1}
+.tod-col{position:absolute;top:0;bottom:0;box-sizing:border-box;padding-right:1px;display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch}
+.tod-bar{width:100%;min-width:1px;background:#7d9a4e;border-radius:2px 2px 0 0}
+.tod-x{grid-column:2;grid-row:3;position:relative;height:1.45em;font-size:.62rem;color:var(--muted);font-variant-numeric:tabular-nums;min-width:0}
+.tod-xtick{position:absolute;top:0;width:0;overflow:visible}
+.tod-xmark{display:block;width:1px;height:5px;margin-left:-.5px;background:#8a9584}
+.tod-xlabel{position:absolute;top:6px;left:0;white-space:nowrap;line-height:1;transform:translateX(-50%)}
+.tod-xlabel.tod-x-start{transform:none}
+.tod-xlabel.tod-x-end{transform:translateX(-100%)}
 .cal-heat{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:3px;width:100%;min-width:0}
 .cal-month{min-width:0}
 .cal-month-label{font-size:.68rem;color:var(--muted);text-align:center;margin:0 0 4px;font-weight:600}
@@ -109,9 +109,7 @@
 <section class="species-section" aria-label="Time of day">
 <h3 id="tod-heading">Detections by hour of day for today</h3>
 <div class="species-nav"><label class="field" for="tod-period">Period<select id="tod-period"><option value="today" selected>Today</option><option value="week">Week</option><option value="month">Month</option><option value="year">Year</option><option value="all">All time</option></select></label><span class="date-nav"><button type="button" id="tod-back" aria-label="Previous period">◀</button><span id="tod-date" class="title-date"></span><button type="button" id="tod-forward" aria-label="Next period" disabled>▶</button></span></div>
-<p class="score-note">≥7.0 score</p>
-<div class="tod-wrap"><div class="tod-plot" id="tod-plot"><div class="tod-y" id="tod-y"></div><div class="tod-plot-main"><div class="tod-grid" id="tod-grid"></div><div class="tod-chart" id="tod-chart"></div></div><div class="tod-x" id="tod-x"></div></div></div>
-<p class="tod-total" id="tod-total"></p>
+<div class="tod-wrap"><div class="tod-plot" id="tod-plot"><p class="tod-total" id="tod-total"></p><div class="tod-y" id="tod-y"></div><div class="tod-plot-main"><div class="tod-grid" id="tod-grid"></div><div class="tod-chart" id="tod-chart"></div></div><div class="tod-x" id="tod-x"></div></div></div>
 </section>
 <section class="species-section" aria-label="Calendar">
 <h3>Calendar</h3>
@@ -122,7 +120,7 @@
 </section>
 <section class="species-section" aria-label="Recordings">
 <h3>Recordings</h3>
-<div class="species-toolbar"><span class="score-note">≥7.0 score</span><label class="field" for="species-sort">Sort<select id="species-sort"><option value="recent" selected>most recent</option><option value="score">highest score</option></select></label></div>
+<div class="species-toolbar"><label class="field" for="species-sort">Sort<select id="species-sort"><option value="recent" selected>most recent</option><option value="score">highest score</option></select></label></div>
 <ul id="species-clips"></ul>
 <p id="species-clips-empty" hidden></p>
 <button type="button" id="species-more" hidden>Show more</button>
@@ -825,9 +823,30 @@ function niceTicks(maxValue,target=5){
  for(let v=0;v<=top+1e-9;v+=step)ticks.push(Math.round(v));
  return {top,step,ticks};
 }
-function hourTickLabel(i){
- const h=(i%12)||12;
- return h+':00'+(i<12?'a':'p');
+function hourTickLabel(hour){
+ const wrapped=((Number(hour)%24)+24)%24;
+ const display=(wrapped%12)||12;
+ return display+(wrapped<12?'a':'p');
+}
+function hourBinLabel(key){
+ const h=Math.floor(Number(key));
+ if(!Number.isFinite(h))return '';
+ const minutes=Math.round((Number(key)-h)*60);
+ const display=(h%12)||12,ap=h<12?'a':'p';
+ return minutes?display+':'+String(minutes).padStart(2,'0')+ap:display+ap;
+}
+function todEndHour(hours){
+ const list=hours||[];
+ let last=-1;
+ for(let i=0;i<list.length;i++) if(list[i]>0) last=i;
+ return last>=21?last+1:21;
+}
+function todXAxis(endHour){
+ const end=Number(endHour);
+ const ticks=[];
+ for(let h=0;h<=21&&h<=end;h+=3) ticks.push(h);
+ if(end>21&&ticks[ticks.length-1]!==end) ticks.push(end);
+ return ticks;
 }
 function renderSpeciesHeader(s){
 
@@ -876,13 +895,20 @@ function renderTodChart(payload){
  const block=payload&&payload[0];
  const bins=(block&&Array.isArray(block.bins))?block.bins:[];
  const hours=Array.from({length:24},()=>0);
+ const parsed=[];
+ let binWidth=1;
  for(const b of bins){
   const key=Number(b.key),c=Number(b.count);
-  if(!Number.isFinite(key)||!Number.isFinite(c)||c<0)continue;
+  if(!Number.isFinite(key)||!Number.isFinite(c)||c<0||key<0||key>=24)continue;
+  if(key%1!==0)binWidth=.5;
   const hour=Math.max(0,Math.min(23,Math.floor(key)));
   hours[hour]+=c;
+  parsed.push({key,count:c});
  }
- const max=Math.max(0,...hours);
+ if(parsed.some(b=>b.key%1!==0))binWidth=.5;
+ const endHour=todEndHour(hours);
+ const axis=todXAxis(endHour);
+ const max=Math.max(0,...parsed.map(b=>b.count));
  const scale=niceTicks(max);
  const total=block&&Number.isSafeInteger(block.count)?block.count:hours.reduce((s,n)=>s+n,0);
  chart.replaceChildren();
@@ -904,18 +930,26 @@ function renderTodChart(payload){
    grid.append(line);
   }
  }
- hours.forEach((c,i)=>{
+ for(const b of parsed){
+  if(!(b.count>0)||b.key>=endHour)continue;
   const col=element('div',undefined,'tod-col'),bar=element('div',undefined,'tod-bar');
-  bar.style.height=c?Math.max(4,Math.round((c/scale.top)*1000)/10)+'%':'0%';
-  bar.title=hourTickLabel(i)+' · '+c;
+  col.style.left=(b.key/endHour*100)+'%';
+  col.style.width=(binWidth/endHour*100)+'%';
+  col.setAttribute('data-start',String(b.key));
+  bar.style.height=Math.max(4,Math.round((b.count/scale.top)*1000)/10)+'%';
+  bar.title=hourBinLabel(b.key)+' · '+b.count;
   col.append(bar);chart.append(col);
-  if(xAxis){
-   const tick=element('div',undefined,'tod-xtick'),mark=element('span',undefined,'tod-xmark'),lab=element('span',hourTickLabel(i),'tod-xlabel');
-   if(i%2===0)lab.className+=' tod-x-2';
-   if(i%3===0)lab.className+=' tod-x-3';
+ }
+ if(xAxis){
+  for(const h of axis){
+   const tick=element('div',undefined,'tod-xtick'),mark=element('span',undefined,'tod-xmark'),lab=element('span',hourTickLabel(h),'tod-xlabel');
+   tick.style.left=(h/endHour*100)+'%';
+   tick.setAttribute('data-hour',String(h));
+   if(h===0)lab.className+=' tod-x-start';
+   if(h===endHour||(endHour-h===1&&h===21))lab.className+=' tod-x-end';
    tick.append(mark,lab);xAxis.append(tick);
   }
- });
+ }
  if($('tod-total'))$('tod-total').textContent=total?total.toLocaleString()+' detection'+(total===1?'':'s'):'No detections in this period.';
 }
 function renderCalendar(days){

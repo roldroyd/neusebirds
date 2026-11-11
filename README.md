@@ -102,7 +102,7 @@ or the table) opens a detail view at #species/<id> (slugs such as
 Wikipedia. The browser back button and a “← All species” link return to
 the list and keep the current period, sort, view, and search where
 practical. The page stays on station 22946. It shows the official
-BirdWeather photo with credit and license in a small badge on the photo,
+BirdWeather photo with credit and license in a small, transparent-background badge on the photo,
 the same Wiki / eBird / Sightings / BW / Images pills, and the Wikipedia
 summary with a Read more link.
 Time of day, then Calendar, then Recordings. The hour chart heading reads
@@ -110,10 +110,15 @@ Time of day, then Calendar, then Recordings. The hour chart heading reads
 “for past year”, or “for all time”, with past windows worded “for that
 day/week/month/year” and the date shown beside the period control. The
 period list includes All time (station earliest detection through now;
-arrows are hidden, as on the main list). The chart has a tick and label
-for each hour (labels thin to every 2–3 hours when space is tight; hour
-ticks stay on phones) and integer Y-axis ticks with a nice step. Score
-7.0 or higher still applies to the hour chart and recordings.
+arrows are hidden, as on the main list). The hour chart’s X axis is
+labeled every three hours as 12a, 3a, 6a, 9a, 12p, 3p, 6p, and 9p,
+starting at 12:00a and ending at 9p, unless a detection falls after
+9 pm; then the last tick is the hour after that last detection and is
+labeled too. Bars and ticks share that scale, with tick marks at hour
+boundaries so a 6:00–6:30 bar starts at the 6a tick. Integer Y-axis
+ticks still use a nice step. The detection count sits in the chart’s
+upper-right corner. A “≥7.0 score” label is not shown; the hour chart
+and recordings still use a score 7.0 or higher filter.
 The calendar heatmap uses unfiltered daily counts, with first seen / peak /
 still present or departed (days with more than 3 detections; departure is
 hidden if anything was heard in the last 14 days; “first seen” if that falls
