@@ -95,6 +95,27 @@ Every data refresh now loads latest times in bounded batches for all sorts.
 Sort/search/view changes make no extra web requests. The included timestamps
 remain tied to the genuine saved snapshot; no retrieval time is substituted.
 
+SPECIES PAGE
+Clicking a species name, card, or table row opens a detail view at
+#species/<id> (slugs such as #species/belted-kingfisher also work). The
+browser back button and a “← All species” link return to the list and keep
+the current period, sort, view, and search where practical. The page stays
+on station 22946. It shows the official BirdWeather photo with credit and
+license, the same Wiki / eBird / Sightings / BW / Images pills, and the
+Wikipedia summary with a Read more link.
+Recordings lead, defaulting to score 7.0 or higher, with most recent or
+highest score sort, ten clips at a time, and Show more. Times are Eastern
+(“Nov 11, 2026, 10:43 AM”). Clips are FLAC from BirdWeather; browsers that
+cannot play FLAC (notably iOS Safari) get a download link and a short note.
+Only one clip plays at a time. There is no spectrogram and no worldwide map.
+Time of day is a by-hour chart for Today, Week, Month, or Year, with the
+same ◀ ▶ date stepping as the main list, still at score 7.0 or higher.
+The calendar heatmap uses unfiltered daily counts, with first seen / peak /
+still present or departed (days with more than 3 detections; departure is
+hidden if anything was heard in the last 14 days; “first seen” if that falls
+on the station’s first day, 2026-02-19), plus Today, this week, year-to-date,
+and all-time totals. The calendar states that it is not score-filtered.
+
 LAYOUT
 Sort options: Most detections (optional), Most recent (default), Name A-Z. ◀ and ▶ buttons beside the title date step back and forward by the selected Time Period
 (Today is calendar days in Eastern Time; 24 hours, week, month and year are rolling windows).

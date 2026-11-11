@@ -11,10 +11,111 @@
 .card-links .unavailable{opacity:.5;cursor:default}
 .table-species .card-links{margin-top:8px;padding:0}.last-heard{font-size:.76rem;color:#596b5f;margin:6px 0 8px;line-height:1.4}#filter,#filter::placeholder{font-style:italic}#filter{font-size:13px;padding:6px 8px;min-height:32px;width:100%;box-sizing:border-box}@media(max-width:640px){#filter{font-size:16px}}#period,#sort,#view{appearance:none;-webkit-appearance:none;text-align:center;text-align-last:center;width:max-content;max-width:100%;min-width:0;padding:9px 28px 9px 10px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23213d30' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;background-size:12px 8px}#period option,#sort option,#view option{text-align:center}
 .auto-line .auto-toggle{position:relative;padding-left:24px;line-height:inherit;cursor:pointer}.auto-line .auto-toggle input[type=checkbox]{position:absolute;left:0;top:50%;transform:translateY(-50%);margin:0}.auto-line label,.auto-line>span,.auto-line #minutes,.auto-line #refresh{line-height:inherit}.auto-line #minutes{font:inherit;line-height:inherit}
+
+#species-page{min-width:0;max-width:100%}
+#species-back{display:inline-block;margin:0 0 16px;color:var(--green);font-weight:600;font-size:.92rem;text-decoration:none}
+#species-back:hover{text-decoration:underline}
+.species-header{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:22px 28px;align-items:start;margin:0 0 28px}
+.species-photo{min-width:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--paper)}
+.species-photo .frame{position:relative;aspect-ratio:4/3;display:grid;place-items:center;background:var(--paper)}
+.species-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.species-credit{font-size:.72rem;color:var(--muted);line-height:1.4;padding:8px 12px 10px;overflow-wrap:anywhere}
+.species-ident h2{font-family:var(--title-font);font-weight:700;font-synthesis:none;letter-spacing:-.02em;font-size:clamp(1.6rem,3.2vw,2.2rem);line-height:1.15;margin:0 0 4px}
+.species-ident .latin{font-family:"Source Serif 4","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-size:1.02rem;margin:0 0 12px}
+.species-ident .card-links{margin:0 0 14px;padding:0;flex-wrap:wrap}
+.species-summary{margin:0;font-size:.95rem;line-height:1.55;overflow-wrap:anywhere}
+.species-summary a{color:var(--green);font-weight:600;text-decoration:none}
+.species-summary a:hover{text-decoration:underline}
+.species-section{margin:0 0 32px;min-width:0}
+.species-section h3{font-family:"Source Serif 4","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-size:1.2rem;font-weight:600;margin:0 0 10px}
+.species-toolbar{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 16px;margin:0 0 14px}
+.species-toolbar .field{margin:0}
+.score-note{font-size:.76rem;font-weight:600;color:var(--muted);padding-bottom:6px}
+#species-clips{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.clip{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper);min-width:0}
+.clip-meta{flex:1 1 180px;min-width:0}
+.clip-time{font-weight:600;font-variant-numeric:tabular-nums;display:block}
+.clip-score{font-size:.82rem;color:var(--muted)}
+.clip-player{flex:1 1 220px;min-width:0;max-width:100%}
+.clip-player audio{display:block;width:100%;max-width:100%;height:40px}
+.clip-fallback{font-size:.8rem;color:var(--muted);line-height:1.4;overflow-wrap:anywhere}
+.clip-fallback a{color:var(--green);font-weight:600}
+#species-more{margin-top:12px}
+.species-nav{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 16px;margin:0 0 12px}
+.species-nav .date-nav{font-size:1rem}
+#tod-date{font-family:"Source Serif 4","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-style:italic;font-weight:500;color:var(--ink)}
+.tod-wrap{min-width:0;overflow:hidden}
+.tod-chart{display:flex;align-items:flex-end;gap:2px;height:160px;width:100%;padding:0 0 4px}
+.tod-col{flex:1 1 0;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}
+.tod-bar{width:70%;min-width:2px;max-width:16px;background:#7d9a4e;border-radius:2px 2px 0 0}
+.tod-axis{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);padding:4px 0 0;font-variant-numeric:tabular-nums}
+.tod-total{font-size:.82rem;color:var(--muted);margin:8px 0 0}
+.cal-heat{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:3px;width:100%;min-width:0}
+.cal-month{min-width:0}
+.cal-month-label{font-size:.68rem;color:var(--muted);text-align:center;margin:0 0 4px;font-weight:600}
+.cal-days{display:grid;grid-template-rows:repeat(31,8px);gap:2px}
+.cal-cell{display:block;width:100%;height:8px;border-radius:1px;background:#efe8d4}
+.cal-cell[data-count="0"]{background:#efe8d4}
+#species-arrival{font-size:.92rem;line-height:1.5;margin:0 0 14px}
+.cal-caveat{font-size:.8rem;color:var(--muted);font-style:italic;margin:12px 0 16px;line-height:1.45}
+.species-totals{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:0}
+.species-totals div{border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:0}
+.species-totals .label{display:block;font-size:.72rem;font-weight:600;color:var(--muted)}
+.species-totals .value{font-family:"Source Serif 4","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-style:italic;font-weight:500;color:#b17a23;font-size:1.15rem}
+.species-open{color:inherit;text-decoration:none}
+.species-open:hover{text-decoration:underline;text-underline-offset:3px}
+.card,.table-species{cursor:pointer}
+#species-status,#species-error{font-size:.83rem;margin:0 0 12px}
+#species-status{color:var(--muted)}#species-error{color:#8c2925}
+#species-status:empty,#species-error:empty,#species-clips-empty:empty{display:none}
+#species-clips-empty{color:var(--muted);font-size:.9rem}
+#period,#sort,#view,#species-sort,#tod-period{appearance:none;-webkit-appearance:none;text-align:center;text-align-last:center;width:max-content;max-width:100%;min-width:0;padding:9px 28px 9px 10px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23213d30' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;background-size:12px 8px}
+#period option,#sort option,#view option,#species-sort option,#tod-period option{text-align:center}
+@media(max-width:640px){
+.species-header{grid-template-columns:1fr;gap:14px}
+.species-ident h2{font-size:1.55rem}
+.clip{padding:10px}
+.cal-days{grid-template-rows:repeat(31,6px);gap:1px}
+.cal-cell{height:6px}
+.tod-chart{height:130px}
+#species-sort,#tod-period{max-width:100%;box-sizing:border-box}
+}
+
 </style></head><body><main>
-<header><h1 class="site-title"><img class="site-icon" src="apple-touch-icon.png" width="48" height="48" alt=""><span id="station">Neuse River</span><span class="date-nav"><button type="button" id="date-back" aria-label="Previous period">◀</button><span id="window-date" class="title-date">November 8th, 2026</span><button type="button" id="date-forward" aria-label="Next period" disabled>▶</button></span></h1><p class="intro"><span id="window-label" class="summary-heading">Species heard <em id="window-accent">in the last 24 hours</em></span><span class="counts"><span class="count-glue"><span class="count-sep" aria-hidden="true">·</span><span id="species-total">28</span></span> <span id="species-word">species</span>, <span id="detections-total">842</span> <span id="detections-word">detections</span></span></p><div class="auto-line"><span id="updated">Updated 12:03 PM</span><span class="auto-controls"><span class="auto-phrase"><label class="auto-toggle" for="auto"><input id="auto" type="checkbox" checked> Auto-refresh</label><label for="minutes">every</label></span><input id="minutes" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="5" aria-label="Refresh interval in minutes" autocomplete="off"><span>minutes</span></span><button id="refresh" type="button">Refresh now</button></div><div id="interval-error" role="alert"></div></header>
-<section aria-label="Display and refresh controls"><div class="toolbar"><label class="field" for="period">Time Period<select id="period"><option value="today" selected>Today</option><option value="rolling">24 hours</option><option value="week">week</option><option value="month">month</option><option value="year">year</option><option value="all">all time</option></select></label><label class="field" for="sort">Sort by<select id="sort"><option value="count">Most detections</option><option value="recent" selected>Most recent</option><option value="name">Name A–Z</option></select></label><label class="field" for="view">View<select id="view" aria-label="Species view"><option value="cards" selected>Cards</option><option value="table">Table</option></select></label><div class="search"><input id="filter" type="search" placeholder="Search by common or scientific name." aria-label="Search species"></div></div></section>
+<header><h1 class="site-title"><img class="site-icon" src="apple-touch-icon.png" width="48" height="48" alt=""><span id="station">Neuse River</span><span class="date-nav"><button type="button" id="date-back" aria-label="Previous period">◀</button><span id="window-date" class="title-date">November 8th, 2026</span><button type="button" id="date-forward" aria-label="Next period" disabled>▶</button></span></h1><div id="list-view-header"><p class="intro"><span id="window-label" class="summary-heading">Species heard <em id="window-accent">in the last 24 hours</em></span><span class="counts"><span class="count-glue"><span class="count-sep" aria-hidden="true">·</span><span id="species-total">28</span></span> <span id="species-word">species</span>, <span id="detections-total">842</span> <span id="detections-word">detections</span></span></p><div class="auto-line"><span id="updated">Updated 12:03 PM</span><span class="auto-controls"><span class="auto-phrase"><label class="auto-toggle" for="auto"><input id="auto" type="checkbox" checked> Auto-refresh</label><label for="minutes">every</label></span><input id="minutes" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="5" aria-label="Refresh interval in minutes" autocomplete="off"><span>minutes</span></span><button id="refresh" type="button">Refresh now</button></div><div id="interval-error" role="alert"></div></div></header>
+<div id="list-view"><section aria-label="Display and refresh controls"><div class="toolbar"><label class="field" for="period">Time Period<select id="period"><option value="today" selected>Today</option><option value="rolling">24 hours</option><option value="week">week</option><option value="month">month</option><option value="year">year</option><option value="all">all time</option></select></label><label class="field" for="sort">Sort by<select id="sort"><option value="count">Most detections</option><option value="recent" selected>Most recent</option><option value="name">Name A–Z</option></select></label><label class="field" for="view">View<select id="view" aria-label="Species view"><option value="cards" selected>Cards</option><option value="table">Table</option></select></label><div class="search"><input id="filter" type="search" placeholder="Search by common or scientific name." aria-label="Search species"></div></div></section>
 <div class="feedback"><span id="status" role="status" aria-live="polite"></span><div id="error" role="alert"></div></div><section id="cards" class="grid" aria-label="Species cards"></section><div id="table-wrap" hidden><table><thead><tr><th scope="col">Species</th><th scope="col">Detections</th></tr></thead><tbody id="rows"></tbody></table></div><p id="empty" hidden></p>
+</div>
+<section id="species-page" hidden>
+<p><a id="species-back" href="#">← All species</a></p>
+<div id="species-status" role="status" aria-live="polite"></div>
+<div id="species-error" role="alert"></div>
+<div class="species-header">
+<div class="species-photo"><div class="frame" id="species-photo-frame"><span class="placeholder">Photo unavailable</span></div><p class="species-credit" id="species-credit"></p></div>
+<div class="species-ident"><h2 id="species-common"></h2><p id="species-sci" class="latin"></p><div id="species-pills"></div><p id="species-summary" class="species-summary"></p></div>
+</div>
+<section class="species-section" aria-label="Recordings">
+<h3>Recordings</h3>
+<div class="species-toolbar"><span class="score-note">≥7.0 score</span><label class="field" for="species-sort">Sort<select id="species-sort"><option value="recent" selected>most recent</option><option value="score">highest score</option></select></label></div>
+<ul id="species-clips"></ul>
+<p id="species-clips-empty" hidden></p>
+<button type="button" id="species-more" hidden>Show more</button>
+</section>
+<section class="species-section" aria-label="Time of day">
+<h3>Time of day</h3>
+<div class="species-nav"><label class="field" for="tod-period">Period<select id="tod-period"><option value="today" selected>Today</option><option value="week">Week</option><option value="month">Month</option><option value="year">Year</option></select></label><span class="date-nav"><button type="button" id="tod-back" aria-label="Previous period">◀</button><span id="tod-date" class="title-date"></span><button type="button" id="tod-forward" aria-label="Next period" disabled>▶</button></span></div>
+<p class="score-note">≥7.0 score</p>
+<div class="tod-wrap"><div class="tod-chart" id="tod-chart"></div><div class="tod-axis"><span>12:00a</span><span>3:00a</span><span>6:00a</span><span>9:00a</span><span>12:00p</span><span>3:00p</span><span>6:00p</span><span>9:00p</span></div></div>
+<p class="tod-total" id="tod-total"></p>
+</section>
+<section class="species-section" aria-label="Calendar">
+<h3>Calendar</h3>
+<p id="species-arrival"></p>
+<div id="cal-heat" class="cal-heat"></div>
+<p class="cal-caveat">Score filtering isn't applied to the calendar, so totals include lower-confidence detections and may be a bit inflated.</p>
+<div class="species-totals" id="species-totals"></div>
+</section>
+</section>
 </main>
 <script id="saved" type="application/json">{"data": {"station": {"id": "22946", "name": "Neuse River", "counts": {"detections": 842, "species": 28}, "topSpecies": [{"count": 190, "species": {"id": "148", "commonName": "White-throated Sparrow", "scientificName": "Zonotrichia albicollis", "imageUrl": "https://media.birdweather.com/species/148/White-throatedSparrow-standard-298c9fc553f98b77d0e2916ade20a076.jpg", "thumbnailUrl": "https://media.birdweather.com/species/148/White-throatedSparrow-thumbnail-524c0dc237241ca45912a503819306af.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Cephas\" title=\"User:Cephas\"\u003eCephas\u003c/a\u003e", "imageLicense": "CC BY-SA 3.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0", "birdweatherUrl": "https://app.birdweather.com/species/white-throated-sparrow", "wikipediaUrl": "https://en.wikipedia.org/wiki/White-throated_sparrow", "ebirdUrl": "https://ebird.org/species/whtspa", "ebirdCode": "whtspa"}, "latestAt": "2026-11-08T11:48:52-05:00"}, {"count": 128, "species": {"id": "134", "commonName": "House Finch", "scientificName": "Haemorhous mexicanus", "imageUrl": "https://media.birdweather.com/species/134/HouseFinch-standard-3329463dada4a864431241d37400ba54.jpg", "thumbnailUrl": "https://media.birdweather.com/species/134/HouseFinch-thumbnail-ea7d4c693d0ac395d440407b51951f22.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/13836948@N04\"\u003eJohn Benson\u003c/a\u003e from Madison WI", "imageLicense": "CC BY 2.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by/2.0", "birdweatherUrl": "https://app.birdweather.com/species/house-finch", "wikipediaUrl": "https://en.wikipedia.org/wiki/House_finch", "ebirdUrl": "https://ebird.org/species/houfin", "ebirdCode": "houfin"}, "latestAt": "2026-11-08T11:38:08-05:00"}, {"count": 116, "species": {"id": "144", "commonName": "Northern Cardinal", "scientificName": "Cardinalis cardinalis", "imageUrl": "https://media.birdweather.com/species/144/NorthernCardinal-standard-823c8a4c9a2440b918aeee186d795296.jpg", "thumbnailUrl": "https://media.birdweather.com/species/144/NorthernCardinal-thumbnail-a7b853614903f78e58b41703c018e9e2.jpg", "imageCredit": "FWS", "imageLicense": "Public domain", "imageLicenseUrl": null, "birdweatherUrl": "https://app.birdweather.com/species/northern-cardinal", "wikipediaUrl": "https://en.wikipedia.org/wiki/Northern_cardinal", "ebirdUrl": "https://ebird.org/species/norcar", "ebirdCode": "norcar"}, "latestAt": "2026-11-08T10:26:51-05:00"}, {"count": 98, "species": {"id": "224", "commonName": "Carolina Chickadee", "scientificName": "Poecile carolinensis", "imageUrl": "https://media.birdweather.com/species/224/CarolinaChickadee-standard-67e9f7add57c81fdb339f7997e138474.jpg", "thumbnailUrl": "https://media.birdweather.com/species/224/CarolinaChickadee-thumbnail-344ebed0e9379c8dd9c55d7743393ad1.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/10017367@N03\"\u003eDan Pancamo\u003c/a\u003e", "imageLicense": "CC BY-SA 2.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/2.0", "birdweatherUrl": "https://app.birdweather.com/species/carolina-chickadee", "wikipediaUrl": "https://en.wikipedia.org/wiki/Carolina_chickadee", "ebirdUrl": "https://ebird.org/species/carchi", "ebirdCode": "carchi"}, "latestAt": "2026-11-08T11:23:39-05:00"}, {"count": 78, "species": {"id": "209", "commonName": "Belted Kingfisher", "scientificName": "Megaceryle alcyon", "imageUrl": "https://media.birdweather.com/species/209/BeltedKingfisher-standard-371f4b97741d652f760bb71134bf5162.jpg", "thumbnailUrl": "https://media.birdweather.com/species/209/BeltedKingfisher-thumbnail-8f16396dfb739d5aee7315abbbf33a28.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/8987759@N07\"\u003eKevin Cole\u003c/a\u003e from Pacific Coast, USA (\u003ca href=\"https://en.wikipedia.org/wiki/User:Kevinlcole\" class=\"extiw\" title=\"en:User:Kevinlcole\"\u003een:User:Kevinlcole\u003c/a\u003e)", "imageLicense": "CC BY 2.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by/2.0", "birdweatherUrl": "https://app.birdweather.com/species/belted-kingfisher", "wikipediaUrl": "https://en.wikipedia.org/wiki/Belted_kingfisher", "ebirdUrl": "https://ebird.org/species/belkin1", "ebirdCode": "belkin1"}, "latestAt": "2026-11-08T11:46:26-05:00"}, {"count": 49, "species": {"id": "248", "commonName": "Brown-headed Nuthatch", "scientificName": "Sitta pusilla", "imageUrl": "https://media.birdweather.com/species/248/Brown-headedNuthatch-standard-eed7aeac32827ee0f2a934019fb0851a.jpg", "thumbnailUrl": "https://media.birdweather.com/species/248/Brown-headedNuthatch-thumbnail-71bb333659dfb6840b79307207f35534.jpg", "imageCredit": "\u003cul\u003e\n\u003cli\u003ederivative work: \u003ca href=\"//commons.wikimedia.org/wiki/User:Snowmanradio\" title=\"User:Snowmanradio\"\u003eSnowmanradio\u003c/a\u003e (\u003ca href=\"//commons.wikimedia.org/wiki/User_talk:Snowmanradio\" title=\"User talk:Snowmanradio\"\u003etalk\u003c/a\u003e)\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"//commons.wikimedia.org/wiki/File:Brown-headed_Nuthatch-27527.jpg\" title=\"File:Brown-headed Nuthatch-27527.jpg\"\u003eBrown-headed_Nuthatch-27527.jpg\u003c/a\u003e: \u003ca href=\"//commons.wikimedia.org/wiki/User:Ken_Thomas\" title=\"User:Ken Thomas\"\u003eKen Thomas\u003c/a\u003e\n\u003c/li\u003e\n\u003c/ul\u003e", "imageLicense": "Public domain", "imageLicenseUrl": null, "birdweatherUrl": "https://app.birdweather.com/species/brown-headed-nuthatch", "wikipediaUrl": "https://en.wikipedia.org/wiki/Brown-headed_nuthatch", "ebirdUrl": "https://ebird.org/species/bnhnut", "ebirdCode": "bnhnut"}, "latestAt": "2026-11-08T11:58:48-05:00"}, {"count": 39, "species": {"id": "156", "commonName": "Tufted Titmouse", "scientificName": "Baeolophus bicolor", "imageUrl": "https://media.birdweather.com/species/156/TuftedTitmouse-standard-e78a4f2733cf5a1a90c7b1a3345f67fa.jpeg", "thumbnailUrl": "https://media.birdweather.com/species/156/TuftedTitmouse-thumbnail-4ba80406023f021ef9478cd05edc928b.jpeg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Basar\" title=\"User:Basar\"\u003eBasar\u003c/a\u003e", "imageLicense": "CC BY-SA 3.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0", "birdweatherUrl": "https://app.birdweather.com/species/tufted-titmouse", "wikipediaUrl": "https://en.wikipedia.org/wiki/Tufted_titmouse", "ebirdUrl": "https://ebird.org/species/tuftit", "ebirdCode": "tuftit"}, "latestAt": "2026-11-08T10:43:27-05:00"}, {"count": 27, "species": {"id": "111", "commonName": "Carolina Wren", "scientificName": "Thryothorus ludovicianus", "imageUrl": "https://media.birdweather.com/species/111/CarolinaWren-standard-3442638fa059c1d94e69d5e063dd536f.jpg", "thumbnailUrl": "https://media.birdweather.com/species/111/CarolinaWren-thumbnail-35168f41d860a36b3dd915c9a043177d.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/10017367@N03\"\u003eDan Pancamo\u003c/a\u003e", "imageLicense": "CC BY-SA 2.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/2.0", "birdweatherUrl": "https://app.birdweather.com/species/carolina-wren", "wikipediaUrl": "https://en.wikipedia.org/wiki/Carolina_wren", "ebirdUrl": "https://ebird.org/species/carwre", "ebirdCode": "carwre"}, "latestAt": "2026-11-08T11:33:13-05:00"}, {"count": 16, "species": {"id": "402", "commonName": "Yellow-rumped Warbler", "scientificName": "Setophaga coronata", "imageUrl": "https://media.birdweather.com/species/402/Yellow-rumpedWarbler-standard-219bc6f64fd9cd84c46814aff9cc61dc.jpg", "thumbnailUrl": "https://media.birdweather.com/species/402/Yellow-rumpedWarbler-thumbnail-498ba4f522f3a28ad63e6d76004e8335.jpg", "imageCredit": "\u003ca href=\"https://en.wikipedia.org/wiki/User:Pterzian\" class=\"extiw\" title=\"wikipedia:User:Pterzian\"\u003ePterzian\u003c/a\u003e at \u003ca href=\"https://en.wikipedia.org/wiki/\" class=\"extiw\" title=\"wikipedia:\"\u003eEnglish Wikipedia\u003c/a\u003e", "imageLicense": "CC-BY-SA-3.0", "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/", "birdweatherUrl": "https://app.birdweather.com/species/yellow-rumped-warbler", "wikipediaUrl": "https://en.wikipedia.org/wiki/Yellow-rumped_warbler", "ebirdUrl": "https://ebird.org/species/yerwar", "ebirdCode": "yerwar"}, "latestAt": "2026-11-08T11:23:15-05:00"}, {"count": 15, "species": {"id": "375", "commonName": "Osprey", "scientificName": "Pandion haliaetus", "imageUrl": "https://media.birdweather.com/species/375/Osprey-standard-86c8030b42ef1e93b509a463813c8687.jpg", "thumbnailUrl": "https://media.birdweather.com/species/375/Osprey-thumbnail-bb14caf333e22c1b44befe2ed6c78026.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Yathin_sk\" title=\"User:Yathin sk\"\u003eYathin S Krishnappa\u003c/a\u003e", "imageLicense": "CC BY-SA 3.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0", "birdweatherUrl": "https://app.birdweather.com/species/osprey", "wikipediaUrl": "https://en.wikipedia.org/wiki/Osprey", "ebirdUrl": "https://ebird.org/species/osprey", "ebirdCode": "osprey"}, "latestAt": "2026-11-08T10:28:56-05:00"}, {"count": 11, "species": {"id": "65", "commonName": "Northern Flicker", "scientificName": "Colaptes auratus", "imageUrl": "https://media.birdweather.com/species/65/NorthernFlicker-standard-981bd7e4c13509e1db15ba936807ddb4.jpg", "thumbnailUrl": "https://media.birdweather.com/species/65/NorthernFlicker-thumbnail-7e0c055da080666c647db31e799f9ed9.jpg", "imageCredit": "Nature's Pic's (www.naturespicsonline.com)", "imageLicense": "Attribution", "imageLicenseUrl": null, "birdweatherUrl": "https://app.birdweather.com/species/northern-flicker", "wikipediaUrl": "https://en.wikipedia.org/wiki/Northern_flicker", "ebirdUrl": "https://ebird.org/species/norfli", "ebirdCode": "norfli"}, "latestAt": "2026-11-08T10:01:43-05:00"}, {"count": 11, "species": {"id": "282", "commonName": "Fish Crow", "scientificName": "Corvus ossifragus", "imageUrl": "https://media.birdweather.com/species/282/FishCrow-standard-e001e4caddf4728d09f80709d805407e.jpg", "thumbnailUrl": "https://media.birdweather.com/species/282/FishCrow-thumbnail-00c69cb4680c92da462f3c0a7875e9fa.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Rhododendrites\" title=\"User:Rhododendrites\"\u003eRhododendrites\u003c/a\u003e", "imageLicense": "CC BY-SA 4.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "birdweatherUrl": "https://app.birdweather.com/species/fish-crow", "wikipediaUrl": "https://en.wikipedia.org/wiki/Fish_crow", "ebirdUrl": "https://ebird.org/species/fiscro", "ebirdCode": "fiscro"}, "latestAt": "2026-11-08T11:20:54-05:00"}, {"count": 10, "species": {"id": "374", "commonName": "Mourning Dove", "scientificName": "Zenaida macroura", "imageUrl": "https://media.birdweather.com/species/374/MourningDove-standard-3ed41f3700bb4d67633194f6b6e371ef.jpg", "thumbnailUrl": "https://media.birdweather.com/species/374/MourningDove-thumbnail-0b06ba7b2b1b6ebaa18f4bc282f782e3.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external free\" href=\"http://www.naturespicsonline.com/\"\u003ehttp://www.naturespicsonline.com/\u003c/a\u003e", "imageLicense": "CC BY-SA 2.5", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/2.5", "birdweatherUrl": "https://app.birdweather.com/species/mourning-dove", "wikipediaUrl": "https://en.wikipedia.org/wiki/Mourning_dove", "ebirdUrl": "https://ebird.org/species/moudov", "ebirdCode": "moudov"}, "latestAt": "2026-11-07T17:08:00-05:00"}, {"count": 7, "species": {"id": "24", "commonName": "Downy Woodpecker", "scientificName": "Dryobates pubescens", "imageUrl": "https://media.birdweather.com/species/24/DownyWoodpecker-standard-aac7c2b5dc2951fbe7d7cf3ec6c57f62.jpg", "thumbnailUrl": "https://media.birdweather.com/species/24/DownyWoodpecker-thumbnail-df846ad17e8b14828be5fb2d06f97e50.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Wwcsig\" title=\"User:Wwcsig\"\u003eWolfgang Wander\u003c/a\u003e", "imageLicense": "CC-BY-SA-3.0", "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/", "birdweatherUrl": "https://app.birdweather.com/species/downy-woodpecker", "wikipediaUrl": "https://en.wikipedia.org/wiki/Downy_woodpecker", "ebirdUrl": "https://ebird.org/species/dowwoo", "ebirdCode": "dowwoo"}, "latestAt": "2026-11-08T09:39:11-05:00"}, {"count": 7, "species": {"id": "41", "commonName": "Golden-crowned Kinglet", "scientificName": "Regulus satrapa", "imageUrl": "https://media.birdweather.com/species/41/Golden-crownedKinglet-standard-5a054aa6979fac7d1b338d4e7cb77887.jpg", "thumbnailUrl": "https://media.birdweather.com/species/41/Golden-crownedKinglet-thumbnail-04cbb251917690ca5baf03d0bca948a7.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/8775010@N02\"\u003eGary Irwin\u003c/a\u003e", "imageLicense": "CC BY-SA 2.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/2.0", "birdweatherUrl": "https://app.birdweather.com/species/golden-crowned-kinglet", "wikipediaUrl": "https://en.wikipedia.org/wiki/Golden-crowned_kinglet", "ebirdUrl": "https://ebird.org/species/gockin", "ebirdCode": "gockin"}, "latestAt": "2026-11-08T10:34:55-05:00"}, {"count": 6, "species": {"id": "31", "commonName": "Northern Mockingbird", "scientificName": "Mimus polyglottos", "imageUrl": "https://media.birdweather.com/species/31/NorthernMockingbird-standard-d56ac4e62a4882631962390f27276449.jpg", "thumbnailUrl": "https://media.birdweather.com/species/31/NorthernMockingbird-thumbnail-d004316be3b92925573183c458705206.jpg", "imageCredit": "Captain-tucker", "imageLicense": "CC BY-SA 3.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0", "birdweatherUrl": "https://app.birdweather.com/species/northern-mockingbird", "wikipediaUrl": "https://en.wikipedia.org/wiki/Northern_mockingbird", "ebirdUrl": "https://ebird.org/species/normoc", "ebirdCode": "normoc"}, "latestAt": "2026-11-08T06:06:10-05:00"}, {"count": 5, "species": {"id": "108", "commonName": "American Crow", "scientificName": "Corvus brachyrhynchos", "imageUrl": "https://media.birdweather.com/species/108/AmericanCrow-standard-207957a81f8b5bcf52bce4f4cac4abc6.jpg", "thumbnailUrl": "https://media.birdweather.com/species/108/AmericanCrow-thumbnail-15b9fb9a120e724c4a803c6056b57e84.jpg", "imageCredit": null, "imageLicense": "CC-BY-SA-3.0", "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/", "birdweatherUrl": "https://app.birdweather.com/species/american-crow", "wikipediaUrl": "https://en.wikipedia.org/wiki/American_crow", "ebirdUrl": "https://ebird.org/species/amecro", "ebirdCode": "amecro"}, "latestAt": "2026-11-08T09:54:02-05:00"}, {"count": 4, "species": {"id": "162", "commonName": "Eastern Phoebe", "scientificName": "Sayornis phoebe", "imageUrl": "https://media.birdweather.com/species/162/EasternPhoebe-standard-b54d9342d364dc9d840e539f4d81a1ae.jpg", "thumbnailUrl": "https://media.birdweather.com/species/162/EasternPhoebe-thumbnail-698b1d4110e26968da9ed24a416b2912.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/13836948@N04\"\u003eJohn Benson\u003c/a\u003e", "imageLicense": "CC BY 2.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by/2.0", "birdweatherUrl": "https://app.birdweather.com/species/eastern-phoebe", "wikipediaUrl": "https://en.wikipedia.org/wiki/Eastern_phoebe", "ebirdUrl": "https://ebird.org/species/easpho", "ebirdCode": "easpho"}, "latestAt": "2026-11-08T10:53:12-05:00"}, {"count": 4, "species": {"id": "168", "commonName": "White-breasted Nuthatch", "scientificName": "Sitta carolinensis", "imageUrl": "https://media.birdweather.com/species/168/White-breastedNuthatch-standard-411178837f646a1d6de6ccef3027ffbf.jpg", "thumbnailUrl": "https://media.birdweather.com/species/168/White-breastedNuthatch-thumbnail-2552d09961c164a82f1b199c01e0f607.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Mdf\" title=\"User:Mdf\"\u003eMdf\u003c/a\u003e", "imageLicense": "CC-BY-SA-3.0", "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/", "birdweatherUrl": "https://app.birdweather.com/species/white-breasted-nuthatch", "wikipediaUrl": "https://en.wikipedia.org/wiki/White-breasted_nuthatch", "ebirdUrl": "https://ebird.org/species/whbnut", "ebirdCode": "whbnut"}, "latestAt": "2026-11-08T11:29:00-05:00"}, {"count": 4, "species": {"id": "486", "commonName": "Swamp Sparrow", "scientificName": "Melospiza georgiana", "imageUrl": "https://media.birdweather.com/species/486/SwampSparrow-standard-6f6e460d7cf17455fb92dba23caceff8.jpg", "thumbnailUrl": "https://media.birdweather.com/species/486/SwampSparrow-thumbnail-83376b88da7f2f7de34204620e51d228.jpg", "imageCredit": "\u003cdiv class=\"fn value\"\u003e\n\u003ca href=\"//commons.wikimedia.org/wiki/User:Cephas\" title=\"User:Cephas\"\u003eCephas\u003c/a\u003e\n\u003c/div\u003e", "imageLicense": "CC BY-SA 3.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0", "birdweatherUrl": "https://app.birdweather.com/species/swamp-sparrow", "wikipediaUrl": "https://en.wikipedia.org/wiki/Swamp_sparrow", "ebirdUrl": "https://ebird.org/species/swaspa", "ebirdCode": "swaspa"}, "latestAt": "2026-11-08T10:30:09-05:00"}, {"count": 3, "species": {"id": "77", "commonName": "Blue Jay", "scientificName": "Cyanocitta cristata", "imageUrl": "https://media.birdweather.com/species/77/BlueJay-standard-ea70bbf50f71808c6a48964d46aef881.jpg", "thumbnailUrl": "https://media.birdweather.com/species/77/BlueJay-thumbnail-abdffb6ab0341e1264d77d71db6c185f.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Rhododendrites\" title=\"User:Rhododendrites\"\u003eRhododendrites\u003c/a\u003e", "imageLicense": "CC BY-SA 4.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "birdweatherUrl": "https://app.birdweather.com/species/blue-jay", "wikipediaUrl": "https://en.wikipedia.org/wiki/Blue_jay", "ebirdUrl": "https://ebird.org/species/blujay", "ebirdCode": "blujay"}, "latestAt": "2026-11-07T12:20:00-05:00"}, {"count": 3, "species": {"id": "100", "commonName": "Canada Goose", "scientificName": "Branta canadensis", "imageUrl": "https://media.birdweather.com/species/100/CanadaGoose-standard-cd1617f2500d71d064f7cecf3e81c1b1.jpg", "thumbnailUrl": "https://media.birdweather.com/species/100/CanadaGoose-thumbnail-bf828621d386d52d5de2a9a4f1f569d3.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/51986662@N05\"\u003eUSFWS Mountain-Prairie\u003c/a\u003e", "imageLicense": "Public domain", "imageLicenseUrl": null, "birdweatherUrl": "https://app.birdweather.com/species/canada-goose", "wikipediaUrl": "https://en.wikipedia.org/wiki/Canada_goose", "ebirdUrl": "https://ebird.org/species/cangoo", "ebirdCode": "cangoo"}, "latestAt": "2026-11-07T17:25:20-05:00"}, {"count": 3, "species": {"id": "120", "commonName": "Black-capped Chickadee", "scientificName": "Poecile atricapillus", "imageUrl": "https://media.birdweather.com/species/120/Black-cappedChickadee-standard-8ff37bd75ba774bdb7ae61cc453602dd.jpg", "thumbnailUrl": "https://media.birdweather.com/species/120/Black-cappedChickadee-thumbnail-14c10b64662c756159e97159a3546eee.jpg", "imageCredit": "No machine-readable author provided. \u003ca href=\"//commons.wikimedia.org/wiki/User:Mdf\" title=\"User:Mdf\"\u003eMdf\u003c/a\u003e assumed (based on copyright claims).", "imageLicense": "CC-BY-SA-3.0", "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/", "birdweatherUrl": "https://app.birdweather.com/species/black-capped-chickadee", "wikipediaUrl": "https://en.wikipedia.org/wiki/Black-capped_chickadee", "ebirdUrl": "https://ebird.org/species/bkcchi", "ebirdCode": "bkcchi"}, "latestAt": "2026-11-08T10:40:31-05:00"}, {"count": 3, "species": {"id": "470", "commonName": "Red-tailed Hawk", "scientificName": "Buteo jamaicensis", "imageUrl": "https://media.birdweather.com/species/470/Red-tailedHawk-standard-fc4b94163b961549400dea4d9b9318c6.jpg", "thumbnailUrl": "https://media.birdweather.com/species/470/Red-tailedHawk-thumbnail-f6b8c31f088f3f09e2f4f7a26cf8fea7.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external free\" href=\"http://www.naturespicsonline.com/\"\u003ehttp://www.naturespicsonline.com/\u003c/a\u003e", "imageLicense": "Copyrighted free use", "imageLicenseUrl": "//commons.wikimedia.org/wiki/File:Red-tailed_Hawk.jpg", "birdweatherUrl": "https://app.birdweather.com/species/red-tailed-hawk", "wikipediaUrl": "https://en.wikipedia.org/wiki/Red-tailed_hawk", "ebirdUrl": "https://ebird.org/species/rethaw", "ebirdCode": "rethaw"}, "latestAt": "2026-11-07T12:45:38-05:00"}, {"count": 2, "species": {"id": "268", "commonName": "Killdeer", "scientificName": "Charadrius vociferus", "imageUrl": "https://media.birdweather.com/species/268/Killdeer-standard-c4f04160a6d1034712f163fdcdbc20d7.jpg", "thumbnailUrl": "https://media.birdweather.com/species/268/Killdeer-thumbnail-1b8a984711404732fd94ac97c47108ef.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/w/index.php?title=User:Lashaull\u0026amp;action=edit\u0026amp;redlink=1\" class=\"new\" title=\"User:Lashaull (page does not exist)\"\u003eLorie Shaull\u003c/a\u003e", "imageLicense": "CC BY-SA 4.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "birdweatherUrl": "https://app.birdweather.com/species/killdeer", "wikipediaUrl": "https://en.wikipedia.org/wiki/Killdeer", "ebirdUrl": "https://ebird.org/species/killde", "ebirdCode": "killde"}, "latestAt": "2026-11-07T15:55:37-05:00"}, {"count": 1, "species": {"id": "131", "commonName": "Hairy Woodpecker", "scientificName": "Dryobates villosus", "imageUrl": "https://media.birdweather.com/species/131/HairyWoodpecker-standard-84f36595e039a1e39b755a557f6053f8.jpg", "thumbnailUrl": "https://media.birdweather.com/species/131/HairyWoodpecker-thumbnail-d9ed656a0b8256c16cdfdf77147a9ce2.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Mdf\" title=\"User:Mdf\"\u003eUser:Mdf\u003c/a\u003e", "imageLicense": "CC-BY-SA-3.0", "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/", "birdweatherUrl": "https://app.birdweather.com/species/hairy-woodpecker", "wikipediaUrl": "https://en.wikipedia.org/wiki/Hairy_woodpecker", "ebirdUrl": "https://ebird.org/species/haiwoo", "ebirdCode": "haiwoo"}, "latestAt": "2026-11-07T12:18:57-05:00"}, {"count": 1, "species": {"id": "483", "commonName": "Pine Siskin", "scientificName": "Spinus pinus", "imageUrl": "https://media.birdweather.com/species/483/PineSiskin-standard-2878d0c16cd3a63ad52c4c95404a35c0.jpg", "thumbnailUrl": "https://media.birdweather.com/species/483/PineSiskin-thumbnail-5b3d0fd08a2a5c7d755bb511dcc4b2e4.jpg", "imageCredit": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Cephas\" title=\"User:Cephas\"\u003eCephas\u003c/a\u003e", "imageLicense": "CC BY-SA 3.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0", "birdweatherUrl": "https://app.birdweather.com/species/pine-siskin", "wikipediaUrl": "https://en.wikipedia.org/wiki/Pine_siskin", "ebirdUrl": "https://ebird.org/species/pinsis", "ebirdCode": "pinsis"}, "latestAt": "2026-11-08T09:21:18-05:00"}, {"count": 1, "species": {"id": "1288", "commonName": "American Pipit", "scientificName": "Anthus rubescens", "imageUrl": "https://media.birdweather.com/species/1288/AmericanPipit-standard-393ead82c0e2b65933247fc308c1228b.jpg", "thumbnailUrl": "https://media.birdweather.com/species/1288/AmericanPipit-thumbnail-cbae39e72b5d576ebf739bd0b6519b86.jpg", "imageCredit": "\u003ca rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/39871249@N07\"\u003eKathy \u0026amp; Sam\u003c/a\u003e from Beaverton OR, USA", "imageLicense": "CC BY 2.0", "imageLicenseUrl": "https://creativecommons.org/licenses/by/2.0", "birdweatherUrl": "https://app.birdweather.com/species/american-pipit", "wikipediaUrl": "https://en.wikipedia.org/wiki/Buff-bellied_pipit", "ebirdUrl": "https://ebird.org/species/amepip", "ebirdCode": "amepip"}, "latestAt": "2026-11-08T07:47:01-05:00"}], "recentReady": true}}}</script><script>
 'use strict';
@@ -165,7 +266,7 @@ async function fetchFull(query,window,signal){
  if(s.topSpecies.length<count){payload=await requestJson({query,variables:{period:window.period,limit:count}},signal);s=payload.data&&payload.data.station;}
  complete(s);return payload;
 }
-function element(tag,text,cls){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e;}
+function element(tag,text,cls){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;if(!e.style)e.style={};return e;}
 function https(value){
  if(typeof value!=='string')return null;
  try{
@@ -213,7 +314,7 @@ function relativeAge(value,now=Date.now()){
 }
 function ageText(b){return b.latestPending?'Last heard loading…':relativeAge(b.latestAt);}
 function updateAges(){for(const entry of ageLabels)entry.node.textContent=ageText(entry.bird);}
-function names(bird){const s=bird.species,box=element('div'),age=element('p',ageText(bird),'last-heard');box.append(element('h3',s.commonName),element('p',s.scientificName,'latin'),age);ageLabels.push({node:age,bird});return box;}
+function names(bird){const s=bird.species,box=element('div'),age=element('p',ageText(bird),'last-heard'),title=element('h3'),open=element('a',s.commonName,'species-open');open.href=speciesHref(s);open.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();openSpecies(s.id);});title.append(open);box.append(title,element('p',s.scientificName,'latin'),age);ageLabels.push({node:age,bird});return box;}
 
 function applySummary(window){
  if(window){
@@ -242,12 +343,13 @@ function render(){
   if(view==='cards'){
    const card=element('article',undefined,'card'),image=photo(b,index),body=element('div',undefined,'card-body');
    body.append(names(b));const badge=element('span',b.count.toLocaleString(),'detection-badge');badge.setAttribute('aria-label',b.count+' detections');image.wrap.append(badge);
-   card.append(image.wrap,body,cardLinks(b.species));$('cards').append(card);
+   card.append(image.wrap,body,cardLinks(b.species));card.addEventListener('click',e=>speciesSurfaceClick(e,b.species.id));$('cards').append(card);
   }else{
-   const row=element('tr'),name=element('td'),count=element('td',b.count.toLocaleString(),'table-count'),cell=element('div',undefined,'table-species'),image=photo(b,index,true);image.wrap.className='photo compact-photo';const ident=names(b);ident.append(cardLinks(b.species));cell.append(image.wrap,ident);name.append(cell);row.append(name,count);$('rows').append(row);
+   const row=element('tr'),name=element('td'),count=element('td',b.count.toLocaleString(),'table-count'),cell=element('div',undefined,'table-species'),image=photo(b,index,true);image.wrap.className='photo compact-photo';const ident=names(b);ident.append(cardLinks(b.species));cell.append(image.wrap,ident);name.append(cell);row.append(name,count);row.addEventListener('click',e=>speciesSurfaceClick(e,b.species.id));$('rows').append(row);
   }
  });
  $('empty').hidden=birds.length!==0;$('empty').textContent=current.topSpecies.length?'No matching species':'No detections in this snapshot.';
+ applySpeciesMode();
 }
 function sanitizeMinutes(){
  const input=$('minutes');
@@ -338,6 +440,457 @@ async function refresh(reuse=false){
   $('error').textContent=timedOut?'The update timed out (up to 120 seconds overall; 30 seconds per request). Try again.':(e instanceof SyntaxError?'BirdWeather returned invalid JSON. Try again.':e.message||'Network error.');
  }finally{clearTimeout(timeout);busy=false;$('refresh').disabled=false;$('refresh').textContent='Refresh now';if(queued){queued=false;refresh();}}
 }
+
+let speciesActive=null,speciesBusy=false,speciesGeneration=0,speciesCursor=null,speciesHasMore=false,listScroll=0,todOffset=0,activeAudio=null,fallbackSource=null,fallbackContext=null;
+const SCORE_GTE=7,CLIP_PAGE=10;
+const speciesMetaQuery="query($id:ID!,$tod:InputDuration,$all:InputDuration,$today:InputDuration,$week:InputDuration,$ytd:InputDuration){ species(id:$id){ id commonName scientificName imageUrl thumbnailUrl imageCredit imageLicense imageLicenseUrl birdweatherUrl wikipediaUrl wikipediaSummary ebirdUrl ebirdCode } station(id:22946){ earliestDetectionAt timeOfDayDetectionCounts(speciesId:$id, period:$tod, scoreGte:7){ count bins { key count } } } dailyDetectionCounts(stationIds:[\"22946\"], speciesIds:[$id], period:$all){ date dayOfYear total } todayCounts: counts(period:$today, speciesId:$id, stationIds:[\"22946\"]){ detections } weekCounts: counts(period:$week, speciesId:$id, stationIds:[\"22946\"]){ detections } ytdCounts: counts(period:$ytd, speciesId:$id, stationIds:[\"22946\"]){ detections } allCounts: counts(period:$all, speciesId:$id, stationIds:[\"22946\"]){ detections } }";
+const speciesClipsQuery="query($id:ID!,$period:InputDuration,$first:Int!,$after:String,$sortBy:String){ station(id:22946){ detections(first:$first, after:$after, speciesId:$id, period:$period, sortBy:$sortBy, scoreGte:7, validSoundscape:true){ pageInfo { hasNextPage endCursor } nodes { id timestamp score soundscape { url duration startTime endTime downloadFilename } } } } }";
+const todOnlyQuery="query($id:ID!,$tod:InputDuration){ station(id:22946){ timeOfDayDetectionCounts(speciesId:$id, period:$tod, scoreGte:7){ count bins { key count } } } }";
+function locationHash(){try{let h=String((typeof location!=='undefined'&&location.hash)||'');if(h&&h.charAt(0)!=='#')h='#'+h;return h;}catch{return '';}}
+function speciesHref(s){return '#species/'+encodeURIComponent(s&&s.id?String(s.id):'');}
+function speciesSlug(s){
+ if(!s)return '';
+ const url=typeof s.birdweatherUrl==='string'?s.birdweatherUrl:'';
+ let slug='';
+ try{const u=new URL(url.startsWith('//')?'https:'+url:url);const m=u.pathname.match(/^\/species\/([a-z0-9-]+)\/?$/);if(m)slug=m[1];}catch{}
+ return slug;
+}
+function parseSpeciesRef(){
+ const m=locationHash().match(/^#species\/([A-Za-z0-9-]+)$/);
+ return m?decodeURIComponent(m[1]):null;
+}
+function resolveSpeciesId(ref){
+ if(!ref)return null;
+ if(/^\d+$/.test(ref))return ref;
+ const birds=(current&&current.topSpecies)||[];
+ for(const b of birds){
+  const s=b.species||{};
+  if(speciesSlug(s)===ref)return s.id;
+  const name=typeof s.commonName==='string'?s.commonName.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''):'';
+  if(name===ref)return s.id;
+ }
+ return null;
+}
+function speciesSurfaceClick(e,id){
+ const t=e&&e.target;
+ if(t&&typeof t.closest==='function'&&t.closest('a,button,input,select,nav,.photo-link'))return;
+ if(t&&(t.tag==='A'||t.tag==='NAV'||(t.className==='photo-link')||(t.className||'').includes('card-links')))return;
+ if(e&&typeof e.preventDefault==='function')e.preventDefault();
+ openSpecies(id);
+}
+function applySpeciesMode(){
+ const on=!!speciesActive;
+ const header=$('list-view-header'),list=$('list-view'),page=$('species-page'),back=$('date-back'),nav=back&&back.parentElement;
+ if(header)header.hidden=on;
+ if(list)list.hidden=on;
+ if(page)page.hidden=!on;
+ if(nav)nav.hidden=on;
+}
+function setDocumentTitle(name){
+ try{document.title=name?name+' · NeuseBirds':'NeuseBirds · Neuse River';}catch{}
+}
+function scrollY(){try{return (typeof window!=='undefined'&&Number(window.scrollY))||0;}catch{return 0;}}
+function scrollToY(y){try{if(typeof window!=='undefined'&&window.scrollTo)window.scrollTo(0,y||0);}catch{}}
+function openSpecies(id){
+ if(!id)return;
+ const next='#species/'+id;
+ try{if(typeof location!=='undefined'&&locationHash()!==next)location.hash='#species/'+id;}catch{}
+ if(!speciesActive)listScroll=scrollY();
+ routeSpecies();
+}
+function closeSpecies(e){
+ if(e&&typeof e.preventDefault==='function')e.preventDefault();
+ stopAllAudio();
+ try{if(typeof location!=='undefined')location.hash='';}catch{}
+ speciesActive=null;speciesGeneration++;
+ applySpeciesMode();
+ setDocumentTitle('');
+ scrollToY(listScroll);
+}
+function routeSpecies(){
+ const ref=parseSpeciesRef();
+ if(!ref){
+  if(speciesActive){stopAllAudio();speciesActive=null;speciesGeneration++;applySpeciesMode();setDocumentTitle('');scrollToY(listScroll);}
+  else applySpeciesMode();
+  return;
+ }
+ const id=resolveSpeciesId(ref)||(/^\d+$/.test(ref)?ref:null);
+ if(!id){
+  speciesActive=ref;
+  applySpeciesMode();
+  clearSpeciesBody();
+  if($('species-error'))$('species-error').textContent='Species not found in this station\'s list. Try going back and opening it from the cards.';
+  if($('species-status'))$('species-status').textContent='';
+  return;
+ }
+ if(speciesActive!==id){if($('species-sort'))$('species-sort').value='recent';todOffset=0;if($('tod-period'))$('tod-period').value='today';}
+ speciesActive=id;
+ applySpeciesMode();
+ loadSpeciesPage(id);
+}
+function clearSpeciesBody(){
+ const ids=['species-common','species-sci','species-credit','species-summary','species-arrival','tod-total','tod-date'];
+ for(const id of ids){if($(id))$(id).textContent='';}
+ if($('species-pills'))$('species-pills').replaceChildren();
+ if($('species-clips'))$('species-clips').replaceChildren();
+ if($('tod-chart'))$('tod-chart').replaceChildren();
+ if($('cal-heat'))$('cal-heat').replaceChildren();
+ if($('species-totals'))$('species-totals').replaceChildren();
+ const frame=$('species-photo-frame');
+ if(frame){const ph=element('span','Photo unavailable','placeholder');frame.replaceChildren(ph);}
+ if($('species-more'))$('species-more').hidden=true;
+ if($('species-clips-empty')){$('species-clips-empty').hidden=true;$('species-clips-empty').textContent='';}
+}
+function creditInfo(raw){
+ if(typeof raw!=='string')return {text:'',url:null};
+ const plain=raw.replace(/<[^>]*>/g,'').replace(/[<>]/g,'');
+ let text=plain;
+ try{text=new DOMParser().parseFromString(plain,'text/html').body.textContent.trim();}catch{text=plain.trim();}
+ const match=raw.match(/href\s*=\s*["']([^"']+)["']/i);
+ return {text,url:match?https(match[1].startsWith('//')?'https:'+match[1]:match[1]):null};
+}
+function formatClipTime(value){
+ const t=value instanceof Date?value:new Date(value);
+ if(!Number.isFinite(t.getTime()))return '';
+ const p=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true}).formatToParts(t);
+ const get=k=>(p.find(x=>x.type===k)||{}).value||'';
+ return (get('month')+' '+get('day')+', '+get('year')+', '+get('hour')+':'+get('minute')+' '+get('dayPeriod')).replace(/\s+/g,' ').trim();
+}
+function formatScore(value){
+ const n=Number(value);
+ return Number.isFinite(n)?'score '+n.toFixed(2):'';
+}
+function shortMonthDay(iso){
+ const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+ const [y,m,d]=String(iso||'').split('-').map(Number);
+ if(!y||!m||!d)return '';
+ return months[m-1]+' '+d;
+}
+function speciesArrival(days,now=new Date()){
+ const start=earliestCivil();
+ const byYear=new Map();
+ for(const d of days||[]){
+  if(!d||typeof d.date!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(d.date)||!Number.isFinite(d.total))continue;
+  const y=d.date.slice(0,4);
+  if(!byYear.has(y))byYear.set(y,[]);
+  byYear.get(y).push(d);
+ }
+ const today=easternDate(now),cutoff=civilShift(today,-13),lines=[];
+ for(const y of [...byYear.keys()].sort()){
+  const all=byYear.get(y).slice().sort((a,b)=>a.date.localeCompare(b.date));
+  const gt3=all.filter(d=>d.total>3),present=all.filter(d=>d.total>0);
+  if(!present.length)continue;
+  const use=gt3.length?gt3:present;
+  const first=use[0],peak=all.reduce((p,d)=>d.total>p.total?d:p),last=present.at(-1),total=use.reduce((s,d)=>s+d.total,0);
+  const recent=all.some(d=>d.date>=cutoff&&d.total>0);
+  const verb=first.date===start?'first seen':'arrived';
+  const tail=recent?'still present ('+total.toLocaleString()+' total)':'departed '+shortMonthDay(last&&last.date)+' ('+total.toLocaleString()+' total)';
+  lines.push(y+' · '+verb+' '+shortMonthDay(first.date)+' · peaked '+shortMonthDay(peak.date)+' ('+peak.total.toLocaleString()+') · '+tail);
+ }
+ return lines.join('\n');
+}
+function ytdPeriod(now=new Date()){
+ const day=easternDate(now),year=day.slice(0,4);
+ return {from:year+'-01-01T00:00:00',to:now.toISOString(),timezone:'America/New_York'};
+}
+function weekCivilPeriod(now=new Date()){
+ const day=easternDate(now);
+ return {from:civilShift(day,-6)+'T00:00:00',to:now.toISOString(),timezone:'America/New_York'};
+}
+function allTimePeriod(now=new Date()){
+ const start=Number.isFinite(Date.parse(earliestDetectionAt))?new Date(earliestDetectionAt).toISOString():'2000-01-01T00:00:00.000Z';
+ return {from:start,to:now.toISOString(),timezone:'America/New_York'};
+}
+function canPlayFlac(){
+ try{
+  const a=document.createElement('audio');
+  if(!a||typeof a.canPlayType!=='function')return false;
+  const t=a.canPlayType('audio/flac')||a.canPlayType('audio/x-flac');
+  return t==='probably'||t==='maybe';
+ }catch{return false;}
+}
+function stopFallbackAudio(){
+ try{if(fallbackSource){fallbackSource.stop(0);} }catch{}
+ fallbackSource=null;
+}
+function stopAllAudio(){
+ stopFallbackAudio();
+ try{
+  const nodes=(typeof document.querySelectorAll==='function')?document.querySelectorAll('#species-clips audio'):[];
+  for(const a of nodes){try{a.pause();}catch{}}
+ }catch{}
+ activeAudio=null;
+}
+function flacNote(url,filename){
+ const p=element('p',undefined,'clip-fallback');
+ p.append(element('span','This recording is FLAC, which iOS Safari often cannot play in the browser. '));
+ if(url){const a=link('Download the clip',url);if(filename)a.setAttribute('download',filename);p.append(a);p.append(element('span',' and open it in an app that supports FLAC.'));}
+ return p;
+}
+function bindSingleAudio(audio){
+ audio.addEventListener('play',()=>{
+  stopFallbackAudio();
+  const nodes=(typeof document.querySelectorAll==='function')?document.querySelectorAll('#species-clips audio'):[];
+  for(const a of nodes){if(a!==audio)try{a.pause();}catch{}}
+  activeAudio=audio;
+ });
+}
+async function tryDecodeFlac(url,host){
+ const AudioCtx=(typeof window!=='undefined'&&(window.AudioContext||window.webkitAudioContext));
+ if(!AudioCtx)return false;
+ try{
+  const response=await fetch(url,{mode:'cors',credentials:'omit'});
+  if(!response.ok)return false;
+  const buf=await response.arrayBuffer();
+  const ctx=fallbackContext||(fallbackContext=new AudioCtx());
+  const decoded=await ctx.decodeAudioData(buf.slice(0));
+  const play=element('button','Play clip');play.type='button';
+  play.addEventListener('click',()=>{
+   stopAllAudio();
+   if(ctx.state==='suspended')ctx.resume();
+   const src=ctx.createBufferSource();src.buffer=decoded;src.connect(ctx.destination);src.start(0);fallbackSource=src;
+   src.addEventListener('ended',()=>{if(fallbackSource===src)fallbackSource=null;play.textContent='Play clip';});
+   play.textContent='Playing…';
+  });
+  host.append(play);
+  return true;
+ }catch{return false;}
+}
+function mountClipPlayer(host,url,filename){
+ if(!url){host.append(element('p','Audio clip unavailable.','clip-fallback'));return;}
+ const audio=element('audio');audio.controls=true;audio.preload='none';audio.setAttribute('controlslist','nodownload');audio.src=url;
+ const src=element('source');src.src=url;src.type='audio/flac';audio.append(src);
+ bindSingleAudio(audio);
+ host.append(audio);
+ const note=flacNote(url,filename);
+ if(!canPlayFlac()){
+  audio.hidden=true;
+  host.append(note);
+  tryDecodeFlac(url,host).then(ok=>{if(ok){audio.remove();}});
+ }else{
+  audio.addEventListener('error',()=>{audio.hidden=true;if(!note.isConnected)host.append(note);tryDecodeFlac(url,host);});
+ }
+}
+function renderSpeciesHeader(s){
+ if(!s)return;
+ $('species-common').textContent=s.commonName||'';
+ $('species-sci').textContent=s.scientificName||'';
+ setDocumentTitle(s.commonName||'');
+ const pills=$('species-pills');
+ if(pills)pills.replaceChildren(cardLinks(s));
+ const wiki=wikipedia(s.wikipediaUrl);
+ const summary=$('species-summary');
+ summary.replaceChildren();
+ const text=typeof s.wikipediaSummary==='string'?s.wikipediaSummary.trim():'';
+ if(text)summary.append(element('span',text+(' ')));
+ if(wiki){const a=link('Read more',wiki);summary.append(a);}
+ const frame=$('species-photo-frame');
+ const ph=element('span','Photo unavailable','placeholder');
+ frame.replaceChildren(ph);
+ const url=https(s.imageUrl)||https(s.thumbnailUrl);
+ if(url){const img=element('img');img.alt=s.commonName||'Species photo';img.width=400;img.height=400;img.loading='eager';img.decoding='async';img.referrerPolicy='no-referrer';img.addEventListener('error',()=>{img.remove();ph.textContent='Photo unavailable';});img.src=url;frame.append(img);}
+ const credit=creditInfo(s.imageCredit),licenseUrl=https(s.imageLicenseUrl),license=typeof s.imageLicense==='string'?s.imageLicense.trim():'';
+ const line=$('species-credit');line.replaceChildren();
+ if(credit.text||license){
+  line.append(element('span','Photo: '));
+  if(credit.text)line.append(credit.url?link(credit.text,credit.url):element('span',credit.text));
+  else line.append(element('span','credit not provided'));
+  if(license||licenseUrl){line.append(element('span',' · '));line.append(licenseUrl?link(license||'License',licenseUrl):element('span',license));}
+ }else line.textContent='Photo credit not provided.';
+}
+function countValue(block){
+ const n=block&&block.detections;
+ return Number.isSafeInteger(n)&&n>=0?n:null;
+}
+function renderTotals(today,week,ytd,all){
+ const box=$('species-totals');if(!box)return;
+ box.replaceChildren();
+ for(const [label,n] of [['Today',today],['This week',week],['Year-to-date',ytd],['All time',all]]){
+  const item=element('div'),l=element('span',label,'label'),v=element('span',n==null?'—':n.toLocaleString(),'value');
+  item.append(l,v);box.append(item);
+ }
+}
+function renderTodChart(payload){
+ const chart=$('tod-chart');if(!chart)return;
+ const block=payload&&payload[0];
+ const bins=(block&&Array.isArray(block.bins))?block.bins:[];
+ const hours=Array.from({length:24},()=>0);
+ for(const b of bins){
+  const key=Number(b.key),c=Number(b.count);
+  if(!Number.isFinite(key)||!Number.isFinite(c)||c<0)continue;
+  const hour=Math.max(0,Math.min(23,Math.floor(key)));
+  hours[hour]+=c;
+ }
+ const max=Math.max(0,...hours);
+ const total=block&&Number.isSafeInteger(block.count)?block.count:hours.reduce((s,n)=>s+n,0);
+ chart.replaceChildren();
+ hours.forEach((c,i)=>{
+  const col=element('div',undefined,'tod-col'),bar=element('div',undefined,'tod-bar');
+  bar.style.height=max?Math.max(c?4:0,Math.round((c/max)*140))+'px':'0px';
+  bar.title=((i%12)||12)+':00 '+(i<12?'AM':'PM')+' · '+c;
+  col.append(bar);chart.append(col);
+ });
+ $('tod-total').textContent=total?total.toLocaleString()+' detection'+(total===1?'':'s'):'No detections in this period.';
+}
+function renderCalendar(days){
+ const heat=$('cal-heat');if(!heat)return;
+ heat.replaceChildren();
+ const map=new Map();
+ let max=0;
+ for(const d of days||[]){
+  if(!d||typeof d.date!=='string'||!Number.isFinite(d.total))continue;
+  map.set(d.date,d.total);if(d.total>max)max=d.total;
+ }
+ const years=[...new Set([...map.keys()].map(d=>d.slice(0,4)))].sort();
+ const year=years.at(-1)||String(new Date().getFullYear());
+ const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+ const dim=[31, (Number(year)%4===0&&Number(year)%100!==0)||Number(year)%400===0?29:28,31,30,31,30,31,31,30,31,30,31];
+ for(let m=1;m<=12;m++){
+  const col=element('div',undefined,'cal-month');
+  col.append(element('div',months[m-1],'cal-month-label'));
+  const grid=element('div',undefined,'cal-days');
+  for(let day=1;day<=31;day++){
+   const cell=element('span',undefined,'cal-cell');
+   if(day>dim[m-1]){cell.style.visibility='hidden';grid.append(cell);continue;}
+   const iso=year+'-'+String(m).padStart(2,'0')+'-'+String(day).padStart(2,'0');
+   const c=map.get(iso)||0;
+   cell.setAttribute('data-count',String(c));
+   cell.title=displayCivilDate(iso)+' · '+c.toLocaleString();
+   if(c>0&&max>0){
+    const t=Math.min(1,Math.sqrt(c/max));
+    const light=226-Math.round(t*140),green=216-Math.round(t*80),blue=180-Math.round(t*110);
+    cell.style.background='rgb('+[Math.round(light),Math.round(green),Math.round(blue)].join(',')+')';
+   }
+   grid.append(cell);
+  }
+  col.append(grid);heat.append(col);
+ }
+ if($('species-arrival'))$('species-arrival').textContent=speciesArrival(days);
+}
+function appendClips(nodes,replace){
+ const list=$('species-clips');
+ if(replace)list.replaceChildren();
+ let added=0;
+ for(const n of nodes||[]){
+  if(!n||typeof n.timestamp!=='string')continue;
+  const url=n.soundscape?https(n.soundscape.url):null;
+  const item=element('li',undefined,'clip'),meta=element('div',undefined,'clip-meta'),player=element('div',undefined,'clip-player');
+  const time=element('time',formatClipTime(n.timestamp),'clip-time');
+  time.dateTime=n.timestamp;
+  meta.append(time,element('span',formatScore(n.score),'clip-score'));
+  mountClipPlayer(player,url,n.soundscape&&n.soundscape.downloadFilename);
+  item.append(meta,player);list.append(item);added++;
+ }
+ const empty=$('species-clips-empty');
+ if(replace&&added===0){empty.hidden=false;empty.textContent='No recordings at score 7.0 or higher.';}
+ else {empty.hidden=true;empty.textContent='';}
+}
+function updateTodNav(window){
+ const back=$('tod-back'),fwd=$('tod-forward');
+ if(!back||!fwd)return;
+ const mode=(window&&window.mode)||($('tod-period')&&$('tod-period').value)||'today';
+ const offset=window&&Number.isInteger(window.offset)?window.offset:todOffset;
+ fwd.disabled=offset===0;
+ back.disabled=!canStepBack(mode,offset);
+ const labels={today:['Previous day','Next day'],week:['Previous week','Next week'],month:['Previous month','Next month'],year:['Previous year','Next year']};
+ const pair=labels[mode]||labels.today;
+ back.setAttribute('aria-label',pair[0]);fwd.setAttribute('aria-label',pair[1]);
+ if($('tod-date'))$('tod-date').textContent=(window&&window.dateLabel)||'';
+}
+async function loadSpeciesPage(id){
+ const version=++speciesGeneration;
+ speciesBusy=true;
+ if($('species-status'))$('species-status').textContent='Loading species…';
+ if($('species-error'))$('species-error').textContent='';
+ const known=((current&&current.topSpecies)||[]).find(b=>b.species&&b.species.id===id);
+ if(known)renderSpeciesHeader(known.species);
+ else clearSpeciesBody();
+ applySpeciesMode();
+ const controller=new AbortController();
+ const timeout=setTimeout(()=>controller.abort(),30000);
+ try{
+  const now=new Date();
+  const todMode=($('tod-period')&&$('tod-period').value)||'today';
+  const todWin=periodWindow(todMode,now,todOffset);
+  const today=periodWindow('today',now,0).period;
+  const week=weekCivilPeriod(now);
+  const ytd=ytdPeriod(now);
+  const all=allTimePeriod(now);
+  const payload=await requestJson({query:speciesMetaQuery,variables:{id,tod:todWin.period,all,today,week,ytd}},controller.signal);
+  if(version!==speciesGeneration)return;
+  const s=payload.data&&payload.data.species;
+  if(!s||s.id!==id||typeof s.commonName!=='string')throw new Error('Unexpected species response.');
+  if(typeof (payload.data.station&&payload.data.station.earliestDetectionAt)==='string'){
+   const t=Date.parse(payload.data.station.earliestDetectionAt);
+   if(Number.isFinite(t))earliestDetectionAt=payload.data.station.earliestDetectionAt;
+  }
+  renderSpeciesHeader(s);
+  updateTodNav(todWin);
+  renderTodChart((payload.data.station&&payload.data.station.timeOfDayDetectionCounts)||[]);
+  const days=payload.data.dailyDetectionCounts;
+  if(!Array.isArray(days))throw new Error('Unexpected calendar response.');
+  renderCalendar(days);
+  renderTotals(countValue(payload.data.todayCounts),countValue(payload.data.weekCounts),countValue(payload.data.ytdCounts),countValue(payload.data.allCounts));
+  if($('species-status'))$('species-status').textContent='';
+  await loadSpeciesClips(id,all,true,version,controller.signal);
+ }catch(e){
+  if(version!==speciesGeneration)return;
+  if($('species-status'))$('species-status').textContent='';
+  if($('species-error'))$('species-error').textContent=e&&e.message||'Could not load this species.';
+ }finally{
+  clearTimeout(timeout);
+  if(version===speciesGeneration)speciesBusy=false;
+ }
+}
+async function loadSpeciesClips(id,period,replace,version,signal){
+ if($('species-more'))$('species-more').disabled=true;
+ try{
+  if(replace){speciesCursor=null;speciesHasMore=false;stopAllAudio();}
+  const sortBy=($('species-sort')&&$('species-sort').value)==='score'?'score':'recent';
+  const first=CLIP_PAGE;
+  const variables={id,period,first,sortBy};
+  if(!replace&&speciesCursor)variables.after=speciesCursor;
+  const payload=await requestJson({query:speciesClipsQuery,variables},signal);
+  if(version!==speciesGeneration)return;
+  const det=payload.data&&payload.data.station&&payload.data.station.detections;
+  if(!det||!Array.isArray(det.nodes)||!det.pageInfo)throw new Error('Unexpected recordings response.');
+  if(det.totalCount!==undefined)throw new Error('Unexpected recordings response.');
+  const nodes=det.nodes.slice(0,CLIP_PAGE);
+  appendClips(nodes,replace);
+  speciesHasMore=!!det.pageInfo.hasNextPage&&!!det.pageInfo.endCursor&&nodes.length>0;
+  speciesCursor=speciesHasMore?det.pageInfo.endCursor:null;
+  if($('species-more')){$('species-more').hidden=!speciesHasMore;$('species-more').disabled=false;}
+ }catch(e){
+  if(version!==speciesGeneration)return;
+  if($('species-error'))$('species-error').textContent=e&&e.message||'Could not load recordings.';
+  if($('species-more'))$('species-more').disabled=false;
+ }
+}
+async function reloadTod(){
+ if(!speciesActive||!/^\d+$/.test(speciesActive))return;
+ const version=speciesGeneration;
+ const mode=($('tod-period')&&$('tod-period').value)||'today';
+ const todWin=periodWindow(mode,new Date(),todOffset);
+ updateTodNav(todWin);
+ if($('tod-total'))$('tod-total').textContent='Loading…';
+ try{
+  const payload=await requestJson({query:todOnlyQuery,variables:{id:speciesActive,tod:todWin.period}},new AbortController().signal);
+  if(version!==speciesGeneration)return;
+  renderTodChart((payload.data&&payload.data.station&&payload.data.station.timeOfDayDetectionCounts)||[]);
+ }catch(e){
+  if(version!==speciesGeneration)return;
+  if($('tod-total'))$('tod-total').textContent=e&&e.message||'Could not load the hour chart.';
+ }
+}
+function stepTod(step){
+ const mode=($('tod-period')&&$('tod-period').value)||'today';
+ const next=todOffset+step;
+ if(next<0||(step>0&&!canStepBack(mode,todOffset)))return;
+ todOffset=next;
+ reloadTod();
+}
+
+
 try{current=validate(JSON.parse($('saved').textContent));render();applyUpdated(currentWindow.period.to);updateDateNav(currentWindow);}
 catch(e){$('error').textContent='Included snapshot unavailable: '+e.message;}
 $('period').addEventListener('change',()=>{historyOffset=0;setSchedule();if(current&&current.latestLoading){current.latestLoading=false;for(const bird of current.topSpecies)bird.latestPending=false;updateAges();}generation++;if(busy){queued=true;$('status').textContent='Period change queued; displayed results retain their labeled window.';}else refresh();});
@@ -350,6 +903,15 @@ $('date-forward').addEventListener('click',()=>stepHistory(-1));
 $('auto').addEventListener('change',setSchedule);
 $('minutes').addEventListener('input',setSchedule);
 $('minutes').addEventListener('blur',commitMinutes);
-setSchedule();setInterval(updateAges,60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)updateAges();});refresh();
+setSchedule();setInterval(updateAges,60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)updateAges();});
+if($('species-back'))$('species-back').addEventListener('click',closeSpecies);
+if($('species-sort'))$('species-sort').addEventListener('change',()=>{if(!speciesActive)return;const controller=new AbortController();loadSpeciesClips(speciesActive,allTimePeriod(),true,speciesGeneration,controller.signal);});
+if($('tod-period'))$('tod-period').addEventListener('change',()=>{todOffset=0;reloadTod();});
+if($('tod-back'))$('tod-back').addEventListener('click',()=>stepTod(1));
+if($('tod-forward'))$('tod-forward').addEventListener('click',()=>stepTod(-1));
+if($('species-more'))$('species-more').addEventListener('click',()=>{if(!speciesActive||!speciesHasMore||speciesBusy)return;const controller=new AbortController();loadSpeciesClips(speciesActive,allTimePeriod(),false,speciesGeneration,controller.signal);});
+try{if(typeof window!=='undefined'&&window.addEventListener)window.addEventListener('hashchange',routeSpecies);}catch{}
+routeSpecies();
+refresh();
 
 </script></body></html>
