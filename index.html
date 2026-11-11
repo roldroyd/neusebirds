@@ -44,7 +44,7 @@
 .species-nav{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 16px;margin:0 0 12px}
 .species-nav .date-nav{font-size:1rem}
 #tod-date{font-family:"Source Serif 4","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-style:italic;font-weight:500;color:var(--ink)}
-.tod-wrap{min-width:0;overflow-x:hidden;overflow-y:visible}
+.tod-wrap{min-width:0;overflow-x:clip;overflow-y:visible}
 .tod-plot{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:var(--tod-head) var(--tod-h) auto;column-gap:6px;align-items:stretch;min-width:0;--tod-h:160px;--tod-head:1.5em}
 .tod-total{grid-column:2;grid-row:1;justify-self:end;align-self:start;margin:0;padding:0 0 4px;font-size:.76rem;line-height:1.2;color:var(--muted);white-space:nowrap;z-index:2;pointer-events:none}
 .tod-y{grid-column:1;grid-row:2;position:relative;height:var(--tod-h);min-width:1.6em}
@@ -55,7 +55,7 @@
 .tod-chart{position:absolute;inset:0;z-index:1}
 .tod-col{position:absolute;top:0;bottom:0;box-sizing:border-box;padding-right:1px;display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch}
 .tod-bar{width:100%;min-width:1px;background:#7d9a4e;border-radius:2px 2px 0 0}
-.tod-x{grid-column:2;grid-row:3;position:relative;height:1.45em;font-size:.62rem;color:var(--muted);font-variant-numeric:tabular-nums;min-width:0}
+.tod-x{grid-column:2;grid-row:3;position:relative;height:1.6em;font-size:.62rem;color:var(--muted);font-variant-numeric:tabular-nums;min-width:0}
 .tod-xtick{position:absolute;top:0;width:0;overflow:visible}
 .tod-xmark{display:block;width:1px;height:5px;margin-left:-.5px;background:#8a9584}
 .tod-xlabel{position:absolute;top:6px;left:0;white-space:nowrap;line-height:1;transform:translateX(-50%)}
