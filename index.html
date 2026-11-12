@@ -92,11 +92,28 @@
 #species-sort,#tod-period{max-width:100%;box-sizing:border-box}
 }
 
+.section-tabs{display:flex;flex-wrap:wrap;gap:4px 20px;margin:0 0 16px;border-bottom:1px solid var(--line)}
+.section-tab{font-family:var(--title-font);font-weight:700;font-size:1rem;color:var(--muted);text-decoration:none;padding:6px 2px 8px;border-bottom:3px solid transparent;margin-bottom:-1px}
+.section-tab:hover{color:var(--ink)}
+.section-tab[aria-current=page]{color:var(--green);border-bottom-color:#b17a23}
+.trends-head{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 14px;margin:4px 0 12px}
+#trends-title{font-family:"Source Serif 4","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-size:clamp(1.15rem,2.4vw,1.45rem);font-weight:600;margin:0;letter-spacing:0}
+.subtabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.subtab{display:inline-flex;align-items:center;min-height:34px;padding:5px 14px;border:1px solid #aab7ab;border-radius:999px;background:var(--paper);color:var(--ink);text-decoration:none;font-weight:600;font-size:.86rem}
+.subtab:hover{background:#efe8d4}
+.subtab.active,.subtab.active:hover{background:var(--green);border-color:var(--green);color:#fff}
+.trends-note{font-size:.86rem;color:var(--muted);line-height:1.45;margin:0;max-width:62rem}
+#trends-status{color:var(--muted)}#trends-error{color:#8c2925}#trends-status:empty,#trends-error:empty{display:none}
+#trends-table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
+#trends-empty{padding:36px;text-align:center;background:var(--paper);border:1px dashed var(--line);border-radius:10px}
+.trends-credit{font-size:.76rem;color:var(--muted);margin:22px 0 0}
+.trends-credit a{color:var(--green);font-weight:600}
 </style></head><body><main>
-<header><h1 class="site-title"><img class="site-icon" src="apple-touch-icon.png" width="48" height="48" alt=""><span id="station">Neuse River</span><span class="date-nav"><button type="button" id="date-back" aria-label="Previous period">◀</button><span id="window-date" class="title-date">November 8th, 2026</span><button type="button" id="date-forward" aria-label="Next period" disabled>▶</button></span></h1><div id="list-view-header"><p class="intro"><span id="window-label" class="summary-heading">Species heard <em id="window-accent">in the last 24 hours</em></span><span class="counts"><span class="count-glue"><span class="count-sep" aria-hidden="true">·</span><span id="species-total">28</span></span> <span id="species-word">species</span>, <span id="detections-total">842</span> <span id="detections-word">detections</span></span></p><div class="auto-line"><span id="updated">Updated 12:03 PM</span><span class="auto-controls"><span class="auto-phrase"><label class="auto-toggle" for="auto"><input id="auto" type="checkbox" checked> Auto-refresh</label><label for="minutes">every</label></span><input id="minutes" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="5" aria-label="Refresh interval in minutes" autocomplete="off"><span>minutes</span></span><button id="refresh" type="button">Refresh now</button></div><div id="interval-error" role="alert"></div></div></header>
+<header><h1 class="site-title"><img class="site-icon" src="apple-touch-icon.png" width="48" height="48" alt=""><span id="station">Neuse River</span><span class="date-nav"><button type="button" id="date-back" aria-label="Previous period">◀</button><span id="window-date" class="title-date">November 8th, 2026</span><button type="button" id="date-forward" aria-label="Next period" disabled>▶</button></span></h1><nav id="section-tabs" class="section-tabs" aria-label="Sections"><a href="#" id="tab-species" class="section-tab" aria-current="page">Species</a><a href="#arrivals" id="tab-arrivals" class="section-tab" aria-current="false">Arrivals</a><a href="#missing" id="tab-missing" class="section-tab" aria-current="false">Missing</a></nav><div id="list-view-header"><p class="intro"><span id="window-label" class="summary-heading">Species heard <em id="window-accent">in the last 24 hours</em></span><span class="counts"><span class="count-glue"><span class="count-sep" aria-hidden="true">·</span><span id="species-total">28</span></span> <span id="species-word">species</span>, <span id="detections-total">842</span> <span id="detections-word">detections</span></span></p><div class="auto-line"><span id="updated">Updated 12:03 PM</span><span class="auto-controls"><span class="auto-phrase"><label class="auto-toggle" for="auto"><input id="auto" type="checkbox" checked> Auto-refresh</label><label for="minutes">every</label></span><input id="minutes" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="5" aria-label="Refresh interval in minutes" autocomplete="off"><span>minutes</span></span><button id="refresh" type="button">Refresh now</button></div><div id="interval-error" role="alert"></div></div></header>
 <div id="list-view"><section aria-label="Display and refresh controls"><div class="toolbar"><label class="field" for="period">Time Period<select id="period"><option value="today" selected>Today</option><option value="rolling">24 hours</option><option value="week">week</option><option value="month">month</option><option value="year">year</option><option value="all">all time</option></select></label><label class="field" for="sort">Sort by<select id="sort"><option value="count">Most detections</option><option value="recent" selected>Most recent</option><option value="name">Name A–Z</option></select></label><label class="field" for="view">View<select id="view" aria-label="Species view"><option value="cards" selected>Cards</option><option value="table">Table</option></select></label><div class="search"><input id="filter" type="search" placeholder="Search by common or scientific name." aria-label="Search species"></div></div></section>
 <div class="feedback"><span id="status" role="status" aria-live="polite"></span><div id="error" role="alert"></div></div><section id="cards" class="grid" aria-label="Species cards"></section><div id="table-wrap" hidden><table><thead><tr><th scope="col">Species</th><th scope="col">Detections</th></tr></thead><tbody id="rows"></tbody></table></div><p id="empty" hidden></p>
 </div>
+<section id="trends-view" hidden aria-labelledby="trends-title"><div class="trends-head"><h2 id="trends-title">New arrivals</h2><span id="trends-count" class="counts"></span></div><nav id="trends-subtabs" class="subtabs" aria-label="Comparison window"></nav><p id="trends-note" class="trends-note"></p><div class="feedback"><span id="trends-status" role="status" aria-live="polite"></span><div id="trends-error" role="alert"></div></div><section id="trends-cards" class="grid" aria-label="Species cards"></section><div id="trends-table-wrap" hidden><table><thead><tr><th scope="col">Species</th><th scope="col">Detections</th></tr></thead><tbody id="trends-rows"></tbody></table></div><p id="trends-empty" hidden></p><p class="trends-credit">Arrivals and Missing are based on an idea from <a href="https://tweetsheet.app/arrivals?station=22946" target="_blank" rel="noopener noreferrer">Tweet Sheet</a>, using the same public BirdWeather data.</p></section>
 <section id="species-page" hidden>
 <p><a id="species-back" href="#">← All species</a></p>
 <div id="species-status" role="status" aria-live="polite"></div>
@@ -453,6 +470,166 @@ async function refresh(reuse=false){
 }
 
 let speciesActive=null,speciesBusy=false,speciesGeneration=0,speciesCursor=null,speciesHasMore=false,listScroll=0,todOffset=0,activeAudio=null,clipObjectUrls=[];
+const TREND_SPECIES_FIELDS='count species { id commonName scientificName imageUrl thumbnailUrl imageCredit imageLicense imageLicenseUrl birdweatherUrl wikipediaUrl ebirdUrl ebirdCode }';
+const TREND_SUBTABS={arrivals:[['week','This week'],['month','This month'],['year','This year'],['soon','Coming soon?']],missing:[['week','Vs last week'],['month','Vs last month'],['years','Vs previous years']]};
+const TREND_TTL=10*60000;
+let trendsActive=null,trendsGeneration=0,trendCache=new Map(),returnHash='',trendScroll=0,lastTrendSub={arrivals:'week',missing:'week'};
+function parseTrendRef(hash=locationHash()){
+ const m=String(hash||'').match(/^#(arrivals|missing)(?:\/([a-z]+))?$/);
+ if(!m)return null;
+ const subs=TREND_SUBTABS[m[1]].map(x=>x[0]);
+ return {kind:m[1],sub:subs.includes(m[2])?m[2]:subs[0]};
+}
+function trendHash(kind,sub){return '#'+kind+(sub&&sub!==TREND_SUBTABS[kind][0][0]?'/'+sub:'');}
+function civilYearShift(day,years){
+ const [y,m,d]=day.split('-').map(Number),ny=y+years,last=new Date(Date.UTC(ny,m,0)).getUTCDate();
+ return ny+'-'+String(m).padStart(2,'0')+'-'+String(Math.min(d,last)).padStart(2,'0');
+}
+// Civil (America/New_York) date range, both ends inclusive. A range ending today ends at the request time.
+function civilRange(from,to,today,now){
+ return {from:from+'T00:00:00',to:to>=today?now.toISOString():civilShift(to,1)+'T00:00:00',timezone:'America/New_York'};
+}
+function shortRange(from,to){
+ const a=shortMonthDay(from),b=shortMonthDay(to);
+ return from.slice(0,4)===to.slice(0,4)?a+' – '+b+(from.slice(0,4)!==easternDate(new Date()).slice(0,4)?', '+from.slice(0,4):''):a+', '+from.slice(0,4)+' – '+b+', '+to.slice(0,4);
+}
+function trendWindows(kind,sub,now=new Date(),earliest=earliestCivil()){
+ const today=easternDate(now),year=today.slice(0,4),day=n=>civilShift(today,n);
+ const ref=(from,to,minCount,extra)=>Object.assign({from,to,minCount},extra||{});
+ let here,refs;
+ if(kind==='arrivals'){
+  if(sub==='week'){here={from:day(-6),to:today};refs=[ref(day(-13),day(-7),3)];}
+  else if(sub==='month'){here={from:day(-29),to:today};refs=[ref(day(-59),day(-30),3)];}
+  else if(sub==='year'){here={from:year+'-01-01',to:today};refs=[1,2,3].map(n=>ref((year-n)+'-01-01',(year-n)+'-12-31',3,{year:String(year-n)}));}
+  else{here={from:year+'-01-01',to:today};refs=[1,2,3].map(n=>{const s=civilYearShift(today,-n);return ref(s,civilShift(s,28),3,{year:s.slice(0,4)});});}
+ }else{
+  here={from:day(-6),to:today};
+  if(sub==='week')refs=[ref(day(-13),day(-7),3)];
+  else if(sub==='month')refs=[ref(day(-37),day(-7),3)];
+  else refs=[1,2,3].map(n=>{const s=civilYearShift(today,-n);return ref(civilShift(s,-7),civilShift(s,7),20,{year:s.slice(0,4)});});
+ }
+ const all=refs.length,usable=refs.filter(r=>r.to>=earliest);
+ const clipped=usable.some(r=>r.from<earliest);
+ here.period=civilRange(here.from,here.to,today,now);
+ for(const r of usable)r.period=civilRange(r.from,r.to,today,now);
+ return {kind,sub,today,earliest,here,refs:usable,noHistory:all>0&&usable.length===0,clipped,skipped:all-usable.length};
+}
+function computeTrend(kind,sub,hereRows,refRows,refs){
+ const ids=(rows,min)=>new Set(rows.filter(r=>r.count>=min).map(r=>r.species.id));
+ if(kind==='arrivals'&&sub==='soon'){
+  const heard=ids(hereRows,1),out=new Map();
+  refRows.forEach((rows,i)=>{for(const r of rows){if(r.count<refs[i].minCount||heard.has(r.species.id))continue;const e=out.get(r.species.id);if(e){e.years+=1;e.count+=r.count;}else out.set(r.species.id,{species:r.species,count:r.count,years:1});}});
+  return [...out.values()].sort((a,b)=>b.years-a.years||b.count-a.count||a.species.commonName.localeCompare(b.species.commonName));
+ }
+ if(kind==='arrivals'){
+  const before=new Set();refRows.forEach((rows,i)=>{for(const r of rows)if(r.count>=refs[i].minCount)before.add(r.species.id);});
+  return hereRows.filter(r=>r.count>=3&&!before.has(r.species.id)).map(r=>({species:r.species,count:r.count})).sort((a,b)=>b.count-a.count||a.species.commonName.localeCompare(b.species.commonName));
+ }
+ const present=ids(hereRows,3),out=new Map();
+ refRows.forEach((rows,i)=>{for(const r of rows){if(r.count<refs[i].minCount||present.has(r.species.id))continue;const e=out.get(r.species.id);if(!e||r.count>e.count)out.set(r.species.id,{species:r.species,count:r.count,year:refs[i].year||null,ref:refs[i]});}});
+ return [...out.values()].sort((a,b)=>b.count-a.count||a.species.commonName.localeCompare(b.species.commonName));
+}
+function trendNote(w){
+ const k=w.kind,s=w.sub;let text;
+ if(k==='arrivals')text=s==='week'?'Heard at the station the past 7 days but silent the 7 days before that — possibly newly arrived.':s==='month'?'Heard at the station the past 30 days but silent the 30 days before that.':s==='year'?'Heard at the station for the first time this year — not in any of the prior 3 years.':'New arrivals you can expect over the next month, based on previous years.';
+ else{const r=w.refs[0];text=s==='week'?'Heard the previous 7 days ('+shortRange(r.from,r.to)+') but silent the past 7 days — possibly recently departed.':s==='month'?'Heard the previous 30 days ('+shortRange(r.from,r.to)+') but silent the past 7 days.':'Heard at the station the same week in any of the last 3 years (each ±7 days, with at least 20 detections in some year) but not in the past 7 days.';}
+ if(w.clipped||(w.skipped&&!w.noHistory))text+=' Station history begins '+displayCivilDate(w.earliest)+', so the comparison only reaches back that far.';
+ return text;
+}
+function trendEmptyText(w){
+ const since=displayCivilDate(w.earliest);
+ if(w.noHistory){
+  if(w.kind==='arrivals'&&w.sub==='year')return 'No prior years to compare yet — this station\'s data begins '+since+'.';
+  if(w.kind==='arrivals')return 'Nothing to predict yet — this station\'s data begins '+since+', so there are no earlier years to learn from.';
+  return 'Nothing to compare yet — this station\'s data begins '+since+', so there are no previous years.';
+ }
+ if(w.kind==='arrivals')return w.sub==='year'?'No new arrivals — every species heard this year was also heard in the prior years.':w.sub==='soon'?'Nothing expected — every regular for the coming month has already shown up this year.':'No new arrivals in this window.';
+ return 'Nothing missing — every species heard in the comparison window is still around.';
+}
+function trendDetail(w,row){
+ const n=row.count.toLocaleString()+' '+(row.count===1?'detection':'detections');
+ if(w.kind==='arrivals')return w.sub==='week'?n+' in the past 7 days':w.sub==='month'?n+' in the past 30 days':w.sub==='year'?n+' this year':n+' in this window in '+row.years+' earlier '+(row.years===1?'year':'years');
+ if(w.sub==='years')return n+' around this week in '+(row.year||'an earlier year');
+ return n+' '+shortRange(row.ref.from,row.ref.to);
+}
+function validTrendRows(rows){
+ if(!Array.isArray(rows))throw new Error('Unexpected BirdWeather species response.');
+ const seen=new Set();
+ for(const r of rows){if(!r||!Number.isSafeInteger(r.count)||r.count<0||!r.species||typeof r.species.id!=='string'||typeof r.species.commonName!=='string'||typeof r.species.scientificName!=='string'||seen.has(r.species.id))throw new Error('Invalid species data from BirdWeather.');seen.add(r.species.id);}
+ return rows;
+}
+async function fetchTrend(w,signal){
+ if(w.noHistory)return {rows:[],periods:0};
+ const periods=[w.here.period,...w.refs.map(r=>r.period)];
+ const vars={},defs=[],fields=[];
+ periods.forEach((p,i)=>{vars['p'+i]=p;defs.push('$p'+i+':InputDuration');fields.push('w'+i+': topSpecies(limit:500, period:$p'+i+'){ '+TREND_SPECIES_FIELDS+' }');});
+ const payload=await requestJson({query:'query('+defs.join(',')+'){ station(id:22946){ id '+fields.join(' ')+' } }',variables:vars},signal);
+ const s=payload&&payload.data&&payload.data.station;
+ if(!s||s.id!=='22946')throw new Error('Unexpected station response.');
+ const lists=periods.map((p,i)=>validTrendRows(s['w'+i]));
+ return {rows:computeTrend(w.kind,w.sub,lists[0],lists.slice(1),w.refs),periods:periods.length};
+}
+function renderTrendSubtabs(kind,sub){
+ const nav=$('trends-subtabs');if(!nav)return;nav.replaceChildren();
+ for(const [key,label] of TREND_SUBTABS[kind]){
+  const a=element('a',label,'subtab'+(key===sub?' active':''));a.href=trendHash(kind,key);
+  a.setAttribute('aria-current',key===sub?'page':'false');
+  a.addEventListener('click',e=>{if(e&&typeof e.preventDefault==='function')e.preventDefault();showTrends(kind,key);});
+  nav.append(a);
+ }
+}
+function renderTrendRows(w,rows){
+ const cards=$('trends-cards'),tbody=$('trends-rows');
+ cards.replaceChildren();tbody.replaceChildren();
+ const table=view==='table';cards.hidden=table;$('trends-table-wrap').hidden=!table;
+ rows.forEach((row,index)=>{
+  const s=row.species,b={species:s,count:row.count};
+  const ident=element('div'),title=element('h3'),open=element('a',s.commonName,'species-open');
+  open.href=speciesHref(s);open.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();openSpecies(s.id);});
+  title.append(open);ident.append(title,element('p',s.scientificName,'latin'),element('p',trendDetail(w,row),'last-heard'));
+  if(!table){
+   const card=element('article',undefined,'card'),image=photo(b,index),body=element('div',undefined,'card-body');
+   const badge=element('span',row.count.toLocaleString(),'detection-badge');badge.setAttribute('aria-label',row.count+' detections');image.wrap.append(badge);
+   body.append(ident);card.append(image.wrap,body,cardLinks(s));card.addEventListener('click',e=>speciesSurfaceClick(e,s.id));cards.append(card);
+  }else{
+   const tr=element('tr'),name=element('td'),count=element('td',row.count.toLocaleString(),'table-count'),cell=element('div',undefined,'table-species'),image=photo(b,index,true);
+   image.wrap.className='photo compact-photo';ident.append(cardLinks(s));cell.append(image.wrap,ident);name.append(cell);tr.append(name,count);tr.addEventListener('click',e=>speciesSurfaceClick(e,s.id));tbody.append(tr);
+  }
+ });
+}
+async function loadTrends(kind,sub,force=false){
+ const version=++trendsGeneration,w=trendWindows(kind,sub);
+ $('trends-title').textContent=kind==='arrivals'?'New arrivals':'Missing';
+ $('trends-note').textContent=trendNote(w);
+ renderTrendSubtabs(kind,sub);
+ $('trends-error').textContent='';$('trends-empty').hidden=true;$('trends-count').textContent='';
+ const key=kind+'/'+sub+'/'+w.today,hit=trendCache.get(key);
+ let result=hit&&!force&&Date.now()-hit.at<TREND_TTL?hit.result:null;
+ if(!result){
+  $('trends-cards').replaceChildren();$('trends-rows').replaceChildren();
+  $('trends-status').textContent=w.noHistory?'':'Loading…';
+  const controller=new AbortController();
+  try{result=await fetchTrend(w,controller.signal);}
+  catch(e){if(version!==trendsGeneration)return;$('trends-status').textContent='';$('trends-error').textContent='Could not load '+(kind==='arrivals'?'arrivals':'missing species')+': '+(e instanceof SyntaxError?'BirdWeather returned invalid JSON.':e.message||'Network error.');return;}
+  if(version!==trendsGeneration)return;
+  trendCache.set(key,{at:Date.now(),result});
+ }
+ $('trends-status').textContent='';
+ const rows=result.rows;
+ $('trends-count').textContent=rows.length.toLocaleString()+' species';
+ renderTrendRows(w,rows);
+ $('trends-empty').textContent=trendEmptyText(w);$('trends-empty').hidden=rows.length!==0;
+}
+function showTrends(kind,sub){
+ const next=trendHash(kind,sub);
+ try{if(typeof location!=='undefined'&&locationHash()!==next)location.hash=next;}catch{}
+ routeSpecies();
+}
+function showSpeciesList(e){
+ if(e&&typeof e.preventDefault==='function')e.preventDefault();
+ try{if(typeof location!=='undefined'&&locationHash())location.hash='';}catch{}
+ routeSpecies();
+}
 const SCORE_GTE=7,CLIP_PAGE=10;
 const speciesMetaQuery="query($id:ID!,$tod:InputDuration,$all:InputDuration,$today:InputDuration,$week:InputDuration,$ytd:InputDuration){ species(id:$id){ id commonName scientificName imageUrl thumbnailUrl imageCredit imageLicense imageLicenseUrl birdweatherUrl wikipediaUrl wikipediaSummary ebirdUrl ebirdCode } station(id:22946){ earliestDetectionAt timeOfDayDetectionCounts(speciesId:$id, period:$tod, scoreGte:7){ count bins { key count } } } dailyDetectionCounts(stationIds:[\"22946\"], speciesIds:[$id], period:$all){ date dayOfYear total } todayCounts: counts(period:$today, speciesId:$id, stationIds:[\"22946\"]){ detections } weekCounts: counts(period:$week, speciesId:$id, stationIds:[\"22946\"]){ detections } ytdCounts: counts(period:$ytd, speciesId:$id, stationIds:[\"22946\"]){ detections } allCounts: counts(period:$all, speciesId:$id, stationIds:[\"22946\"]){ detections } }";
 const speciesClipsQuery="query($id:ID!,$period:InputDuration,$first:Int!,$after:String,$sortBy:String){ station(id:22946){ detections(first:$first, after:$after, speciesId:$id, period:$period, sortBy:$sortBy, scoreGte:7, validSoundscape:true){ pageInfo { hasNextPage endCursor } nodes { id timestamp score soundscape { url duration startTime endTime downloadFilename } } } } }";
@@ -490,38 +667,68 @@ function speciesSurfaceClick(e,id){
  openSpecies(id);
 }
 function applySpeciesMode(){
- const on=!!speciesActive;
+ const on=!!speciesActive,trends=!on&&!!trendsActive;
  const header=$('list-view-header'),list=$('list-view'),page=$('species-page'),back=$('date-back'),nav=back&&back.parentElement;
- if(header)header.hidden=on;
- if(list)list.hidden=on;
+ if(header)header.hidden=on||trends;
+ if(list)list.hidden=on||trends;
  if(page)page.hidden=!on;
- if(nav)nav.hidden=on;
+ if(nav)nav.hidden=on||trends;
+ if($('trends-view'))$('trends-view').hidden=!trends;
+ if($('section-tabs'))$('section-tabs').hidden=on;
+ const active=trends?trendsActive.kind:'species';
+ for(const k of ['species','arrivals','missing']){const tab=$('tab-'+k);if(tab)tab.setAttribute('aria-current',k===active?'page':'false');}
 }
 function setDocumentTitle(name){
  try{document.title=name?name+' · NeuseBirds':'NeuseBirds · Neuse River';}catch{}
 }
-function scrollY(){try{return (typeof window!=='undefined'&&Number(window.scrollY))||0;}catch{return 0;}}
+function pageScrollY(){try{return (typeof window!=='undefined'&&Number(window.scrollY))||0;}catch{return 0;}}
 function scrollToY(y){try{if(typeof window!=='undefined'&&window.scrollTo)window.scrollTo(0,y||0);}catch{}}
 function openSpecies(id){
  if(!id)return;
  const next='#species/'+id;
+ if(!speciesActive){
+  if(trendsActive){trendScroll=pageScrollY();returnHash=trendHash(trendsActive.kind,trendsActive.sub);}
+  else{listScroll=pageScrollY();returnHash='';}
+  const back=$('species-back');
+  if(back){back.textContent=returnHash?(trendsActive.kind==='arrivals'?'← Arrivals':'← Missing'):'← All species';back.href=returnHash||'#';}
+ }
  try{if(typeof location!=='undefined'&&locationHash()!==next)location.hash='#species/'+id;}catch{}
- if(!speciesActive)listScroll=scrollY();
  routeSpecies();
 }
 function closeSpecies(e){
  if(e&&typeof e.preventDefault==='function')e.preventDefault();
  stopAllAudio();
- try{if(typeof location!=='undefined')location.hash='';}catch{}
+ const target=returnHash&&parseTrendRef(returnHash);returnHash='';
+ try{if(typeof location!=='undefined')location.hash=target?trendHash(target.kind,target.sub):'';}catch{}
  speciesActive=null;speciesGeneration++;
+ if(target){enterTrends(target,true);return;}
+ trendsActive=null;
  applySpeciesMode();
  setDocumentTitle('');
  scrollToY(listScroll);
 }
+function enterTrends(trend,restore){
+ const changed=!trendsActive||trendsActive.kind!==trend.kind||trendsActive.sub!==trend.sub;
+ if(!trendsActive&&!restore)listScroll=pageScrollY();
+ const entering=!trendsActive;
+ trendsActive=trend;lastTrendSub[trend.kind]=trend.sub;
+ applySpeciesMode();
+ setDocumentTitle(trend.kind==='arrivals'?'Arrivals':'Missing');
+ if(changed||restore)loadTrends(trend.kind,trend.sub);
+ if(restore)scrollToY(trendScroll);else if(entering)scrollToY(0);
+}
 function routeSpecies(){
+ const trend=parseTrendRef();
+ if(trend){
+  const wasSpecies=!!speciesActive;
+  if(wasSpecies){stopAllAudio();speciesActive=null;speciesGeneration++;returnHash='';}
+  enterTrends(trend,wasSpecies);
+  return;
+ }
  const ref=parseSpeciesRef();
  if(!ref){
-  if(speciesActive){stopAllAudio();speciesActive=null;speciesGeneration++;applySpeciesMode();setDocumentTitle('');scrollToY(listScroll);}
+  if(trendsActive&&!speciesActive){trendsActive=null;trendsGeneration++;applySpeciesMode();setDocumentTitle('');scrollToY(listScroll);return;}
+  if(speciesActive){trendsActive=null;stopAllAudio();speciesActive=null;speciesGeneration++;applySpeciesMode();setDocumentTitle('');scrollToY(listScroll);}
   else applySpeciesMode();
   return;
  }
@@ -1104,7 +1311,7 @@ catch(e){$('error').textContent='Included snapshot unavailable: '+e.message;}
 $('period').addEventListener('change',()=>{historyOffset=0;setSchedule();if(current&&current.latestLoading){current.latestLoading=false;for(const bird of current.topSpecies)bird.latestPending=false;updateAges();}generation++;if(busy){queued=true;$('status').textContent='Period change queued; displayed results retain their labeled window.';}else refresh();});
 $('filter').addEventListener('input',render);
 $('sort').addEventListener('change',render);
-$('view').addEventListener('change',()=>{view=$('view').value==='table'?'table':'cards';render();});
+$('view').addEventListener('change',()=>{view=$('view').value==='table'?'table':'cards';render();if(trendsActive&&!speciesActive)loadTrends(trendsActive.kind,trendsActive.sub);});
 $('refresh').addEventListener('click',refresh);
 $('date-back').addEventListener('click',()=>stepHistory(1));
 $('date-forward').addEventListener('click',()=>stepHistory(-1));
@@ -1118,6 +1325,8 @@ if($('tod-period'))$('tod-period').addEventListener('change',()=>{todOffset=0;re
 if($('tod-back'))$('tod-back').addEventListener('click',()=>stepTod(1));
 if($('tod-forward'))$('tod-forward').addEventListener('click',()=>stepTod(-1));
 if($('species-more'))$('species-more').addEventListener('click',()=>{if(!speciesActive||!speciesHasMore||speciesBusy)return;const controller=new AbortController();loadSpeciesClips(speciesActive,allTimePeriod(),false,speciesGeneration,controller.signal);});
+if($('tab-species'))$('tab-species').addEventListener('click',showSpeciesList);
+for(const k of ['arrivals','missing']){if($('tab-'+k))$('tab-'+k).addEventListener('click',e=>{if(e&&typeof e.preventDefault==='function')e.preventDefault();showTrends(k,lastTrendSub[k]);});}
 try{if(typeof window!=='undefined'&&window.addEventListener)window.addEventListener('hashchange',routeSpecies);}catch{}
 routeSpecies();
 refresh();

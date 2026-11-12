@@ -190,3 +190,20 @@ times stay accurate and unqueried times say unavailable. Most recent sorting
 only becomes ready after every lookup batch finishes; meanwhile it explicitly
 displays count order. An aggregate-query failure still preserves the previous
 snapshot. Progress and timeout messages distinguish these cases.
+
+
+ARRIVALS AND MISSING
+Tabs under the title switch between Species (the main list), Arrivals and
+Missing. Idea from Tweet Sheet (https://tweetsheet.app/arrivals), using the
+same public BirdWeather topSpecies data; day boundaries are America/New_York.
+Arrivals: This week (heard the past 7 days, fewer than 3 detections the 7
+days before), This month (past 30 vs prior 30), This year (not in any of the
+prior 3 calendar years) and Coming soon? (heard in the next 4 weeks of earlier
+years, not yet this year). A species needs at least 3 detections to count as
+heard. Missing: Vs last week and Vs last month (heard before, under 3
+detections the past 7 days) and Vs previous years (at least 20 detections the
+same week, +/-7 days, in any of the last 3 years). Comparisons that would
+reach before the station's first detection (February 19, 2026) are skipped
+and explained instead of queried. Each tab is one API request, cached for
+10 minutes. Species links open the species page at the top; Back returns to
+the same tab.
