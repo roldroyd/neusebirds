@@ -193,8 +193,8 @@ snapshot. Progress and timeout messages distinguish these cases.
 
 
 ARRIVALS AND MISSING
-Tabs under the title switch between Species (the main list), Arrivals and
-Missing. Idea from Tweet Sheet (https://tweetsheet.app/arrivals), using the
+Tabs under the title switch between Species (the main list), Arrivals,
+Missing and Conditions. Arrivals/Missing idea from Tweet Sheet (https://tweetsheet.app/arrivals), using the
 same public BirdWeather topSpecies data; day boundaries are America/New_York.
 Arrivals: This week (heard the past 7 days, fewer than 3 detections the 7
 days before), This month (past 30 vs prior 30), This year (not in any of the
@@ -207,3 +207,30 @@ reach before the station's first detection (February 19, 2026) are skipped
 and explained instead of queried. Each tab is one API request, cached for
 10 minutes. Species links open the species page at the top; Back returns to
 the same tab.
+
+
+CONDITIONS
+The Conditions tab (#conditions, #conditions/week, #conditions/month) shows
+the PUC's own sensor readings from BirdWeather's public GraphQL API
+(station.sensors.environment / light and environmentHistory / lightHistory);
+no login. A card shows the latest reading with its time in Eastern (ET):
+temperature °F (°C), humidity, pressure inHg (hPa), air quality index, eCO2
+ppm, VOC, sound level dB and light (clear channel, raw counts). AQI, eCO2 and
+VOC are estimates from the PUC's gas sensor, not official or lab values; the
+temperature sensor sits in the unit, so sun can push it above shade air
+temperature. A reading older than 15 minutes is flagged with its age.
+
+Charts (inline SVG, no libraries) cover temperature, humidity, pressure, AQI,
+sound and light, with an Eastern-time x-axis (DST-safe). The API has no
+aggregation, and readings arrive about every 36 seconds (~2,300/day,
+~69,000/month), so each period is one request:
+  24 hours: all readings (first:3000, ~650 KB raw), averaged per 10 minutes
+            (144 points).
+  7 days:   168 aliased hourly windows, latest 3 readings each (~150 KB),
+            one point per hour.
+  30 days:  240 aliased 3-hour windows, latest 3 readings each (~210 KB),
+            folded into one point per Eastern day: average line plus a
+            shaded low-high band. Brief peaks between snapshots can be missed.
+Windows or buckets with no readings show as gaps; out-of-range or missing
+values are ignored. Results are cached per period for 10 minutes; Refresh
+reloads, and a failed refresh keeps the last good charts.

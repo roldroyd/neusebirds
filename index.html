@@ -106,14 +106,38 @@
 #trends-status{color:var(--muted)}#trends-error{color:#8c2925}#trends-status:empty,#trends-error:empty{display:none}
 #trends-table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
 #trends-empty{padding:36px;text-align:center;background:var(--paper);border:1px dashed var(--line);border-radius:10px}
+#cond-title{font-family:"Source Serif 4","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-size:clamp(1.15rem,2.4vw,1.45rem);font-weight:600;margin:0;letter-spacing:0}
+.cond-refresh{min-height:32px;padding:4px 12px;font-size:.8rem;margin-left:auto}
+#cond-status{color:var(--muted)}#cond-error{color:#8c2925}#cond-status:empty,#cond-error:empty{display:none}
+.cond-current{margin:0 0 18px}.cond-when{font-size:.86rem;color:var(--muted);margin:0 0 8px}.cond-when.stale{color:#8c5a12;font-weight:600}
+.cond-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 8px}
+.cond-tile{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--paper);display:flex;flex-direction:column;gap:1px;min-width:0}
+.cond-tile-label{font-size:.74rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.cond-tile-value{font-family:"Source Serif 4","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-size:1.45rem;font-weight:600;line-height:1.2;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cond-tile-sub{font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}.cond-tile-note{font-size:.7rem;color:var(--muted);font-style:italic}
+.cond-charts{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,460px),1fr));gap:16px 28px}
+.cond-chart{margin:0;min-width:0;border:1px solid var(--line);border-radius:10px;padding:12px 14px 10px}
+.cond-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:2px 12px;margin:0 0 8px}
+.cond-name{font-weight:700;font-size:.95rem}.cond-name .muted{font-weight:600;font-size:.8rem}.cond-stats{font-size:.76rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.cond-plot{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:var(--cond-h) auto;column-gap:6px;--cond-h:150px;min-width:0}
+.cond-y{grid-column:1;grid-row:1;position:relative;min-width:2.2em}
+.cond-ylabel{position:absolute;right:0;transform:translateY(50%);font-size:.66rem;color:var(--muted);font-variant-numeric:tabular-nums;line-height:1;white-space:nowrap;padding-right:2px}
+.cond-area{grid-column:2;grid-row:1;position:relative;min-width:0;border-bottom:1px solid #8a9584}
+.cond-area svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;display:block}
+.cond-grid{stroke:rgba(33,61,48,.12);stroke-width:1;vector-effect:non-scaling-stroke}.cond-vgrid{stroke:rgba(33,61,48,.07);stroke-width:1;vector-effect:non-scaling-stroke}.cond-vgrid.major{stroke:rgba(33,61,48,.2)}
+.cond-x{grid-column:2;grid-row:2;position:relative;height:1.7em;font-size:.62rem;color:var(--muted);font-variant-numeric:tabular-nums;min-width:0;overflow:hidden}
+.cond-xlabel{position:absolute;top:5px;white-space:nowrap;line-height:1;transform:translateX(-50%)}.cond-xlabel.edge-l{transform:none}.cond-xlabel.edge-r{transform:translateX(-100%)}
+.cond-note{font-size:.76rem;color:var(--muted);line-height:1.4;margin:6px 0 0}.cond-nodata{font-size:.86rem;color:var(--muted);margin:8px 0}
+@media(max-width:640px){.cond-tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.cond-tile-value{font-size:1.25rem}.cond-plot{--cond-h:130px}.cond-xlabel.minor{display:none}.cond-chart{padding:10px 10px 8px}}
 .trends-credit{font-size:.76rem;color:var(--muted);margin:22px 0 0}
 .trends-credit a{color:var(--green);font-weight:600}
 </style></head><body><main>
-<header><h1 class="site-title"><img class="site-icon" src="apple-touch-icon.png" width="48" height="48" alt=""><span id="station">Neuse River</span><span class="date-nav"><button type="button" id="date-back" aria-label="Previous period">◀</button><span id="window-date" class="title-date">November 8th, 2026</span><button type="button" id="date-forward" aria-label="Next period" disabled>▶</button></span></h1><nav id="section-tabs" class="section-tabs" aria-label="Sections"><a href="#" id="tab-species" class="section-tab" aria-current="page">Species</a><a href="#arrivals" id="tab-arrivals" class="section-tab" aria-current="false">Arrivals</a><a href="#missing" id="tab-missing" class="section-tab" aria-current="false">Missing</a></nav><div id="list-view-header"><p class="intro"><span id="window-label" class="summary-heading">Species heard <em id="window-accent">in the last 24 hours</em></span><span class="counts"><span class="count-glue"><span class="count-sep" aria-hidden="true">·</span><span id="species-total">28</span></span> <span id="species-word">species</span>, <span id="detections-total">842</span> <span id="detections-word">detections</span></span></p><div class="auto-line"><span id="updated">Updated 12:03 PM</span><span class="auto-controls"><span class="auto-phrase"><label class="auto-toggle" for="auto"><input id="auto" type="checkbox" checked> Auto-refresh</label><label for="minutes">every</label></span><input id="minutes" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="5" aria-label="Refresh interval in minutes" autocomplete="off"><span>minutes</span></span><button id="refresh" type="button">Refresh now</button></div><div id="interval-error" role="alert"></div></div></header>
+<header><h1 class="site-title"><img class="site-icon" src="apple-touch-icon.png" width="48" height="48" alt=""><span id="station">Neuse River</span><span class="date-nav"><button type="button" id="date-back" aria-label="Previous period">◀</button><span id="window-date" class="title-date">November 8th, 2026</span><button type="button" id="date-forward" aria-label="Next period" disabled>▶</button></span></h1><nav id="section-tabs" class="section-tabs" aria-label="Sections"><a href="#" id="tab-species" class="section-tab" aria-current="page">Species</a><a href="#arrivals" id="tab-arrivals" class="section-tab" aria-current="false">Arrivals</a><a href="#missing" id="tab-missing" class="section-tab" aria-current="false">Missing</a><a href="#conditions" id="tab-conditions" class="section-tab" aria-current="false">Conditions</a></nav><div id="list-view-header"><p class="intro"><span id="window-label" class="summary-heading">Species heard <em id="window-accent">in the last 24 hours</em></span><span class="counts"><span class="count-glue"><span class="count-sep" aria-hidden="true">·</span><span id="species-total">28</span></span> <span id="species-word">species</span>, <span id="detections-total">842</span> <span id="detections-word">detections</span></span></p><div class="auto-line"><span id="updated">Updated 12:03 PM</span><span class="auto-controls"><span class="auto-phrase"><label class="auto-toggle" for="auto"><input id="auto" type="checkbox" checked> Auto-refresh</label><label for="minutes">every</label></span><input id="minutes" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="5" aria-label="Refresh interval in minutes" autocomplete="off"><span>minutes</span></span><button id="refresh" type="button">Refresh now</button></div><div id="interval-error" role="alert"></div></div></header>
 <div id="list-view"><section aria-label="Display and refresh controls"><div class="toolbar"><label class="field" for="period">Time Period<select id="period"><option value="today" selected>Today</option><option value="rolling">24 hours</option><option value="week">week</option><option value="month">month</option><option value="year">year</option><option value="all">all time</option></select></label><label class="field" for="sort">Sort by<select id="sort"><option value="count">Most detections</option><option value="recent" selected>Most recent</option><option value="name">Name A–Z</option></select></label><label class="field" for="view">View<select id="view" aria-label="Species view"><option value="cards" selected>Cards</option><option value="table">Table</option></select></label><div class="search"><input id="filter" type="search" placeholder="Search by common or scientific name." aria-label="Search species"></div></div></section>
 <div class="feedback"><span id="status" role="status" aria-live="polite"></span><div id="error" role="alert"></div></div><section id="cards" class="grid" aria-label="Species cards"></section><div id="table-wrap" hidden><table><thead><tr><th scope="col">Species</th><th scope="col">Detections</th></tr></thead><tbody id="rows"></tbody></table></div><p id="empty" hidden></p>
 </div>
 <section id="trends-view" hidden aria-labelledby="trends-title"><div class="trends-head"><h2 id="trends-title">New arrivals</h2><span id="trends-count" class="counts"></span></div><nav id="trends-subtabs" class="subtabs" aria-label="Comparison window"></nav><p id="trends-note" class="trends-note"></p><div class="feedback"><span id="trends-status" role="status" aria-live="polite"></span><div id="trends-error" role="alert"></div></div><section id="trends-cards" class="grid" aria-label="Species cards"></section><div id="trends-table-wrap" hidden><table><thead><tr><th scope="col">Species</th><th scope="col">Detections</th></tr></thead><tbody id="trends-rows"></tbody></table></div><p id="trends-empty" hidden></p><p class="trends-credit">Arrivals and Missing are based on an idea from <a href="https://tweetsheet.app/arrivals?station=22946" target="_blank" rel="noopener noreferrer">Tweet Sheet</a>, using the same public BirdWeather data.</p></section>
+<section id="conditions-view" hidden aria-labelledby="cond-title"><div class="trends-head"><h2 id="cond-title">Conditions at the station</h2><button type="button" id="cond-refresh" class="cond-refresh">Refresh</button></div><div id="cond-current" class="cond-current" aria-live="polite"></div><nav id="cond-subtabs" class="subtabs" aria-label="Chart period"></nav><p id="cond-meta" class="trends-note"></p><div class="feedback"><span id="cond-status" role="status" aria-live="polite"></span><div id="cond-error" role="alert"></div></div><div id="cond-charts" class="cond-charts"></div><p class="trends-credit">Readings come from the BirdWeather PUC’s built-in sensors through BirdWeather’s public API.</p></section>
 <section id="species-page" hidden>
 <p><a id="species-back" href="#">← All species</a></p>
 <div id="species-status" role="status" aria-live="polite"></div>
@@ -631,6 +655,246 @@ function showSpeciesList(e){
  try{if(typeof location!=='undefined'&&locationHash())location.hash='';}catch{}
  routeSpecies();
 }
+// Conditions: the PUC's environment and light sensors, from BirdWeather's public sensor history.
+const COND_TTL=10*60000,COND_TZ='America/New_York';
+const COND_SUBTABS=[['day','24 hours'],['week','7 days'],['month','30 days']];
+// day: every reading in one request, averaged into 10-minute buckets.
+// week/month: the API has no aggregation, so one request asks for the latest few readings in each hourly / 3-hourly window (aliased fields).
+const COND_PLANS={day:{hours:24,mode:'full',bucketMinutes:10,first:3000},week:{hours:168,mode:'sampled',bucketMinutes:60,per:3},month:{hours:720,mode:'sampled',bucketMinutes:180,per:3,daily:true}};
+const COND_ENV_FIELDS='timestamp temperature humidity barometricPressure aqi eco2 voc soundPressureLevel';
+const COND_LIGHT_FIELDS='timestamp clear';
+const COND_KEYS=['temperature','humidity','barometricPressure','aqi','eco2','voc','soundPressureLevel','clear'];
+const COND_RANGES={temperature:[-60,80],humidity:[0,100],barometricPressure:[800,1100],aqi:[0,500],eco2:[0,100000],voc:[0,1000],soundPressureLevel:[0,160],clear:[0,100000000]};
+function cToF(c){return c*9/5+32;}
+function hpaToInHg(h){return h*0.029529983;}
+const COND_METRICS=[
+ {key:'temperature',label:'Temperature',unit:'°F',conv:cToF,digits:1,color:'#b4562a',note:'From the PUC’s built-in sensor. Sun on the unit can push it above the true shade temperature.'},
+ {key:'humidity',label:'Humidity',unit:'%',conv:v=>v,digits:0,color:'#3b7a9a',note:'Relative humidity.'},
+ {key:'barometricPressure',label:'Pressure',unit:' inHg',conv:hpaToInHg,digits:2,color:'#5b4e8c',note:'As the sensor measures it. Weather reports adjust pressure to sea level, so theirs can read a little higher. Falling pressure often means unsettled weather is coming.'},
+ {key:'aqi',label:'Air quality index',unit:'',conv:v=>v,digits:0,color:'#7d9a4e',note:'An estimate from the PUC’s gas sensor, not an official EPA AQI. Lower is cleaner; 0–50 is good.'},
+ {key:'soundPressureLevel',label:'Sound level',unit:' dB',conv:v=>v,digits:0,color:'#a0662b',note:'Average loudness at the microphone. Approximate, not a calibrated sound meter.'},
+ {key:'clear',label:'Light',unit:'',conv:v=>v,digits:0,color:'#c79a1e',note:'Relative brightness from the light sensor’s clear channel (raw counts, not lux).'}
+];
+let conditionsActive=null,conditionsGeneration=0,condCache=new Map(),lastCondSub='day';
+function parseConditionsRef(hash=locationHash()){
+ const m=String(hash||'').match(/^#conditions(?:\/([a-z]*))?$/);
+ if(!m)return null;
+ return {sub:COND_SUBTABS.some(x=>x[0]===m[1])?m[1]:'day'};
+}
+function conditionsHash(sub){return '#conditions'+(sub&&sub!=='day'?'/'+sub:'');}
+let condPartsFormat=null;
+function easternParts(ms){
+ condPartsFormat=condPartsFormat||new Intl.DateTimeFormat('en-US',{timeZone:COND_TZ,year:'numeric',month:'short',day:'numeric',weekday:'short',hour:'numeric',minute:'2-digit',hourCycle:'h23'});
+ const o={};for(const p of condPartsFormat.formatToParts(new Date(ms)))o[p.type]=p.value;
+ return {year:Number(o.year),month:o.month,day:Number(o.day),weekday:o.weekday,hour:Number(o.hour)%24,minute:Number(o.minute)};
+}
+function hourLabel(h){return h===0?'12 AM':h===12?'Noon':(h%12)+(h<12?' AM':' PM');}
+function easternClock(ms){const p=easternParts(ms);return (p.hour%12||12)+':'+String(p.minute).padStart(2,'0')+' '+(p.hour<12?'AM':'PM');}
+function conditionsWindow(sub,now=new Date()){
+ const plan=COND_PLANS[sub]||COND_PLANS.day,to=now.getTime(),from=to-plan.hours*3600e3,size=plan.bucketMinutes*60000;
+ const w={sub,plan,from,to,size,period:{from:new Date(from).toISOString(),to:new Date(to).toISOString()}};
+ if(plan.mode==='sampled'){w.windows=[];for(let end=to;end>from;end-=size){const start=Math.max(from,end-size);w.windows.unshift({from:new Date(start).toISOString(),to:new Date(end).toISOString(),start,end});}}
+ return w;
+}
+function conditionsQuery(w){
+ const cur='environment { '+COND_ENV_FIELDS+' } light { '+COND_LIGHT_FIELDS+' }';
+ if(w.plan.mode==='full')return {query:'query($p:InputDuration){ station(id:22946){ id sensors { '+cur+' environmentHistory(period:$p, first:'+w.plan.first+'){ totalCount nodes { '+COND_ENV_FIELDS+' } } lightHistory(period:$p, first:'+w.plan.first+'){ totalCount nodes { '+COND_LIGHT_FIELDS+' } } } } }',variables:{p:w.period}};
+ const defs=[],fields=[],variables={};
+ w.windows.forEach((x,i)=>{variables['p'+i]={from:x.from,to:x.to};defs.push('$p'+i+':InputDuration');fields.push('e'+i+': environmentHistory(period:$p'+i+', first:'+w.plan.per+'){ nodes { '+COND_ENV_FIELDS+' } } l'+i+': lightHistory(period:$p'+i+', first:'+w.plan.per+'){ nodes { '+COND_LIGHT_FIELDS+' } }');});
+ return {query:'query('+defs.join(',')+'){ station(id:22946){ id sensors { '+cur+' '+fields.join(' ')+' } } }',variables};
+}
+function condValue(r,k){
+ const v=r?r[k]:null;if(typeof v!=='number'||!Number.isFinite(v))return null;
+ const lim=COND_RANGES[k];return lim&&(v<lim[0]||v>lim[1])?null:v;
+}
+// Averages each metric per fixed-size bucket on [start,end). A bucket with no valid reading for a metric is null (a gap).
+function bucketReadings(readings,start,end,size){
+ const n=Math.max(1,Math.ceil((end-start)/size)),sums=[];
+ for(let i=0;i<n;i++)sums.push({t:0,tn:0,v:{},c:{}});
+ for(const r of readings||[]){
+  const t=r&&typeof r.timestamp==='string'?Date.parse(r.timestamp):NaN;
+  if(!Number.isFinite(t)||t<start||t>end)continue;
+  const i=Math.min(n-1,Math.floor((t-start)/size)),b=sums[i];b.t+=t;b.tn++;
+  for(const k of COND_KEYS){const v=condValue(r,k);if(v===null)continue;b.v[k]=(b.v[k]||0)+v;b.c[k]=(b.c[k]||0)+1;}
+ }
+ return sums.map((b,i)=>{const p={t:start+(i+.5)*size,n:b.tn};for(const k of COND_KEYS)p[k]=b.c[k]?b.v[k]/b.c[k]:null;return p;});
+}
+function sampledPoints(w,sensors){
+ return w.windows.map((x,i)=>{
+  const env=sensors['e'+i],light=sensors['l'+i];
+  const nodes=[...((env&&Array.isArray(env.nodes))?env.nodes:[]),...((light&&Array.isArray(light.nodes))?light.nodes:[])];
+  const p=bucketReadings(nodes,x.start,x.end,x.end-x.start)[0];
+  const ts=nodes.map(r=>Date.parse(r&&r.timestamp)).filter(t=>Number.isFinite(t)&&t>=x.start&&t<=x.end);
+  p.t=ts.length?ts.reduce((a,b)=>a+b,0)/ts.length:(x.start+x.end)/2;return p;
+ });
+}
+// Month view: one point per Eastern-time day = average of that day's snapshots, with the day's low/high as a band.
+function dailySummary(points){
+ const days=new Map();
+ for(const p of points){const k=easternDate(new Date(p.t));if(!days.has(k))days.set(k,[]);days.get(k).push(p);}
+ return [...days.values()].map(list=>{
+  const out={t:list.reduce((a,p)=>a+p.t,0)/list.length,n:list.reduce((a,p)=>a+p.n,0)};
+  for(const k of COND_KEYS){const v=list.map(p=>p[k]).filter(x=>x!==null);out[k]=v.length?v.reduce((a,b)=>a+b,0)/v.length:null;out[k+'Lo']=v.length?Math.min(...v):null;out[k+'Hi']=v.length?Math.max(...v):null;}
+  return out;
+ });
+}
+function currentReading(sensors){
+ const e=sensors&&sensors.environment,l=sensors&&sensors.light;
+ const te=e&&Date.parse(e.timestamp),tl=l&&Date.parse(l.timestamp);
+ const r={t:Number.isFinite(te)?te:Number.isFinite(tl)?tl:null};
+ for(const k of COND_KEYS)r[k]=condValue(k==='clear'?l:e,k);
+ return r;
+}
+async function fetchConditions(w,signal){
+ const started=Date.now(),payload=await requestJson(conditionsQuery(w),signal);
+ const s=payload&&payload.data&&payload.data.station;
+ if(!s||s.id!=='22946'||!s.sensors)throw new Error('Unexpected station response.');
+ const sensors=s.sensors;let points,readings;
+ if(w.plan.mode==='full'){
+  const env=(sensors.environmentHistory&&sensors.environmentHistory.nodes)||[],light=(sensors.lightHistory&&sensors.lightHistory.nodes)||[];
+  if(!Array.isArray(env)||!Array.isArray(light))throw new Error('Unexpected sensor history.');
+  readings=env.length;points=bucketReadings(env.concat(light),w.from,w.to,w.size);
+ }else{points=sampledPoints(w,sensors);readings=points.reduce((a,p)=>a+p.n,0);if(w.plan.daily)points=dailySummary(points);}
+ return {current:currentReading(sensors),points,readings,requests:1,ms:Date.now()-started,at:Date.now()};
+}
+function formatNumber(v,d){return v===null||v===undefined||!Number.isFinite(v)?'—':v.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});}
+function stepDigits(step){for(let d=0;d<3;d++)if(Math.abs(step*Math.pow(10,d)-Math.round(step*Math.pow(10,d)))<1e-6)return d;return 3;}
+function niceStep(range,count){
+ const raw=range/Math.max(1,count),mag=Math.pow(10,Math.floor(Math.log10(raw))),f=raw/mag;
+ return (f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10)*mag;
+}
+function axisRange(values){
+ const v=values.filter(x=>x!==null&&Number.isFinite(x));if(!v.length)return null;
+ let lo=Math.min(...v),hi=Math.max(...v);
+ if(hi-lo<1e-9){const pad=Math.abs(hi)*.05||1;lo-=pad;hi+=pad;}
+ const step=niceStep(hi-lo,4),min=Math.floor(lo/step)*step,max=Math.ceil(hi/step)*step,ticks=[];
+ for(let t=min;t<=max+step/2;t+=step)ticks.push(Number(t.toFixed(10)));
+ return {min,max,step,ticks};
+}
+// X ticks at Eastern-time boundaries: every 3 hours (day), each midnight (week), the 1st/6th/11th/… (month).
+function conditionsTicks(sub,from,to){
+ const ticks=[];
+ for(let t=Math.ceil(from/3600e3)*3600e3;t<=to;t+=3600e3){
+  const p=easternParts(t);if(p.minute!==0)continue;
+  if(sub==='day'){if(p.hour%3===0)ticks.push({t,label:p.hour===0?p.weekday:hourLabel(p.hour),major:p.hour===0,minor:p.hour%6!==0});}
+  else if(p.hour===0){
+   if(sub==='week')ticks.push({t,label:p.weekday+' '+p.day,major:true});
+   else if((p.day-1)%5===0&&p.day!==31)ticks.push({t,label:p.month+' '+p.day,major:p.day===1});
+  }
+ }
+ return ticks;
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);}
+function seriesPath(pts,X,Y){
+ let d='',open=false;
+ pts.forEach((p,i)=>{
+  if(p.v===null){open=false;return;}
+  const x=X(p.t).toFixed(1),y=Y(p.v).toFixed(1),next=pts[i+1];
+  if(!open){d+='M'+x+' '+y;open=true;if(!(next&&next.v!==null))d+='h0.1';}
+  else d+='L'+x+' '+y;
+ });
+ return d;
+}
+function bandPath(pts,X,Y){
+ let d='',seg=[];
+ const flush=()=>{if(seg.length){const top=seg.map((p,i)=>(i?'L':'M')+X(p.t).toFixed(1)+' '+Y(p.hi).toFixed(1)).join('');const bot=seg.slice().reverse().map(p=>'L'+X(p.t).toFixed(1)+' '+Y(p.lo).toFixed(1)).join('');d+=top+bot+'Z';}seg=[];};
+ for(const p of pts){if(p.lo===null||p.hi===null)flush();else seg.push(p);}
+ flush();return d;
+}
+function chartHtml(metric,points,sub,from,to){
+ const cv=v=>v===null||v===undefined?null:metric.conv(v);
+ const series=points.map(p=>({t:p.t,v:cv(p[metric.key]),lo:cv(p[metric.key+'Lo']),hi:cv(p[metric.key+'Hi'])}));
+ const banded=series.some(p=>p.lo!==null&&p.hi!==null);
+ const vals=series.flatMap(p=>banded?[p.v,p.lo,p.hi]:[p.v]).filter(v=>v!==null),range=axisRange(vals);
+ const head='<figcaption class="cond-head"><span class="cond-name">'+escapeHtml(metric.label)+(metric.key==='barometricPressure'?' <span class="muted">(inHg)</span>':'')+'</span>';
+ if(!range)return '<figure class="cond-chart">'+head+'</figcaption><p class="cond-nodata">No readings from this sensor in this period.</p></figure>';
+ const W=1000,H=200,X=t=>(t-from)/(to-from)*W,Y=v=>H-(v-range.min)/(range.max-range.min)*H;
+ const lo=Math.min(...vals),hi=Math.max(...vals),u=metric.unit;
+ const stats='Low '+formatNumber(lo,metric.digits)+u+' · High '+formatNumber(hi,metric.digits)+u;
+ const gaps=series.filter(p=>p.v===null).length;
+ let grid='',ylab='',xlab='';
+ for(const t of range.ticks){const y=Y(t);grid+='<line x1="0" x2="'+W+'" y1="'+y.toFixed(1)+'" y2="'+y.toFixed(1)+'" class="cond-grid"/>';ylab+='<span class="cond-ylabel" style="bottom:'+((t-range.min)/(range.max-range.min)*100).toFixed(2)+'%">'+escapeHtml(formatNumber(t,stepDigits(range.step)))+'</span>';}
+ for(const k of conditionsTicks(sub,from,to)){const x=X(k.t);grid+='<line y1="0" y2="'+H+'" x1="'+x.toFixed(1)+'" x2="'+x.toFixed(1)+'" class="cond-vgrid'+(k.major?' major':'')+'"/>';xlab+='<span class="cond-xlabel'+(k.minor?' minor':'')+(x/W<.04?' edge-l':x/W>.96?' edge-r':'')+'" style="left:'+(x/W*100).toFixed(2)+'%">'+escapeHtml(k.label)+'</span>';}
+ const d=seriesPath(series,X,Y),band=banded?bandPath(series,X,Y):'';
+ return '<figure class="cond-chart">'+head+'<span class="cond-stats">'+escapeHtml(stats)+'</span></figcaption>'+
+  '<div class="cond-plot"><div class="cond-y" aria-hidden="true">'+ylab+'</div><div class="cond-area"><svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" role="img" aria-label="'+escapeHtml(metric.label+' chart. '+stats)+'">'+grid+(band?'<path d="'+band+'" fill="'+metric.color+'" fill-opacity=".16" stroke="none" class="cond-band"/>':'')+'<path d="'+d+'" fill="none" stroke="'+metric.color+'" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div><div class="cond-x" aria-hidden="true">'+xlab+'</div></div>'+
+  '<p class="cond-note">'+escapeHtml(metric.note)+(gaps&&gaps<series.length?' Gaps mean the station sent no readings then.':'')+'</p></figure>';
+}
+function condReadingAge(t,now=Date.now()){
+ if(t===null||!Number.isFinite(t))return '';
+ const m=Math.round((now-t)/60000);
+ if(m<15)return '';
+ if(m<90)return m+' minutes ago';
+ const h=Math.round(m/60);return h<48?h+' hours ago':Math.round(h/24)+' days ago';
+}
+function currentCardHtml(c,now=Date.now()){
+ const tile=(label,main,sub,note)=>'<div class="cond-tile"><span class="cond-tile-label">'+escapeHtml(label)+'</span><span class="cond-tile-value">'+escapeHtml(main)+'</span>'+(sub?'<span class="cond-tile-sub">'+escapeHtml(sub)+'</span>':'')+(note?'<span class="cond-tile-note">'+escapeHtml(note)+'</span>':'')+'</div>';
+ const has=v=>v!==null&&v!==undefined&&Number.isFinite(v);
+ const age=condReadingAge(c.t,now);
+ const when=c.t===null?'No current reading':'Reading at '+easternClock(c.t)+' ET'+(easternDate(new Date(c.t))!==easternDate(new Date(now))?', '+shortDateLabel(c.t):'')+(age?' · '+age:'');
+ return '<p class="cond-when'+(age?' stale':'')+'">'+escapeHtml(when)+'</p><div class="cond-tiles">'+
+  tile('Temperature',has(c.temperature)?formatNumber(cToF(c.temperature),1)+'°F':'—',has(c.temperature)?formatNumber(c.temperature,1)+'°C':'')+
+  tile('Humidity',has(c.humidity)?formatNumber(c.humidity,0)+'%':'—')+
+  tile('Pressure',has(c.barometricPressure)?formatNumber(hpaToInHg(c.barometricPressure),2)+' inHg':'—',has(c.barometricPressure)?formatNumber(c.barometricPressure,1)+' hPa':'')+
+  tile('Air quality index',has(c.aqi)?formatNumber(c.aqi,0):'—','','estimate')+
+  tile('eCO₂',has(c.eco2)?formatNumber(c.eco2,0)+' ppm':'—','','estimate')+
+  tile('VOC',has(c.voc)?formatNumber(c.voc,2):'—','','estimate')+
+  tile('Sound level',has(c.soundPressureLevel)?formatNumber(c.soundPressureLevel,1)+' dB':'—')+
+  tile('Light (clear)',has(c.clear)?formatNumber(c.clear,0):'—','','raw counts')+
+  '</div><p class="cond-note">Air quality index, eCO₂ (equivalent CO₂) and VOC (volatile organic compounds) are estimates the PUC’s gas sensor calculates, not direct measurements. Fresh outdoor air is about 420 ppm CO₂.</p>';
+}
+function shortDateLabel(t){const p=easternParts(t);return p.month+' '+p.day;}
+function conditionsMeta(w,r){
+ const n=r.readings.toLocaleString('en-US');
+ if(w.plan.mode==='full')return 'Each point averages 10 minutes of readings ('+n+' readings in the past 24 hours, about one every 36 seconds). Times are Eastern (ET).';
+ if(w.plan.daily)return 'The line is each day’s average and the shading its low–high range, from snapshots taken every 3 hours ('+n+' readings sampled), so brief peaks between snapshots can be missed. Days are Eastern (ET).';
+ return 'Each point averages a few readings near the end of every '+(w.plan.bucketMinutes===60?'hour':(w.plan.bucketMinutes/60)+' hours')+' ('+n+' readings sampled from the station’s history). Times are Eastern (ET).';
+}
+function renderConditionsSubtabs(sub){
+ const nav=$('cond-subtabs');if(!nav)return;nav.replaceChildren();
+ for(const [key,label] of COND_SUBTABS){
+  const a=element('a',label,'subtab'+(key===sub?' active':''));a.href=conditionsHash(key);
+  a.setAttribute('aria-current',key===sub?'page':'false');
+  a.addEventListener('click',e=>{if(e&&typeof e.preventDefault==='function')e.preventDefault();showConditions(key);});
+  nav.append(a);
+ }
+}
+function renderConditions(w,r){
+ $('cond-current').innerHTML=currentCardHtml(r.current);
+ $('cond-meta').textContent=conditionsMeta(w,r);
+ $('cond-charts').innerHTML=COND_METRICS.map(m=>chartHtml(m,r.points,w.sub,w.from,w.to)).join('');
+}
+async function loadConditions(sub,force=false){
+ const version=++conditionsGeneration;
+ renderConditionsSubtabs(sub);
+ $('cond-error').textContent='';
+ const hit=condCache.get(sub);
+ if(hit&&!force&&Date.now()-hit.result.at<COND_TTL){$('cond-status').textContent='';renderConditions(hit.w,hit.result);return;}
+ $('cond-status').textContent='Loading sensor readings…';$('cond-charts').innerHTML='';$('cond-meta').textContent='';
+ if(!hit)$('cond-current').innerHTML='';
+ const w=conditionsWindow(sub);let result;
+ try{result=await fetchConditions(w,new AbortController().signal);}
+ catch(e){if(version!==conditionsGeneration)return;$('cond-status').textContent='';if(hit)renderConditions(hit.w,hit.result);$('cond-error').textContent='Could not load conditions: '+(e instanceof SyntaxError?'BirdWeather returned invalid JSON.':e.message||'Network error.');return;}
+ if(version!==conditionsGeneration)return;
+ condCache.set(sub,{w,result});
+ $('cond-status').textContent='';
+ renderConditions(w,result);
+}
+function showConditions(sub){
+ const next=conditionsHash(sub);
+ try{if(typeof location!=='undefined'&&locationHash()!==next)location.hash=next;}catch{}
+ routeSpecies();
+}
+function enterConditions(ref){
+ const changed=!conditionsActive||conditionsActive.sub!==ref.sub,entering=!conditionsActive;
+ if(entering&&!trendsActive)listScroll=pageScrollY();
+ trendsActive=null;trendsGeneration++;
+ conditionsActive=ref;lastCondSub=ref.sub;
+ applySpeciesMode();
+ setDocumentTitle('Conditions');
+ if(changed)loadConditions(ref.sub);
+ if(entering)scrollToY(0);
+}
 const SCORE_GTE=7,CLIP_PAGE=10;
 const speciesMetaQuery="query($id:ID!,$tod:InputDuration,$all:InputDuration,$today:InputDuration,$week:InputDuration,$ytd:InputDuration){ species(id:$id){ id commonName scientificName imageUrl thumbnailUrl imageCredit imageLicense imageLicenseUrl birdweatherUrl wikipediaUrl wikipediaSummary ebirdUrl ebirdCode } station(id:22946){ earliestDetectionAt timeOfDayDetectionCounts(speciesId:$id, period:$tod, scoreGte:7){ count bins { key count } } } dailyDetectionCounts(stationIds:[\"22946\"], speciesIds:[$id], period:$all){ date dayOfYear total } todayCounts: counts(period:$today, speciesId:$id, stationIds:[\"22946\"]){ detections } weekCounts: counts(period:$week, speciesId:$id, stationIds:[\"22946\"]){ detections } ytdCounts: counts(period:$ytd, speciesId:$id, stationIds:[\"22946\"]){ detections } allCounts: counts(period:$all, speciesId:$id, stationIds:[\"22946\"]){ detections } }";
 const speciesClipsQuery="query($id:ID!,$period:InputDuration,$first:Int!,$after:String,$sortBy:String){ station(id:22946){ detections(first:$first, after:$after, speciesId:$id, period:$period, sortBy:$sortBy, scoreGte:7, validSoundscape:true){ pageInfo { hasNextPage endCursor } nodes { id timestamp score soundscape { url duration startTime endTime downloadFilename } } } } }";
@@ -668,16 +932,17 @@ function speciesSurfaceClick(e,id){
  openSpecies(id);
 }
 function applySpeciesMode(){
- const on=!!speciesActive,trends=!on&&!!trendsActive;
+ const on=!!speciesActive,cond=!on&&!!conditionsActive,trends=!on&&!cond&&!!trendsActive;
  const header=$('list-view-header'),list=$('list-view'),page=$('species-page'),back=$('date-back'),nav=back&&back.parentElement;
- if(header)header.hidden=on||trends;
- if(list)list.hidden=on||trends;
+ if(header)header.hidden=on||trends||cond;
+ if(list)list.hidden=on||trends||cond;
  if(page)page.hidden=!on;
- if(nav)nav.hidden=on||trends;
+ if(nav)nav.hidden=on||trends||cond;
  if($('trends-view'))$('trends-view').hidden=!trends;
+ if($('conditions-view'))$('conditions-view').hidden=!cond;
  if($('section-tabs'))$('section-tabs').hidden=on;
- const active=trends?trendsActive.kind:'species';
- for(const k of ['species','arrivals','missing']){const tab=$('tab-'+k);if(tab)tab.setAttribute('aria-current',k===active?'page':'false');}
+ const active=cond?'conditions':trends?trendsActive.kind:'species';
+ for(const k of ['species','arrivals','missing','conditions']){const tab=$('tab-'+k);if(tab)tab.setAttribute('aria-current',k===active?'page':'false');}
 }
 function setDocumentTitle(name){
  try{document.title=name?name+' · NeuseBirds':'NeuseBirds · Neuse River';}catch{}
@@ -710,8 +975,9 @@ function closeSpecies(e){
 }
 function enterTrends(trend,restore){
  const changed=!trendsActive||trendsActive.kind!==trend.kind||trendsActive.sub!==trend.sub;
- if(!trendsActive&&!restore)listScroll=pageScrollY();
+ if(!trendsActive&&!conditionsActive&&!restore)listScroll=pageScrollY();
  const entering=!trendsActive;
+ if(conditionsActive){conditionsActive=null;conditionsGeneration++;}
  trendsActive=trend;lastTrendSub[trend.kind]=trend.sub;
  applySpeciesMode();
  setDocumentTitle(trend.kind==='arrivals'?'Arrivals':'Missing');
@@ -719,6 +985,13 @@ function enterTrends(trend,restore){
  if(restore)scrollToY(trendScroll);else if(entering)scrollToY(0);
 }
 function routeSpecies(){
+ const cref=parseConditionsRef();
+ if(cref){
+  if(speciesActive){stopAllAudio();speciesActive=null;speciesGeneration++;returnHash='';}
+  enterConditions(cref);
+  return;
+ }
+ if(conditionsActive){conditionsActive=null;conditionsGeneration++;if(!parseTrendRef()&&!parseSpeciesRef()){trendsActive=null;applySpeciesMode();setDocumentTitle('');scrollToY(listScroll);return;}}
  const trend=parseTrendRef();
  if(trend){
   const wasSpecies=!!speciesActive;
@@ -1328,6 +1601,8 @@ if($('tod-forward'))$('tod-forward').addEventListener('click',()=>stepTod(-1));
 if($('species-more'))$('species-more').addEventListener('click',()=>{if(!speciesActive||!speciesHasMore||speciesBusy)return;const controller=new AbortController();loadSpeciesClips(speciesActive,allTimePeriod(),false,speciesGeneration,controller.signal);});
 if($('tab-species'))$('tab-species').addEventListener('click',showSpeciesList);
 for(const k of ['arrivals','missing']){if($('tab-'+k))$('tab-'+k).addEventListener('click',e=>{if(e&&typeof e.preventDefault==='function')e.preventDefault();showTrends(k,lastTrendSub[k]);});}
+if($('tab-conditions'))$('tab-conditions').addEventListener('click',e=>{if(e&&typeof e.preventDefault==='function')e.preventDefault();showConditions(lastCondSub);});
+if($('cond-refresh'))$('cond-refresh').addEventListener('click',()=>{if(conditionsActive)loadConditions(conditionsActive.sub,true);});
 try{if(typeof window!=='undefined'&&window.addEventListener)window.addEventListener('hashchange',routeSpecies);}catch{}
 routeSpecies();
 refresh();
