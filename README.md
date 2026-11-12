@@ -193,8 +193,8 @@ snapshot. Progress and timeout messages distinguish these cases.
 
 
 ARRIVALS AND MISSING
-Tabs under the title switch between Species (the main list), Arrivals,
-Missing and Conditions. Arrivals/Missing idea from Tweet Sheet (https://tweetsheet.app/arrivals), using the
+Tabs under the title switch between Species (the main list), Recent,
+Arrivals, Missing and Conditions. Arrivals/Missing idea from Tweet Sheet (https://tweetsheet.app/arrivals), using the
 same public BirdWeather topSpecies data; day boundaries are America/New_York.
 Arrivals: This week (heard the past 7 days, fewer than 3 detections the 7
 days before), This month (past 30 vs prior 30), This year (not in any of the
@@ -207,6 +207,21 @@ reach before the station's first detection (February 19, 2026) are skipped
 and explained instead of queried. Each tab is one API request, cached for
 10 minutes. Species links open the species page at the top; Back returns to
 the same tab.
+
+
+RECENT
+The Recent tab (#recent) lists the station's last 100 detections, newest
+first, from station.detections(first:100, scoreGte:7) on the public GraphQL
+API. The score filter matches the species-page recordings and hour chart
+(7 or higher). The API returns detections newest first, with cursor
+pagination available if a later view needs more than 100. Consecutive
+detections of the same species are grouped: a run of five or fewer is
+shown as one row per detection with its Eastern time (for example
+Nov 12, 5:17 PM); a run of more than five becomes one line such as
+Carolina Chickadee  Nov 12, 4:07–4:12 PM  31×. Species names open the
+existing species page; Back returns to Recent. Results are cached for
+10 minutes; Refresh reloads, and a failed refresh keeps the last good
+list. Times are America/New_York.
 
 
 CONDITIONS

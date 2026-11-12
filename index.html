@@ -106,7 +106,7 @@
 #trends-status{color:var(--muted)}#trends-error{color:#8c2925}#trends-status:empty,#trends-error:empty{display:none}
 #trends-table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
 #trends-empty{padding:36px;text-align:center;background:var(--paper);border:1px dashed var(--line);border-radius:10px}
-#cond-title{font-family:"Source Serif 4","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-size:clamp(1.15rem,2.4vw,1.45rem);font-weight:600;margin:0;letter-spacing:0}
+#cond-title,#recent-title{font-family:"Source Serif 4","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-size:clamp(1.15rem,2.4vw,1.45rem);font-weight:600;margin:0;letter-spacing:0}
 .cond-refresh{min-height:32px;padding:4px 12px;font-size:.8rem;margin-left:auto}
 #cond-status{color:var(--muted)}#cond-error{color:#8c2925}#cond-status:empty,#cond-error:empty{display:none}
 .cond-current{margin:0 0 18px}.cond-when{font-size:.86rem;color:var(--muted);margin:0 0 8px}.cond-when.stale{color:#8c5a12;font-weight:600}
@@ -128,16 +128,25 @@
 .cond-x{grid-column:2;grid-row:2;position:relative;height:1.7em;font-size:.62rem;color:var(--muted);font-variant-numeric:tabular-nums;min-width:0;overflow:hidden}
 .cond-xlabel{position:absolute;top:5px;white-space:nowrap;line-height:1;transform:translateX(-50%)}.cond-xlabel.edge-l{transform:none}.cond-xlabel.edge-r{transform:translateX(-100%)}
 .cond-note{font-size:.76rem;color:var(--muted);line-height:1.4;margin:6px 0 0}.cond-nodata{font-size:.86rem;color:var(--muted);margin:8px 0}
-@media(max-width:640px){.cond-tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.cond-tile-value{font-size:1.25rem}.cond-plot{--cond-h:130px}.cond-xlabel.minor{display:none}.cond-chart{padding:10px 10px 8px}}
+@media(max-width:640px){.cond-tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.cond-tile-value{font-size:1.25rem}.cond-plot{--cond-h:130px}.cond-xlabel.minor{display:none}.cond-chart{padding:10px 10px 8px}.recent-when{margin-left:0;flex:1 0 100%}}
+#recent-status{color:var(--muted)}#recent-error{color:#8c2925}#recent-status:empty,#recent-error:empty{display:none}
+.recent-list{list-style:none;margin:12px 0 0;padding:0;border-top:1px solid var(--line)}
+.recent-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px;padding:11px 2px;border-bottom:1px solid var(--line);margin:0}
+.recent-name{font-family:var(--title-font);font-weight:700;font-size:1.02rem;color:var(--green);text-decoration:none}
+.recent-name:hover{color:var(--ink)}
+.recent-when{color:var(--muted);font-size:.9rem;font-variant-numeric:tabular-nums;margin-left:auto;white-space:nowrap}
+.recent-mult{font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
+#recent-empty{padding:36px;text-align:center;background:var(--paper);border:1px dashed var(--line);border-radius:10px}
 .trends-credit{font-size:.76rem;color:var(--muted);margin:22px 0 0}
 .trends-credit a{color:var(--green);font-weight:600}
 </style></head><body><main>
-<header><h1 class="site-title"><img class="site-icon" src="apple-touch-icon.png" width="48" height="48" alt=""><span id="station">Neuse River</span><span class="date-nav"><button type="button" id="date-back" aria-label="Previous period">◀</button><span id="window-date" class="title-date">November 8th, 2026</span><button type="button" id="date-forward" aria-label="Next period" disabled>▶</button></span></h1><nav id="section-tabs" class="section-tabs" aria-label="Sections"><a href="#" id="tab-species" class="section-tab" aria-current="page">Species</a><a href="#arrivals" id="tab-arrivals" class="section-tab" aria-current="false">Arrivals</a><a href="#missing" id="tab-missing" class="section-tab" aria-current="false">Missing</a><a href="#conditions" id="tab-conditions" class="section-tab" aria-current="false">Conditions</a></nav><div id="list-view-header"><p class="intro"><span id="window-label" class="summary-heading">Species heard <em id="window-accent">in the last 24 hours</em></span><span class="counts"><span class="count-glue"><span class="count-sep" aria-hidden="true">·</span><span id="species-total">28</span></span> <span id="species-word">species</span>, <span id="detections-total">842</span> <span id="detections-word">detections</span></span></p><div class="auto-line"><span id="updated">Updated 12:03 PM</span><span class="auto-controls"><span class="auto-phrase"><label class="auto-toggle" for="auto"><input id="auto" type="checkbox" checked> Auto-refresh</label><label for="minutes">every</label></span><input id="minutes" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="5" aria-label="Refresh interval in minutes" autocomplete="off"><span>minutes</span></span><button id="refresh" type="button">Refresh now</button></div><div id="interval-error" role="alert"></div></div></header>
+<header><h1 class="site-title"><img class="site-icon" src="apple-touch-icon.png" width="48" height="48" alt=""><span id="station">Neuse River</span><span class="date-nav"><button type="button" id="date-back" aria-label="Previous period">◀</button><span id="window-date" class="title-date">November 8th, 2026</span><button type="button" id="date-forward" aria-label="Next period" disabled>▶</button></span></h1><nav id="section-tabs" class="section-tabs" aria-label="Sections"><a href="#" id="tab-species" class="section-tab" aria-current="page">Species</a><a href="#recent" id="tab-recent" class="section-tab" aria-current="false">Recent</a><a href="#arrivals" id="tab-arrivals" class="section-tab" aria-current="false">Arrivals</a><a href="#missing" id="tab-missing" class="section-tab" aria-current="false">Missing</a><a href="#conditions" id="tab-conditions" class="section-tab" aria-current="false">Conditions</a></nav><div id="list-view-header"><p class="intro"><span id="window-label" class="summary-heading">Species heard <em id="window-accent">in the last 24 hours</em></span><span class="counts"><span class="count-glue"><span class="count-sep" aria-hidden="true">·</span><span id="species-total">28</span></span> <span id="species-word">species</span>, <span id="detections-total">842</span> <span id="detections-word">detections</span></span></p><div class="auto-line"><span id="updated">Updated 12:03 PM</span><span class="auto-controls"><span class="auto-phrase"><label class="auto-toggle" for="auto"><input id="auto" type="checkbox" checked> Auto-refresh</label><label for="minutes">every</label></span><input id="minutes" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="5" aria-label="Refresh interval in minutes" autocomplete="off"><span>minutes</span></span><button id="refresh" type="button">Refresh now</button></div><div id="interval-error" role="alert"></div></div></header>
 <div id="list-view"><section aria-label="Display and refresh controls"><div class="toolbar"><label class="field" for="period">Time Period<select id="period"><option value="today" selected>Today</option><option value="rolling">24 hours</option><option value="week">week</option><option value="month">month</option><option value="year">year</option><option value="all">all time</option></select></label><label class="field" for="sort">Sort by<select id="sort"><option value="count">Most detections</option><option value="recent" selected>Most recent</option><option value="name">Name A–Z</option></select></label><label class="field" for="view">View<select id="view" aria-label="Species view"><option value="cards" selected>Cards</option><option value="table">Table</option></select></label><div class="search"><input id="filter" type="search" placeholder="Search by common or scientific name." aria-label="Search species"></div></div></section>
 <div class="feedback"><span id="status" role="status" aria-live="polite"></span><div id="error" role="alert"></div></div><section id="cards" class="grid" aria-label="Species cards"></section><div id="table-wrap" hidden><table><thead><tr><th scope="col">Species</th><th scope="col">Detections</th></tr></thead><tbody id="rows"></tbody></table></div><p id="empty" hidden></p>
 </div>
 <section id="trends-view" hidden aria-labelledby="trends-title"><div class="trends-head"><h2 id="trends-title">New arrivals</h2><span id="trends-count" class="counts"></span></div><nav id="trends-subtabs" class="subtabs" aria-label="Comparison window"></nav><p id="trends-note" class="trends-note"></p><div class="feedback"><span id="trends-status" role="status" aria-live="polite"></span><div id="trends-error" role="alert"></div></div><section id="trends-cards" class="grid" aria-label="Species cards"></section><div id="trends-table-wrap" hidden><table><thead><tr><th scope="col">Species</th><th scope="col">Detections</th></tr></thead><tbody id="trends-rows"></tbody></table></div><p id="trends-empty" hidden></p><p class="trends-credit">Arrivals and Missing are based on an idea from <a href="https://tweetsheet.app/arrivals?station=22946" target="_blank" rel="noopener noreferrer">Tweet Sheet</a>, using the same public BirdWeather data.</p></section>
 <section id="conditions-view" hidden aria-labelledby="cond-title"><div class="trends-head"><h2 id="cond-title">Conditions at the station</h2><button type="button" id="cond-refresh" class="cond-refresh">Refresh</button></div><div id="cond-current" class="cond-current" aria-live="polite"></div><nav id="cond-subtabs" class="subtabs" aria-label="Chart period"></nav><p id="cond-meta" class="trends-note"></p><div class="feedback"><span id="cond-status" role="status" aria-live="polite"></span><div id="cond-error" role="alert"></div></div><div id="cond-charts" class="cond-charts"></div><p class="trends-credit">Readings come from the BirdWeather PUC’s built-in sensors through BirdWeather’s public API.</p></section>
+<section id="recent-view" hidden aria-labelledby="recent-title"><div class="trends-head"><h2 id="recent-title">Recent detections</h2><span id="recent-count" class="counts"></span><button type="button" id="recent-refresh" class="cond-refresh">Refresh</button></div><p id="recent-note" class="trends-note">The last 100 detections at the station with a score of 7 or higher, newest first. A species heard more than five times in a row is shown as one line with a count. Times are Eastern (ET).</p><div class="feedback"><span id="recent-status" role="status" aria-live="polite"></span><div id="recent-error" role="alert"></div></div><ol id="recent-list" class="recent-list" aria-label="Recent detections"></ol><p id="recent-empty" hidden></p></section>
 <section id="species-page" hidden>
 <p><a id="species-back" href="#">← All species</a></p>
 <div id="species-status" role="status" aria-live="polite"></div>
@@ -887,13 +896,137 @@ function showConditions(sub){
 }
 function enterConditions(ref){
  const changed=!conditionsActive||conditionsActive.sub!==ref.sub,entering=!conditionsActive;
- if(entering&&!trendsActive)listScroll=pageScrollY();
+ if(entering&&!trendsActive&&!recentActive)listScroll=pageScrollY();
  trendsActive=null;trendsGeneration++;
+ if(recentActive){recentActive=false;recentGeneration++;}
  conditionsActive=ref;lastCondSub=ref.sub;
  applySpeciesMode();
  setDocumentTitle('Conditions');
  if(changed)loadConditions(ref.sub);
  if(entering)scrollToY(0);
+}
+const RECENT_LIMIT=100,RECENT_GROUP_AFTER=5,RECENT_TTL=10*60000;
+const recentQuery='query { station(id:22946){ id detections(first:'+RECENT_LIMIT+', scoreGte:7){ nodes { id timestamp speciesId species { id commonName scientificName birdweatherUrl } } } } }';
+let recentActive=false,recentGeneration=0,recentCache=null,recentScroll=0;
+function parseRecentRef(hash=locationHash()){return /^#recent$/.test(String(hash||''));}
+function formatRecentClock(ms){const p=easternParts(ms);return (p.hour%12||12)+':'+String(p.minute).padStart(2,'0');}
+function formatRecentMeridiem(ms){return easternParts(ms).hour<12?'AM':'PM';}
+function formatRecentDate(ms){const p=easternParts(ms);return p.month+' '+p.day;}
+function formatRecentStamp(value){
+ const t=value instanceof Date?value:new Date(value);
+ if(!Number.isFinite(t.getTime()))return '';
+ return formatRecentDate(t)+', '+formatRecentClock(t)+' '+formatRecentMeridiem(t);
+}
+function formatRecentRange(from,to){
+ const a=from instanceof Date?from:new Date(from),b=to instanceof Date?to:new Date(to);
+ if(!Number.isFinite(a.getTime())||!Number.isFinite(b.getTime()))return '';
+ const start=a.getTime()<=b.getTime()?a:b,end=a.getTime()<=b.getTime()?b:a;
+ if(formatRecentStamp(start)===formatRecentStamp(end))return formatRecentStamp(start);
+ const ds=formatRecentDate(start),de=formatRecentDate(end);
+ const cs=formatRecentClock(start),ce=formatRecentClock(end);
+ const ps=formatRecentMeridiem(start),pe=formatRecentMeridiem(end);
+ if(ds===de){
+  if(ps===pe)return ds+', '+cs+'–'+ce+' '+pe;
+  return ds+', '+cs+' '+ps+'–'+ce+' '+pe;
+ }
+ return ds+', '+cs+' '+ps+' – '+de+', '+ce+' '+pe;
+}
+function groupRecentDetections(nodes,threshold=RECENT_GROUP_AFTER){
+ const list=Array.isArray(nodes)?nodes:[],rows=[],limit=typeof threshold==='number'?threshold:RECENT_GROUP_AFTER;
+ let run=null;
+ const flush=()=>{
+  if(!run)return;
+  const dets=run.detections;
+  if(dets.length>limit){
+   rows.push({type:'group',species:run.species,count:dets.length,from:dets[dets.length-1].timestamp,to:dets[0].timestamp});
+  }else{
+   for(const d of dets)rows.push({type:'item',species:run.species,timestamp:d.timestamp,id:d.id});
+  }
+  run=null;
+ };
+ for(const n of list){
+  const s=n&&n.species,id=s&&s.id;
+  if(!id){flush();continue;}
+  if(run&&run.species.id===id)run.detections.push(n);
+  else{flush();run={species:s,detections:[n]};}
+ }
+ flush();
+ return rows;
+}
+function validRecentNodes(nodes){
+ if(!Array.isArray(nodes))throw new Error('Unexpected detections response.');
+ const out=[];
+ for(const n of nodes){
+  if(!n||typeof n.timestamp!=='string'||!Number.isFinite(Date.parse(n.timestamp)))throw new Error('Unexpected detections response.');
+  const s=n.species;
+  if(!s||typeof s.id!=='string'||typeof s.commonName!=='string')throw new Error('Unexpected detections response.');
+  out.push(n);
+ }
+ return out;
+}
+async function fetchRecent(signal){
+ const payload=await requestJson({query:recentQuery},signal);
+ const s=payload&&payload.data&&payload.data.station;
+ if(!s||s.id!=='22946')throw new Error('Unexpected station response.');
+ const nodes=validRecentNodes(s.detections&&s.detections.nodes).slice();
+ nodes.sort((a,b)=>{
+  const x=Date.parse(a.timestamp),y=Date.parse(b.timestamp);
+  if(x!==y)return y-x;
+  return String(b.id||'').localeCompare(String(a.id||''));
+ });
+ return {nodes:nodes.slice(0,RECENT_LIMIT),at:Date.now()};
+}
+function renderRecent(result){
+ const nodes=result.nodes,rows=groupRecentDetections(nodes),list=$('recent-list'),empty=$('recent-empty');
+ if($('recent-count'))$('recent-count').textContent=nodes.length.toLocaleString()+' detection'+(nodes.length===1?'':'s');
+ if(list){
+  list.replaceChildren();
+  for(const row of rows){
+   const s=row.species,item=element('li',undefined,'recent-row');
+   const open=element('a',s.commonName,'recent-name species-open');
+   open.href=speciesHref(s);
+   open.addEventListener('click',e=>{if(e&&typeof e.preventDefault==='function')e.preventDefault();if(e&&typeof e.stopPropagation==='function')e.stopPropagation();openSpecies(s.id);});
+   const when=element('span',row.type==='group'?formatRecentRange(row.from,row.to):formatRecentStamp(row.timestamp),'recent-when');
+   item.append(open,when);
+   if(row.type==='group'){
+    item.append(element('span',row.count.toLocaleString()+'×','recent-mult'));
+    item.setAttribute('aria-label',s.commonName+', '+row.count+' detections, '+formatRecentRange(row.from,row.to));
+   }
+   list.append(item);
+  }
+ }
+ if(empty){empty.textContent=nodes.length?'':'No recent detections at the station.';empty.hidden=nodes.length!==0;}
+}
+async function loadRecent(force=false){
+ const version=++recentGeneration;
+ if($('recent-error'))$('recent-error').textContent='';
+ const hit=recentCache;
+ if(hit&&!force&&Date.now()-hit.at<RECENT_TTL){if($('recent-status'))$('recent-status').textContent='';renderRecent(hit);return;}
+ if($('recent-status'))$('recent-status').textContent='Loading detections…';
+ if(!hit){if($('recent-list'))$('recent-list').replaceChildren();if($('recent-count'))$('recent-count').textContent='';if($('recent-empty'))$('recent-empty').hidden=true;}
+ let result;
+ try{result=await fetchRecent(new AbortController().signal);}
+ catch(e){if(version!==recentGeneration)return;if($('recent-status'))$('recent-status').textContent='';if(hit)renderRecent(hit);if($('recent-error'))$('recent-error').textContent='Could not load recent detections: '+(e instanceof SyntaxError?'BirdWeather returned invalid JSON.':e.message||'Network error.');return;}
+ if(version!==recentGeneration)return;
+ recentCache=result;
+ if($('recent-status'))$('recent-status').textContent='';
+ renderRecent(result);
+}
+function showRecent(e){
+ if(e&&typeof e.preventDefault==='function')e.preventDefault();
+ try{if(typeof location!=='undefined'&&locationHash()!=='#recent')location.hash='#recent';}catch{}
+ routeSpecies();
+}
+function enterRecent(restore){
+ const entering=!recentActive;
+ if(entering&&!trendsActive&&!conditionsActive&&!restore)listScroll=pageScrollY();
+ if(conditionsActive){conditionsActive=null;conditionsGeneration++;}
+ if(trendsActive){trendsActive=null;trendsGeneration++;}
+ recentActive=true;
+ applySpeciesMode();
+ setDocumentTitle('Recent');
+ loadRecent();
+ if(restore)scrollToY(recentScroll);else if(entering)scrollToY(0);
 }
 const SCORE_GTE=7,CLIP_PAGE=10;
 const speciesMetaQuery="query($id:ID!,$tod:InputDuration,$all:InputDuration,$today:InputDuration,$week:InputDuration,$ytd:InputDuration){ species(id:$id){ id commonName scientificName imageUrl thumbnailUrl imageCredit imageLicense imageLicenseUrl birdweatherUrl wikipediaUrl wikipediaSummary ebirdUrl ebirdCode } station(id:22946){ earliestDetectionAt timeOfDayDetectionCounts(speciesId:$id, period:$tod, scoreGte:7){ count bins { key count } } } dailyDetectionCounts(stationIds:[\"22946\"], speciesIds:[$id], period:$all){ date dayOfYear total } todayCounts: counts(period:$today, speciesId:$id, stationIds:[\"22946\"]){ detections } weekCounts: counts(period:$week, speciesId:$id, stationIds:[\"22946\"]){ detections } ytdCounts: counts(period:$ytd, speciesId:$id, stationIds:[\"22946\"]){ detections } allCounts: counts(period:$all, speciesId:$id, stationIds:[\"22946\"]){ detections } }";
@@ -932,17 +1065,18 @@ function speciesSurfaceClick(e,id){
  openSpecies(id);
 }
 function applySpeciesMode(){
- const on=!!speciesActive,cond=!on&&!!conditionsActive,trends=!on&&!cond&&!!trendsActive;
+ const on=!!speciesActive,cond=!on&&!!conditionsActive,recent=!on&&!cond&&!!recentActive,trends=!on&&!cond&&!recent&&!!trendsActive;
  const header=$('list-view-header'),list=$('list-view'),page=$('species-page'),back=$('date-back'),nav=back&&back.parentElement;
- if(header)header.hidden=on||trends||cond;
- if(list)list.hidden=on||trends||cond;
+ if(header)header.hidden=on||trends||cond||recent;
+ if(list)list.hidden=on||trends||cond||recent;
  if(page)page.hidden=!on;
- if(nav)nav.hidden=on||trends||cond;
+ if(nav)nav.hidden=on||trends||cond||recent;
  if($('trends-view'))$('trends-view').hidden=!trends;
  if($('conditions-view'))$('conditions-view').hidden=!cond;
+ if($('recent-view'))$('recent-view').hidden=!recent;
  if($('section-tabs'))$('section-tabs').hidden=on;
- const active=cond?'conditions':trends?trendsActive.kind:'species';
- for(const k of ['species','arrivals','missing','conditions']){const tab=$('tab-'+k);if(tab)tab.setAttribute('aria-current',k===active?'page':'false');}
+ const active=cond?'conditions':recent?'recent':trends?trendsActive.kind:'species';
+ for(const k of ['species','recent','arrivals','missing','conditions']){const tab=$('tab-'+k);if(tab)tab.setAttribute('aria-current',k===active?'page':'false');}
 }
 function setDocumentTitle(name){
  try{document.title=name?name+' · NeuseBirds':'NeuseBirds · Neuse River';}catch{}
@@ -954,9 +1088,10 @@ function openSpecies(id){
  const next='#species/'+id;
  if(!speciesActive){
   if(trendsActive){trendScroll=pageScrollY();returnHash=trendHash(trendsActive.kind,trendsActive.sub);}
+  else if(recentActive){recentScroll=pageScrollY();returnHash='#recent';}
   else{listScroll=pageScrollY();returnHash='';}
   const back=$('species-back');
-  if(back){back.textContent=returnHash?(trendsActive.kind==='arrivals'?'← Arrivals':'← Missing'):'← All species';back.href=returnHash||'#';}
+  if(back){back.textContent=returnHash?(trendsActive?(trendsActive.kind==='arrivals'?'← Arrivals':'← Missing'):'← Recent'):'← All species';back.href=returnHash||'#';}
  }
  try{if(typeof location!=='undefined'&&locationHash()!==next)location.hash='#species/'+id;}catch{}
  routeSpecies();
@@ -964,20 +1099,22 @@ function openSpecies(id){
 function closeSpecies(e){
  if(e&&typeof e.preventDefault==='function')e.preventDefault();
  stopAllAudio();
- const target=returnHash&&parseTrendRef(returnHash);returnHash='';
- try{if(typeof location!=='undefined')location.hash=target?trendHash(target.kind,target.sub):'';}catch{}
+ const target=returnHash&&parseTrendRef(returnHash),backRecent=returnHash&&parseRecentRef(returnHash);returnHash='';
+ try{if(typeof location!=='undefined')location.hash=target?trendHash(target.kind,target.sub):backRecent?'#recent':'';}catch{}
  speciesActive=null;speciesGeneration++;
  if(target){enterTrends(target,true);return;}
- trendsActive=null;
+ if(backRecent){enterRecent(true);return;}
+ trendsActive=null;recentActive=false;
  applySpeciesMode();
  setDocumentTitle('');
  scrollToY(listScroll);
 }
 function enterTrends(trend,restore){
  const changed=!trendsActive||trendsActive.kind!==trend.kind||trendsActive.sub!==trend.sub;
- if(!trendsActive&&!conditionsActive&&!restore)listScroll=pageScrollY();
+ if(!trendsActive&&!conditionsActive&&!recentActive&&!restore)listScroll=pageScrollY();
  const entering=!trendsActive;
  if(conditionsActive){conditionsActive=null;conditionsGeneration++;}
+ if(recentActive){recentActive=false;recentGeneration++;}
  trendsActive=trend;lastTrendSub[trend.kind]=trend.sub;
  applySpeciesMode();
  setDocumentTitle(trend.kind==='arrivals'?'Arrivals':'Missing');
@@ -991,7 +1128,14 @@ function routeSpecies(){
   enterConditions(cref);
   return;
  }
- if(conditionsActive){conditionsActive=null;conditionsGeneration++;if(!parseTrendRef()&&!parseSpeciesRef()){trendsActive=null;applySpeciesMode();setDocumentTitle('');scrollToY(listScroll);return;}}
+ if(conditionsActive){conditionsActive=null;conditionsGeneration++;if(!parseTrendRef()&&!parseSpeciesRef()&&!parseRecentRef()){trendsActive=null;recentActive=false;applySpeciesMode();setDocumentTitle('');scrollToY(listScroll);return;}}
+ const recent=parseRecentRef();
+ if(recent){
+  const wasSpecies=!!speciesActive;
+  if(wasSpecies){stopAllAudio();speciesActive=null;speciesGeneration++;returnHash='';}
+  enterRecent(wasSpecies);
+  return;
+ }
  const trend=parseTrendRef();
  if(trend){
   const wasSpecies=!!speciesActive;
@@ -1001,8 +1145,8 @@ function routeSpecies(){
  }
  const ref=parseSpeciesRef();
  if(!ref){
-  if(trendsActive&&!speciesActive){trendsActive=null;trendsGeneration++;applySpeciesMode();setDocumentTitle('');scrollToY(listScroll);return;}
-  if(speciesActive){trendsActive=null;stopAllAudio();speciesActive=null;speciesGeneration++;applySpeciesMode();setDocumentTitle('');scrollToY(listScroll);}
+  if((trendsActive||recentActive)&&!speciesActive){trendsActive=null;trendsGeneration++;if(recentActive){recentActive=false;recentGeneration++;}applySpeciesMode();setDocumentTitle('');scrollToY(listScroll);return;}
+  if(speciesActive){trendsActive=null;if(recentActive){recentActive=false;recentGeneration++;}stopAllAudio();speciesActive=null;speciesGeneration++;applySpeciesMode();setDocumentTitle('');scrollToY(listScroll);}
   else applySpeciesMode();
   return;
  }
@@ -1600,9 +1744,11 @@ if($('tod-back'))$('tod-back').addEventListener('click',()=>stepTod(1));
 if($('tod-forward'))$('tod-forward').addEventListener('click',()=>stepTod(-1));
 if($('species-more'))$('species-more').addEventListener('click',()=>{if(!speciesActive||!speciesHasMore||speciesBusy)return;const controller=new AbortController();loadSpeciesClips(speciesActive,allTimePeriod(),false,speciesGeneration,controller.signal);});
 if($('tab-species'))$('tab-species').addEventListener('click',showSpeciesList);
+if($('tab-recent'))$('tab-recent').addEventListener('click',showRecent);
 for(const k of ['arrivals','missing']){if($('tab-'+k))$('tab-'+k).addEventListener('click',e=>{if(e&&typeof e.preventDefault==='function')e.preventDefault();showTrends(k,lastTrendSub[k]);});}
 if($('tab-conditions'))$('tab-conditions').addEventListener('click',e=>{if(e&&typeof e.preventDefault==='function')e.preventDefault();showConditions(lastCondSub);});
 if($('cond-refresh'))$('cond-refresh').addEventListener('click',()=>{if(conditionsActive)loadConditions(conditionsActive.sub,true);});
+if($('recent-refresh'))$('recent-refresh').addEventListener('click',()=>{if(recentActive)loadRecent(true);});
 try{if(typeof window!=='undefined'&&window.addEventListener)window.addEventListener('hashchange',routeSpecies);}catch{}
 routeSpecies();
 refresh();
