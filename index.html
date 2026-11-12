@@ -531,8 +531,9 @@ function computeTrend(kind,sub,hereRows,refRows,refs){
 }
 function trendNote(w){
  const k=w.kind,s=w.sub;let text;
- if(k==='arrivals')text=s==='week'?'Heard at the station the past 7 days but silent the 7 days before that — possibly newly arrived.':s==='month'?'Heard at the station the past 30 days but silent the 30 days before that.':s==='year'?'Heard at the station for the first time this year — not in any of the prior 3 years.':'New arrivals you can expect over the next month, based on previous years.';
- else{const r=w.refs[0];text=s==='week'?'Heard the previous 7 days ('+shortRange(r.from,r.to)+') but silent the past 7 days — possibly recently departed.':s==='month'?'Heard the previous 30 days ('+shortRange(r.from,r.to)+') but silent the past 7 days.':'Heard at the station the same week in any of the last 3 years (each ±7 days, with at least 20 detections in some year) but not in the past 7 days.';}
+ const h=w.here,r0=w.refs[0],hr=shortRange(h.from,h.to),rr=r0?' ('+shortRange(r0.from,r0.to)+')':'';
+ if(k==='arrivals')text=s==='week'?'Heard at the station the past 7 days ('+hr+') but silent the 7 days before that'+rr+' — possibly newly arrived.':s==='month'?'Heard at the station the past 30 days ('+hr+') but silent the 30 days before that'+rr+'.':s==='year'?'Heard at the station for the first time this year — not in any of the prior 3 years.':'New arrivals you can expect over the next month, based on previous years.';
+ else{const r=w.refs[0];text=s==='week'?'Heard the previous 7 days ('+shortRange(r.from,r.to)+') but silent the past 7 days ('+hr+') — possibly recently departed.':s==='month'?'Heard the previous 30 days ('+shortRange(r.from,r.to)+') but silent the past 7 days ('+hr+').':'Heard at the station the same week in any of the last 3 years (each ±7 days, with at least 20 detections in some year) but not in the past 7 days.';}
  if(w.clipped||(w.skipped&&!w.noHistory))text+=' Station history begins '+displayCivilDate(w.earliest)+', so the comparison only reaches back that far.';
  return text;
 }
