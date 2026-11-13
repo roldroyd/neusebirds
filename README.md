@@ -218,7 +218,13 @@ pagination available if a later view needs more than 100. Consecutive
 detections of the same species are grouped: a run of five or fewer is
 shown as one row per detection with its Eastern time (for example
 Nov 12, 5:17 PM); a run of more than five becomes one line such as
-Carolina Chickadee  Nov 12, 4:07–4:12 PM  31×. Species names open the
+Carolina Chickadee  Nov 12, 4:07–4:12 PM  31×. A 22px rounded thumbnail
+(species thumbnailUrl, then imageUrl; a blank placeholder if neither
+loads) sits at the start of each row. The list is a CSS grid: the name
+column is sized to the longest name (max-content, shared across rows
+via subgrid), then the date/time and the N× count each follow about
+2em later, packed to the left rather than the far right. On a narrow
+screen the time and count wrap under the name. Species names open the
 existing species page; Back returns to Recent. Results are cached for
 10 minutes; Refresh reloads, and a failed refresh keeps the last good
 list. Times are America/New_York.

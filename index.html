@@ -128,15 +128,20 @@
 .cond-x{grid-column:2;grid-row:2;position:relative;height:1.7em;font-size:.62rem;color:var(--muted);font-variant-numeric:tabular-nums;min-width:0;overflow:hidden}
 .cond-xlabel{position:absolute;top:5px;white-space:nowrap;line-height:1;transform:translateX(-50%)}.cond-xlabel.edge-l{transform:none}.cond-xlabel.edge-r{transform:translateX(-100%)}
 .cond-note{font-size:.76rem;color:var(--muted);line-height:1.4;margin:6px 0 0}.cond-nodata{font-size:.86rem;color:var(--muted);margin:8px 0}
-@media(max-width:640px){.cond-tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.cond-tile-value{font-size:1.25rem}.cond-plot{--cond-h:130px}.cond-xlabel.minor{display:none}.cond-chart{padding:10px 10px 8px}.recent-when{margin-left:0;flex:1 0 100%}}
+@media(max-width:640px){.cond-tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.cond-tile-value{font-size:1.25rem}.cond-plot{--cond-h:130px}.cond-xlabel.minor{display:none}.cond-chart{padding:10px 10px 8px}}
 #recent-status{color:var(--muted)}#recent-error{color:#8c2925}#recent-status:empty,#recent-error:empty{display:none}
-.recent-list{list-style:none;margin:12px 0 0;padding:0;border-top:1px solid var(--line)}
-.recent-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px;padding:11px 2px;border-bottom:1px solid var(--line);margin:0}
-.recent-name{font-family:var(--title-font);font-weight:700;font-size:1.02rem;color:var(--green);text-decoration:none}
+.recent-list{list-style:none;margin:8px 0 0;padding:0;border-top:1px solid var(--line)}
+.recent-row{display:grid;grid-template-columns:22px .45em max-content 2em max-content 2em max-content minmax(0,1fr);align-items:center;border-bottom:1px solid var(--line);padding:3px 0;margin:0;line-height:1.2}
+@supports(grid-template-columns:subgrid){.recent-list{display:grid;grid-template-columns:22px .45em max-content 2em max-content 2em max-content minmax(0,1fr);align-items:center}.recent-row{grid-template-columns:subgrid;grid-column:1/-1}}
+.recent-thumb{grid-column:1;width:22px;height:22px;border-radius:5px;background:#efe8d4;overflow:hidden;display:block;cursor:pointer}
+.recent-thumb img{width:22px;height:22px;object-fit:cover;display:block;border-radius:5px}
+.recent-name{grid-column:3;font-family:var(--title-font);font-weight:700;font-size:1.02rem;color:var(--green);text-decoration:none;min-width:0}
 .recent-name:hover{color:var(--ink)}
-.recent-when{color:var(--muted);font-size:.9rem;font-variant-numeric:tabular-nums;margin-left:auto;white-space:nowrap}
-.recent-mult{font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
+.recent-meta{display:contents}
+.recent-when{grid-column:5;color:var(--muted);font-size:.9rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.recent-mult{grid-column:7;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
 #recent-empty{padding:36px;text-align:center;background:var(--paper);border:1px dashed var(--line);border-radius:10px}
+@media(max-width:640px){.recent-list,.recent-row{grid-template-columns:22px .4em minmax(0,1fr)}.recent-thumb{grid-row:1/span 2}.recent-name{grid-column:3;grid-row:1}.recent-meta{display:flex;align-items:baseline;gap:1.25em;grid-column:3;grid-row:2;min-width:0}.recent-when,.recent-mult{grid-column:auto}}
 .trends-credit{font-size:.76rem;color:var(--muted);margin:22px 0 0}
 .trends-credit a{color:var(--green);font-weight:600}
 </style></head><body><main>
@@ -906,7 +911,7 @@ function enterConditions(ref){
  if(entering)scrollToY(0);
 }
 const RECENT_LIMIT=100,RECENT_GROUP_AFTER=5,RECENT_TTL=10*60000;
-const recentQuery='query { station(id:22946){ id detections(first:'+RECENT_LIMIT+', scoreGte:7){ nodes { id timestamp speciesId species { id commonName scientificName birdweatherUrl } } } } }';
+const recentQuery='query { station(id:22946){ id detections(first:'+RECENT_LIMIT+', scoreGte:7){ nodes { id timestamp speciesId species { id commonName scientificName birdweatherUrl thumbnailUrl imageUrl } } } } }';
 let recentActive=false,recentGeneration=0,recentCache=null,recentScroll=0;
 function parseRecentRef(hash=locationHash()){return /^#recent$/.test(String(hash||''));}
 function formatRecentClock(ms){const p=easternParts(ms);return (p.hour%12||12)+':'+String(p.minute).padStart(2,'0');}
@@ -976,6 +981,20 @@ async function fetchRecent(signal){
  });
  return {nodes:nodes.slice(0,RECENT_LIMIT),at:Date.now()};
 }
+function recentThumb(s){
+ const wrap=element('span',undefined,'recent-thumb');
+ wrap.setAttribute('aria-hidden','true');
+ const url=https(s&&s.thumbnailUrl)||https(s&&s.imageUrl);
+ if(url){
+  const img=element('img');
+  img.alt='';img.width=22;img.height=22;img.loading='lazy';img.decoding='async';img.referrerPolicy='no-referrer';
+  img.addEventListener('error',()=>{img.remove();});
+  img.src=url;wrap.append(img);
+ }
+ const open=()=>s&&s.id&&openSpecies(s.id);
+ wrap.addEventListener('click',e=>{if(e&&typeof e.preventDefault==='function')e.preventDefault();if(e&&typeof e.stopPropagation==='function')e.stopPropagation();open();});
+ return wrap;
+}
 function renderRecent(result){
  const nodes=result.nodes,rows=groupRecentDetections(nodes),list=$('recent-list'),empty=$('recent-empty');
  if($('recent-count'))$('recent-count').textContent=nodes.length.toLocaleString()+' detection'+(nodes.length===1?'':'s');
@@ -986,12 +1005,13 @@ function renderRecent(result){
    const open=element('a',s.commonName,'recent-name species-open');
    open.href=speciesHref(s);
    open.addEventListener('click',e=>{if(e&&typeof e.preventDefault==='function')e.preventDefault();if(e&&typeof e.stopPropagation==='function')e.stopPropagation();openSpecies(s.id);});
-   const when=element('span',row.type==='group'?formatRecentRange(row.from,row.to):formatRecentStamp(row.timestamp),'recent-when');
-   item.append(open,when);
+   const meta=element('span',undefined,'recent-meta');
+   meta.append(element('span',row.type==='group'?formatRecentRange(row.from,row.to):formatRecentStamp(row.timestamp),'recent-when'));
    if(row.type==='group'){
-    item.append(element('span',row.count.toLocaleString()+'×','recent-mult'));
+    meta.append(element('span',row.count.toLocaleString()+'×','recent-mult'));
     item.setAttribute('aria-label',s.commonName+', '+row.count+' detections, '+formatRecentRange(row.from,row.to));
    }
+   item.append(recentThumb(s),open,meta);
    list.append(item);
   }
  }
