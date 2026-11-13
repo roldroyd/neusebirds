@@ -210,10 +210,12 @@ the same tab.
 
 
 RECENT
-The Recent tab (#recent) lists the station's last 100 detections, newest
-first, from station.detections(first:100, scoreGte:7) on the public GraphQL
+The Recent tab (#recent) is headed “Most recent 100 detections” (or the
+actual count if fewer than 100 come back), from station.detections(first:100, scoreGte:7) on the public GraphQL
 API. The score filter matches the species-page recordings and hour chart
-(7 or higher). The API returns detections newest first, with cursor
+(7 or higher). The intro reads: Detections with a score of 7 or higher,
+newest first. A species heard more than five times in a row is shown as
+one line with a count. The API returns detections newest first, with cursor
 pagination available if a later view needs more than 100. Consecutive
 detections of the same species are grouped: a run of five or fewer is
 shown as one row per detection with its Eastern time (for example

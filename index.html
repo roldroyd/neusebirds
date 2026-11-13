@@ -153,7 +153,7 @@
 </div>
 <section id="trends-view" hidden aria-labelledby="trends-title"><div class="trends-head"><h2 id="trends-title">New arrivals</h2><span id="trends-count" class="counts"></span></div><nav id="trends-subtabs" class="subtabs" aria-label="Comparison window"></nav><p id="trends-note" class="trends-note"></p><div class="feedback"><span id="trends-status" role="status" aria-live="polite"></span><div id="trends-error" role="alert"></div></div><section id="trends-cards" class="grid" aria-label="Species cards"></section><div id="trends-table-wrap" hidden><table><thead><tr><th scope="col">Species</th><th scope="col">Detections</th></tr></thead><tbody id="trends-rows"></tbody></table></div><p id="trends-empty" hidden></p><p class="trends-credit">Arrivals and Missing are based on an idea from <a href="https://tweetsheet.app/arrivals?station=22946" target="_blank" rel="noopener noreferrer">Tweet Sheet</a>, using the same public BirdWeather data.</p></section>
 <section id="conditions-view" hidden aria-labelledby="cond-title"><div class="trends-head"><h2 id="cond-title">Conditions at the station</h2><button type="button" id="cond-refresh" class="cond-refresh">Refresh</button></div><div id="cond-current" class="cond-current" aria-live="polite"></div><nav id="cond-subtabs" class="subtabs" aria-label="Chart period"></nav><p id="cond-meta" class="trends-note"></p><div class="feedback"><span id="cond-status" role="status" aria-live="polite"></span><div id="cond-error" role="alert"></div></div><div id="cond-charts" class="cond-charts"></div><p class="trends-credit">Readings come from the BirdWeather PUC’s built-in sensors through BirdWeather’s public API.</p></section>
-<section id="recent-view" hidden aria-labelledby="recent-title"><div class="trends-head"><h2 id="recent-title">Recent detections</h2><span id="recent-count" class="counts"></span><button type="button" id="recent-refresh" class="cond-refresh">Refresh</button></div><p id="recent-note" class="trends-note">The last 100 detections at the station with a score of 7 or higher, newest first. A species heard more than five times in a row is shown as one line with a count.</p><div class="feedback"><span id="recent-status" role="status" aria-live="polite"></span><div id="recent-error" role="alert"></div></div><ol id="recent-list" class="recent-list" aria-label="Recent detections"></ol><p id="recent-empty" hidden></p></section>
+<section id="recent-view" hidden aria-labelledby="recent-title"><div class="trends-head"><h2 id="recent-title">Most recent 100 detections</h2><button type="button" id="recent-refresh" class="cond-refresh">Refresh</button></div><p id="recent-note" class="trends-note">Detections with a score of 7 or higher, newest first. A species heard more than five times in a row is shown as one line with a count.</p><div class="feedback"><span id="recent-status" role="status" aria-live="polite"></span><div id="recent-error" role="alert"></div></div><ol id="recent-list" class="recent-list" aria-label="Recent detections"></ol><p id="recent-empty" hidden></p></section>
 <section id="species-page" hidden>
 <p><a id="species-back" href="#">← All species</a></p>
 <div id="species-status" role="status" aria-live="polite"></div>
@@ -997,9 +997,13 @@ function recentThumb(s){
  wrap.addEventListener('click',e=>{if(e&&typeof e.preventDefault==='function')e.preventDefault();if(e&&typeof e.stopPropagation==='function')e.stopPropagation();open();});
  return wrap;
 }
+function recentHeading(n){
+ const c=Number.isSafeInteger(n)&&n>=0?n:0;
+ return 'Most recent '+c.toLocaleString()+' detection'+(c===1?'':'s');
+}
 function renderRecent(result){
  const nodes=result.nodes,rows=groupRecentDetections(nodes),list=$('recent-list'),empty=$('recent-empty');
- if($('recent-count'))$('recent-count').textContent=nodes.length.toLocaleString()+' detection'+(nodes.length===1?'':'s');
+ if($('recent-title'))$('recent-title').textContent=recentHeading(nodes.length);
  if(list){
   list.replaceChildren();
   for(const row of rows){
@@ -1025,7 +1029,7 @@ async function loadRecent(force=false){
  const hit=recentCache;
  if(hit&&!force&&Date.now()-hit.at<RECENT_TTL){if($('recent-status'))$('recent-status').textContent='';renderRecent(hit);return;}
  if($('recent-status'))$('recent-status').textContent='Loading detections…';
- if(!hit){if($('recent-list'))$('recent-list').replaceChildren();if($('recent-count'))$('recent-count').textContent='';if($('recent-empty'))$('recent-empty').hidden=true;}
+ if(!hit){if($('recent-list'))$('recent-list').replaceChildren();if($('recent-empty'))$('recent-empty').hidden=true;}
  let result;
  try{result=await fetchRecent(new AbortController().signal);}
  catch(e){if(version!==recentGeneration)return;if($('recent-status'))$('recent-status').textContent='';if(hit)renderRecent(hit);if($('recent-error'))$('recent-error').textContent='Could not load recent detections: '+(e instanceof SyntaxError?'BirdWeather returned invalid JSON.':e.message||'Network error.');return;}
