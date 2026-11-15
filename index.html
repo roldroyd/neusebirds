@@ -146,10 +146,29 @@
 @media(max-width:640px){.recent-list,.recent-row{grid-template-columns:22px .4em minmax(0,1fr)}.recent-thumb{grid-row:1/span 2}.recent-name{grid-column:3;grid-row:1}.recent-meta{display:flex;align-items:baseline;gap:1.25em;grid-column:3;grid-row:2;min-width:0}.recent-when,.recent-mult{grid-column:auto}}
 .trends-credit{font-size:.76rem;color:var(--muted);margin:22px 0 0}
 .trends-credit a{color:var(--green);font-weight:600}
+.station-split{font-size:.84rem;color:var(--muted);margin:0 0 10px;line-height:1.55;display:flex;flex-wrap:wrap;gap:2px 14px}.station-part{white-space:normal}
+.station-filter{font:inherit;color:var(--green);background:none;border:0;padding:0;text-decoration:underline;text-decoration-color:#aab7ab;text-underline-offset:2px;cursor:pointer}.station-filter[aria-pressed=true]{font-weight:700;text-decoration-color:#b17a23}
+.station-dot{display:inline-block;width:.62em;height:.62em;border-radius:50%;margin:0 .3em 0 0;vertical-align:baseline}.station-dot.old{background:#b17a23}.station-dot.live{background:#7d9a4e}
+.station-line{font-size:.74rem;color:#596b5f;margin:-4px 0 8px;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;line-height:1.4}
+.station-only{border-radius:999px;padding:1px 8px;font-weight:700;font-size:.7rem}.station-only.old-only{background:#f1dfbd;color:#7a4e10}.station-only.live-only{background:#dfe9d3;color:#255a3d}
+.station-split-counts{font-variant-numeric:tabular-nums}.first-heard{font-style:italic}
+.timeline{border:1px solid var(--line);border-radius:10px;padding:12px 14px 10px;margin:0 0 16px}
+.tl-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 14px;margin:0 0 8px}.tl-title{font-size:.95rem;margin:0}.tl-legend{font-size:.74rem;color:var(--muted)}.tl-legend-switch{margin-left:.4em}
+.tl-plot{position:relative;padding-top:14px}.tl-top{position:absolute;top:0;left:0;font-size:.62rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.tl-bars{display:flex;align-items:stretch;gap:2px;height:110px;border-bottom:1px solid #aab7ab}
+.tl-col{flex:1 1 0;min-width:0;position:relative;display:flex;flex-direction:column-reverse;justify-content:flex-start}
+.tl-seg{width:100%}.tl-seg.live{background:#7d9a4e}.tl-seg.old{background:#b17a23}.tl-col>.tl-seg:last-of-type{border-radius:2px 2px 0 0}
+.tl-switch{position:absolute;top:-10px;bottom:-4px;right:-2px;border-right:2px dashed #213d30;pointer-events:none}
+.tl-x{display:flex;gap:2px;margin-top:3px}.tl-xlabel{flex:1 1 0;min-width:0;font-size:.6rem;color:var(--muted);white-space:nowrap;overflow:visible}
+.tl-note{font-size:.74rem;color:var(--muted);font-style:italic;margin:6px 0 0}
+.tod-bar.old{background:#b17a23;border-radius:2px 2px 0 0}.tod-bar.live-under{border-radius:0}
+.cal-years{margin:4px 0 8px}.cal-cell.cal-switch{outline:2px solid #213d30;outline-offset:0;position:relative;z-index:1}
+.tl-legend .station-dot{margin-left:.6em}#species-arrival{white-space:pre-line}
+.cal-legend{font-size:.74rem;color:var(--muted);margin:8px 0 0;display:flex;flex-wrap:wrap;gap:2px 14px}
 </style></head><body><main>
-<header><h1 class="site-title"><img class="site-icon" src="apple-touch-icon.png" width="48" height="48" alt=""><span id="station">Neuse River</span><span class="date-nav"><button type="button" id="date-back" aria-label="Previous period">◀</button><span id="window-date" class="title-date">November 8th, 2026</span><button type="button" id="date-forward" aria-label="Next period" disabled>▶</button></span></h1><nav id="section-tabs" class="section-tabs" aria-label="Sections"><a href="#" id="tab-species" class="section-tab" aria-current="page">Species</a><a href="#recent" id="tab-recent" class="section-tab" aria-current="false">Recent</a><a href="#arrivals" id="tab-arrivals" class="section-tab" aria-current="false">Arrivals</a><a href="#missing" id="tab-missing" class="section-tab" aria-current="false">Missing</a><a href="#conditions" id="tab-conditions" class="section-tab" aria-current="false">Conditions</a></nav><div id="list-view-header"><p class="intro"><span id="window-label" class="summary-heading">Species heard <em id="window-accent">in the last 24 hours</em></span><span class="counts"><span class="count-glue"><span class="count-sep" aria-hidden="true">·</span><span id="species-total">28</span></span> <span id="species-word">species</span>, <span id="detections-total">842</span> <span id="detections-word">detections</span></span></p><div class="auto-line"><span id="updated">Updated 12:03 PM</span><span class="auto-controls"><span class="auto-phrase"><label class="auto-toggle" for="auto"><input id="auto" type="checkbox" checked> Auto-refresh</label><label for="minutes">every</label></span><input id="minutes" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="5" aria-label="Refresh interval in minutes" autocomplete="off"><span>minutes</span></span><button id="refresh" type="button">Refresh now</button></div><div id="interval-error" role="alert"></div></div></header>
+<header><h1 class="site-title"><img class="site-icon" src="apple-touch-icon.png" width="48" height="48" alt=""><span id="station">Neuse River</span><span class="date-nav"><button type="button" id="date-back" aria-label="Previous period">◀</button><span id="window-date" class="title-date">November 8th, 2026</span><button type="button" id="date-forward" aria-label="Next period" disabled>▶</button></span></h1><nav id="section-tabs" class="section-tabs" aria-label="Sections"><a href="#" id="tab-species" class="section-tab" aria-current="page">Species</a><a href="#recent" id="tab-recent" class="section-tab" aria-current="false">Recent</a><a href="#arrivals" id="tab-arrivals" class="section-tab" aria-current="false">Arrivals</a><a href="#missing" id="tab-missing" class="section-tab" aria-current="false">Missing</a><a href="#conditions" id="tab-conditions" class="section-tab" aria-current="false">Conditions</a></nav><div id="list-view-header"><p class="intro"><span id="window-label" class="summary-heading">Species heard <em id="window-accent">in the last 24 hours</em></span><span class="counts"><span class="count-glue"><span class="count-sep" aria-hidden="true">·</span><span id="species-total">28</span></span> <span id="species-word">species</span>, <span id="detections-total">842</span> <span id="detections-word">detections</span></span></p><p id="station-split" class="station-split" hidden></p><div class="auto-line"><span id="updated">Updated 12:03 PM</span><span class="auto-controls"><span class="auto-phrase"><label class="auto-toggle" for="auto"><input id="auto" type="checkbox" checked> Auto-refresh</label><label for="minutes">every</label></span><input id="minutes" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="5" aria-label="Refresh interval in minutes" autocomplete="off"><span>minutes</span></span><button id="refresh" type="button">Refresh now</button></div><div id="interval-error" role="alert"></div></div></header>
 <div id="list-view"><section aria-label="Display and refresh controls"><div class="toolbar"><label class="field" for="period">Time Period<select id="period"><option value="today" selected>Today</option><option value="rolling">24 hours</option><option value="week">week</option><option value="month">month</option><option value="year">year</option><option value="all">all time</option></select></label><label class="field" for="sort">Sort by<select id="sort"><option value="count">Most detections</option><option value="recent" selected>Most recent</option><option value="name">Name A–Z</option></select></label><label class="field" for="view">View<select id="view" aria-label="Species view"><option value="cards" selected>Cards</option><option value="table">Table</option></select></label><div class="search"><input id="filter" type="search" placeholder="Search by common or scientific name." aria-label="Search species"></div></div></section>
-<div class="feedback"><span id="status" role="status" aria-live="polite"></span><div id="error" role="alert"></div></div><section id="cards" class="grid" aria-label="Species cards"></section><div id="table-wrap" hidden><table><thead><tr><th scope="col">Species</th><th scope="col">Detections</th></tr></thead><tbody id="rows"></tbody></table></div><p id="empty" hidden></p>
+<div class="feedback"><span id="status" role="status" aria-live="polite"></span><div id="error" role="alert"></div></div><section id="lifetime-timeline" class="timeline" aria-label="Detections by month, both PUCs" hidden></section><section id="cards" class="grid" aria-label="Species cards"></section><div id="table-wrap" hidden><table><thead><tr><th scope="col">Species</th><th scope="col">Detections</th></tr></thead><tbody id="rows"></tbody></table></div><p id="empty" hidden></p>
 </div>
 <section id="trends-view" hidden aria-labelledby="trends-title"><div class="trends-head"><h2 id="trends-title">New arrivals</h2><span id="trends-count" class="counts"></span></div><nav id="trends-subtabs" class="subtabs" aria-label="Comparison window"></nav><p id="trends-note" class="trends-note"></p><div class="feedback"><span id="trends-status" role="status" aria-live="polite"></span><div id="trends-error" role="alert"></div></div><section id="trends-cards" class="grid" aria-label="Species cards"></section><div id="trends-table-wrap" hidden><table><thead><tr><th scope="col">Species</th><th scope="col">Detections</th></tr></thead><tbody id="trends-rows"></tbody></table></div><p id="trends-empty" hidden></p><p class="trends-credit">Arrivals and Missing are based on an idea from <a href="https://tweetsheet.app/arrivals?station=22946" target="_blank" rel="noopener noreferrer">Tweet Sheet</a>, using the same public BirdWeather data.</p></section>
 <section id="conditions-view" hidden aria-labelledby="cond-title"><div class="trends-head"><h2 id="cond-title">Conditions at the station</h2><button type="button" id="cond-refresh" class="cond-refresh">Refresh</button></div><div id="cond-current" class="cond-current" aria-live="polite"></div><nav id="cond-subtabs" class="subtabs" aria-label="Chart period"></nav><p id="cond-meta" class="trends-note"></p><div class="feedback"><span id="cond-status" role="status" aria-live="polite"></span><div id="cond-error" role="alert"></div></div><div id="cond-charts" class="cond-charts"></div><p class="trends-credit">Readings come from the BirdWeather PUC’s built-in sensors through BirdWeather’s public API.</p></section>
@@ -166,11 +185,15 @@
 <h3 id="tod-heading">Detections by hour of day for today</h3>
 <div class="species-nav"><label class="field" for="tod-period">Period<select id="tod-period"><option value="today" selected>Today</option><option value="week">Week</option><option value="month">Month</option><option value="year">Year</option><option value="all">All time</option></select></label><span class="date-nav"><button type="button" id="tod-back" aria-label="Previous period">◀</button><span id="tod-date" class="title-date"></span><button type="button" id="tod-forward" aria-label="Next period" disabled>▶</button></span></div>
 <div class="tod-wrap"><div class="tod-plot" id="tod-plot"><p class="tod-total" id="tod-total"></p><div class="tod-y" id="tod-y"></div><div class="tod-plot-main"><div class="tod-grid" id="tod-grid"></div><div class="tod-chart" id="tod-chart"></div></div><div class="tod-x" id="tod-x"></div></div></div>
+<p id="tod-note" class="cal-caveat" hidden></p>
 </section>
 <section class="species-section" aria-label="Calendar">
 <h3>Calendar</h3>
 <p id="species-arrival"></p>
+<div id="species-timeline" class="timeline" hidden></div>
+<nav id="cal-years" class="subtabs cal-years" aria-label="Calendar year" hidden></nav>
 <div id="cal-heat" class="cal-heat"></div>
+<div id="cal-legend" class="cal-legend" hidden></div>
 <p class="cal-caveat">Score filtering isn't applied to the calendar, so totals include lower-confidence detections and may be a bit inflated.</p>
 <div class="species-totals" id="species-totals"></div>
 </section>
@@ -261,15 +284,15 @@ function periodWindow(mode,now=new Date(),offset=0){
  const resolved=({1:'rolling',7:'week',30:'month',365:'year'})[days]||'rolling';
  const end=new Date(now.getTime()-offset*days*86400000);
  let start=new Date(end.getTime()-days*86400000);
- if(offset>0&&start.getTime()<earliestStamp())start=new Date(earliestStamp());
+ if(offset>0&&start.getTime()<historyStamp())start=new Date(historyStamp());
  const dateLabel=(resolved==='week'||resolved==='month'||resolved==='year')?displayDateRange(start,end):displayDate(end);
  return {period:{from:start.toISOString(),to:end.toISOString(),timezone:'America/New_York'},name,phrase,mode:resolved,offset,dateLabel,label};
 }
 function canStepBack(mode,offset=historyOffset,now=new Date()){
  if(mode==='all')return false;
- if(mode==='today')return civilShift(easternDate(now),-(offset+1))>=earliestCivil();
+ if(mode==='today')return civilShift(easternDate(now),-(offset+1))>=historyCivil();
  const days=({week:7,month:30,year:365})[mode]||1;
- return now.getTime()-(offset+1)*days*86400000>earliestStamp();
+ return now.getTime()-(offset+1)*days*86400000>historyStamp();
 }
 function updateDateNav(window){
  const back=$('date-back'),fwd=$('date-forward'),nav=back&&back.parentElement;
@@ -382,7 +405,7 @@ function relativeAge(value,now=Date.now()){
 }
 function ageText(b){return b.latestPending?'Last heard loading…':relativeAge(b.latestAt);}
 function updateAges(){for(const entry of ageLabels)entry.node.textContent=ageText(entry.bird);}
-function names(bird){const s=bird.species,box=element('div'),age=element('p',ageText(bird),'last-heard'),title=element('h3'),open=element('a',s.commonName,'species-open');open.href=speciesHref(s);open.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();openSpecies(s.id);});title.append(open);box.append(title,element('p',s.scientificName,'latin'),age);ageLabels.push({node:age,bird});return box;}
+function names(bird){const s=bird.species,box=element('div'),age=element('p',ageText(bird),'last-heard'),title=element('h3'),open=element('a',s.commonName,'species-open');open.href=speciesHref(s);open.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();openSpecies(s.id);});title.append(open);box.append(title,element('p',s.scientificName,'latin'),age);const st=stationLine(bird);if(st)box.append(st);ageLabels.push({node:age,bird});return box;}
 
 function applySummary(window){
  if(window){
@@ -398,6 +421,7 @@ function applySummary(window){
  if($('species-word'))$('species-word').textContent='species';
  $('detections-total').textContent=detections.toLocaleString();
  if($('detections-word'))$('detections-word').textContent=detections===1?'detection':'detections';
+ renderStationSplit();
 }
 function render(){
  if(!current)return;
@@ -405,7 +429,8 @@ function render(){
  $('station').textContent=current.name;
  applySummary(currentWindow);
  const term=$('filter').value.toLowerCase().trim();
- const birds=current.topSpecies.filter(b=>(b.species.commonName+' '+b.species.scientificName).toLowerCase().includes(term)).sort(compareBirds);
+ const birds=current.topSpecies.filter(b=>(b.species.commonName+' '+b.species.scientificName).toLowerCase().includes(term)&&stationMatch(b)).sort(compareBirds);
+ renderLifetimeTimeline();
  $('cards').replaceChildren();$('rows').replaceChildren();$('cards').hidden=view!=='cards';$('table-wrap').hidden=view!=='table';if($('view'))$('view').value=view==='table'?'table':'cards';
  birds.forEach((b,index)=>{
   if(view==='cards'){
@@ -440,7 +465,7 @@ function commitMinutes(){
  setSchedule();
 }
 async function latestTimes(station,window,signal,version){
- const birds=station.topSpecies;
+ const birds=station.topSpecies.filter(b=>b.liveCount!==0);
  for(let start=0;start<birds.length;start+=3){
   if(version!==generation)return false;
   const group=birds.slice(start,start+3);
@@ -457,7 +482,7 @@ async function latestTimes(station,window,signal,version){
     const inStart=from.length===19?easternDate(new Date(time))===from.slice(0,10):time>=Date.parse(from);
     if(!inStart||(pastDay?time>=to:time>to))throw new Error('Latest detection outside the selected window.');
    }
-   b.latestAt=Number.isFinite(time)?n.timestamp:null;b.latestPending=false;
+   b.latestAt=Number.isFinite(time)?n.timestamp:(b.oldLatestAt||null);b.latestPending=false;
   });
   if(current===station)updateAges();
  }
@@ -480,10 +505,13 @@ async function refresh(reuse=false){
  try{
   if(usingCache)next=current;
   else{
+   const archive=oldArchiveFor(window.period,window.mode);
    next=validate(await fetchFull(queryText,window,controller.signal));
    if(version!==generation)return;
    next.recentReady=false;next.latestLoading=true;
    for(const bird of next.topSpecies){bird.latestAt=null;bird.latestPending=true;}
+   mergeOldIntoStation(next,window,await archive);
+   if(version!==generation)return;
    current=next;currentWindow=window;
    applyUpdated(window.period.to);
    render();
@@ -497,16 +525,230 @@ async function refresh(reuse=false){
   next.latestLoading=false;for(const bird of next.topSpecies)bird.latestPending=false;updateAges();
   if($('sort').value==='recent')render();
   $('status').textContent='';
+  if(next.merge&&next.merge.mode==='all'&&!next.lifetime){try{await loadLifetimeExtras(next,window,controller.signal,version);}catch(e){next.lifetime=null;}if(version!==generation)return;if(current===next)render();}
  }catch(e){
   if(version!==generation)return;
   if(published&&current===next){
    next.latestLoading=false;next.recentReady=false;
-   for(const bird of next.topSpecies)bird.latestPending=false;
+   for(const bird of next.topSpecies){bird.latestPending=false;if(!bird.latestAt&&bird.oldLatestAt)bird.latestAt=bird.oldLatestAt;}
    updateAges();
    $('status').textContent='';
   }else $('status').textContent='Refresh failed; keeping the last good snapshot.';
   $('error').textContent=timedOut?'The update timed out (up to 120 seconds overall; 30 seconds per request). Try again.':(e instanceof SyntaxError?'BirdWeather returned invalid JSON. Try again.':e.message||'Network error.');
  }finally{clearTimeout(timeout);busy=false;$('refresh').disabled=false;$('refresh').textContent='Refresh now';if(queued){queued=false;refresh();}}
+}
+
+// Old PUC 4663 ("Neuse River", retired; last detection Oct 24, 2025). Its history is a frozen static
+// archive in data/station-4663/ (species totals + per-species, per-day, per-hour counts, Eastern time).
+// Station 22946 stays live from the BirdWeather API; the two are merged by species ID in the browser.
+const OLD_ID='4663',LIVE_ID='22946',OLD_BASE='data/station-4663/';
+const OLD_FIRST='2024-05-29T17:40:37-04:00',OLD_LAST='2025-10-24T11:27:42-04:00',OLD_FIRST_DAY='2024-05-29',OLD_LAST_DAY='2025-10-24';
+let oldArchive=null,oldArchivePromise=null,stationFilter='',lifetimeExtras=null,calDays=null,calYear=null,speciesOldOnly=false;
+function historyStamp(){return Math.min(earliestStamp(),Date.parse(OLD_FIRST));}
+function historyCivil(){return easternDate(new Date(historyStamp()));}
+function nthSundayOf(y,m,n){const first=new Date(Date.UTC(y,m,1)).getUTCDay();return 1+(7-first)%7+7*(n-1);}
+// Start of a local America/New_York clock hour, as epoch ms (US DST rules; the repeated fall-back 1 AM counts as EDT).
+function easternHourStart(day,hour){
+ const [y,m,d]=day.split('-').map(Number);
+ const dstStart=Date.UTC(y,2,nthSundayOf(y,2,2),7),dstEnd=Date.UTC(y,10,nthSundayOf(y,10,1),6);
+ const est=Date.UTC(y,m-1,d,hour+5),edt=est-3600000;
+ return edt>=dstStart&&edt<dstEnd?edt:est;
+}
+function periodStamp(v){
+ if(typeof v==='string'&&/^\d{4}-\d{2}-\d{2}T00:00:00$/.test(v))return easternHourStart(v.slice(0,10),0);
+ const t=v instanceof Date?v.getTime():Date.parse(v);return Number.isFinite(t)?t:NaN;
+}
+function overlapsOld(period){
+ if(!period)return false;
+ const from=periodStamp(period.from),to=periodStamp(period.to);
+ return Number.isFinite(from)&&Number.isFinite(to)&&from<=Date.parse(OLD_LAST)&&to>Date.parse(OLD_FIRST)-3600000;
+}
+function speciesFromMeta(m){
+ const s={};for(const k of ['id','commonName','scientificName','imageUrl','thumbnailUrl','imageCredit','imageLicense','imageLicenseUrl','birdweatherUrl','wikipediaUrl','ebirdUrl','ebirdCode'])s[k]=m[k]===undefined?null:m[k];
+ s.id=String(m.id);return s;
+}
+function buildOldArchive(summary,hourly){
+ if(!summary||!summary.station||String(summary.station.stationId)!==OLD_ID||!Array.isArray(summary.species))throw new Error('Unexpected old-station archive.');
+ if(!hourly||!hourly.format||!/^\d{4}-\d{2}-\d{2}$/.test(hourly.format.baseDate)||!Array.isArray(hourly.species)||!Array.isArray(hourly.data)||hourly.species.length!==hourly.data.length)throw new Error('Unexpected old-station hourly archive.');
+ const meta=new Map();
+ for(const s of summary.species){if(s&&s.id!=null&&typeof s.commonName==='string'&&typeof s.scientificName==='string'&&Number.isSafeInteger(s.detections))meta.set(String(s.id),s);}
+ const base=hourly.format.baseDate,dayNames=[],cells=new Map();
+ hourly.species.forEach((sid,i)=>{
+  const flat=hourly.data[i];if(!Array.isArray(flat))return;
+  const day=[],hour=[],count=[];let d=0,k=0;
+  while(k+1<flat.length){
+   d+=flat[k];const mask=flat[k+1];k+=2;
+   for(let h=0;h<24;h++)if(mask>>h&1){const c=flat[k++];if(Number.isSafeInteger(c)&&c>0){day.push(d);hour.push(h);count.push(c);}}
+  }
+  cells.set(String(sid),{day:Int32Array.from(day),hour:Uint8Array.from(hour),count:Int32Array.from(count)});
+ });
+ let maxDay=0;for(const c of cells.values())for(const d of c.day)if(d>maxDay)maxDay=d;
+ for(let i=0;i<=maxDay;i++)dayNames.push(civilShift(base,i));
+ const stamps=new Map();
+ const hourStamp=(d,h)=>{const key=d*24+h;let t=stamps.get(key);if(t===undefined){t=easternHourStart(dayNames[d],h);stamps.set(key,t);}return t;};
+ return {station:summary.station,meta,cells,dayNames,hourStamp};
+}
+function loadOldArchive(){
+ if(oldArchive)return Promise.resolve(oldArchive);
+ if(!oldArchivePromise){
+  const get=name=>fetch(OLD_BASE+name,{credentials:'omit'}).then(r=>{if(!r||!r.ok)throw new Error('Old-station archive HTTP '+(r&&r.status));return r.json();});
+  oldArchivePromise=Promise.all([get('species-summary.json'),get('hourly-counts.json')]).then(([s,h])=>(oldArchive=buildOldArchive(s,h))).catch(e=>{oldArchivePromise=null;throw e;});
+ }
+ return oldArchivePromise;
+}
+// null = period doesn't touch the old station; false = archive unavailable.
+function oldArchiveFor(period,mode){
+ if(mode!=='all'&&!overlapsOld(period))return Promise.resolve(null);
+ return loadOldArchive().catch(()=>false);
+}
+// Per-species old-station counts inside [from, to): hour buckets whose start falls in the window. period null = everything.
+function oldInPeriod(arch,period){
+ const out=new Map();if(!arch)return out;
+ const from=period?periodStamp(period.from):-Infinity,to=period?periodStamp(period.to):Infinity;
+ for(const [id,c] of arch.cells){
+  let n=0,last=-Infinity;
+  for(let k=0;k<c.count.length;k++){const t=arch.hourStamp(c.day[k],c.hour[k]);if(t>=from&&t<to){n+=c.count[k];if(t>last)last=t;}}
+  if(n>0){
+   const m=arch.meta.get(id),lh=m&&Date.parse(m.lastHeard);
+   const latest=Number.isFinite(lh)&&lh>=last&&lh<last+3600000&&lh<to?m.lastHeard:new Date(last).toISOString();
+   out.set(id,{count:n,latestAt:latest});
+  }
+ }
+ return out;
+}
+function oldDaily(arch,id){
+ const c=arch&&arch.cells.get(String(id));if(!c)return [];
+ const map=new Map();for(let k=0;k<c.count.length;k++){const d=arch.dayNames[c.day[k]];map.set(d,(map.get(d)||0)+c.count[k]);}
+ return [...map].map(([date,total])=>({date,total}));
+}
+function oldHours(arch,id,period){
+ const c=arch&&arch.cells.get(String(id)),hours=Array.from({length:24},()=>0);if(!c)return hours;
+ const from=period?periodStamp(period.from):-Infinity,to=period?periodStamp(period.to):Infinity;
+ for(let k=0;k<c.count.length;k++){const t=arch.hourStamp(c.day[k],c.hour[k]);if(t>=from&&t<to)hours[c.hour[k]]+=c.count[k];}
+ return hours;
+}
+function oldMonthly(arch){
+ const map=new Map();if(!arch)return map;
+ for(const c of arch.cells.values())for(let k=0;k<c.count.length;k++){const ym=arch.dayNames[c.day[k]].slice(0,7);map.set(ym,(map.get(ym)||0)+c.count[k]);}
+ return map;
+}
+function mergeOldIntoStation(st,window,arch){
+ st.liveCounts={species:st.counts.species,detections:st.counts.detections};st.merge=null;
+ for(const b of st.topSpecies){b.liveCount=b.count;b.oldCount=0;b.oldLatestAt=null;b.firstHeard=null;}
+ if(arch===null||arch===undefined)return st;
+ if(arch===false){st.merge={unavailable:true,oldSpecies:0};return st;}
+ const old=oldInPeriod(arch,window.mode==='all'?null:window.period);
+ const byId=new Map(st.topSpecies.map(b=>[b.species.id,b]));let oldDetections=0;
+ for(const [id,o] of old){
+  const m=arch.meta.get(id);if(!m)continue;
+  oldDetections+=o.count;let b=byId.get(id);
+  if(!b){b={count:0,liveCount:0,oldCount:0,species:speciesFromMeta(m),latestAt:null,latestPending:false,firstHeard:null};st.topSpecies.push(b);byId.set(id,b);}
+  b.oldCount=o.count;b.count+=o.count;b.oldLatestAt=o.latestAt;
+  if(window.mode==='all')b.firstHeard=m.firstHeard;
+  if(!b.liveCount){b.latestAt=o.latestAt;b.latestPending=false;}
+ }
+ const oldSpecies=st.topSpecies.filter(b=>b.oldCount>0).length,liveSpecies=st.liveCounts.species;
+ const both=st.topSpecies.filter(b=>b.oldCount>0&&b.liveCount>0).length;
+ st.counts={species:st.topSpecies.length,detections:st.liveCounts.detections+oldDetections};
+ st.merge={oldSpecies,oldDetections,liveSpecies,liveDetections:st.liveCounts.detections,both,onlyOld:oldSpecies-both,onlyLive:liveSpecies-both,mixed:oldSpecies>0&&liveSpecies>0,mode:window.mode};
+ return st;
+}
+function stationDot(kind){return element('span',undefined,'station-dot '+kind);}
+function renderStationSplit(){
+ const el=$('station-split');if(!el)return;
+ el.replaceChildren();
+ const m=current&&current.merge;
+ if(!m||(!m.unavailable&&!m.oldSpecies)){el.hidden=true;return;}
+ el.hidden=false;
+ if(m.unavailable){el.textContent='The old PUC 4663 archive could not be loaded, so only the current PUC is counted here.';return;}
+ const n=x=>x.toLocaleString();
+ if(!m.mixed){el.append(stationDot('old'),element('span','All from the old PUC 4663, retired after '+displayCivilDate(OLD_LAST_DAY)+'.'));return;}
+ const toggle=(label,key)=>{const b=element('button',label,'station-filter');b.type='button';b.setAttribute('aria-pressed',stationFilter===key?'true':'false');b.title=stationFilter===key?'Show all species':'Show only these species';b.addEventListener('click',e=>{if(e&&typeof e.stopPropagation==='function')e.stopPropagation();stationFilter=stationFilter===key?'':key;render();});return b;};
+ const part=(kind,text)=>{const s=element('span',undefined,'station-part');s.append(stationDot(kind),element('span',text));return s;};
+ el.append(
+  part('old','Old PUC 4663 ('+displayDateRange(OLD_FIRST_DAY,OLD_LAST_DAY)+'): '+n(m.oldSpecies)+' species, '+n(m.oldDetections)+' detections'),
+  part('live','Current PUC 22946 (since '+displayCivilDate(earliestCivil())+'): '+n(m.liveSpecies)+' species, '+n(m.liveDetections)+' detections'));
+ const tail=element('span',undefined,'station-part');
+ tail.append(toggle(n(m.both)+' heard by both','both'),element('span',' · '),toggle(n(m.onlyOld)+' only by the old PUC','old'),element('span',' · '),toggle(n(m.onlyLive)+' only by the current PUC','live'));
+ el.append(tail);
+}
+function stationMatch(b){
+ const m=current&&current.merge;if(!stationFilter||!m||!m.mixed)return true;
+ if(stationFilter==='old')return b.oldCount>0&&!b.liveCount;
+ if(stationFilter==='live')return b.liveCount>0&&!b.oldCount;
+ if(stationFilter==='both')return b.liveCount>0&&b.oldCount>0;
+ return true;
+}
+function stationLine(bird){
+ const m=current&&current.merge;if(!m||!m.oldSpecies||bird.liveCount===undefined)return null;
+ const line=element('p',undefined,'station-line'),n=x=>(x||0).toLocaleString();
+ if(m.mixed&&!bird.oldCount)line.append(element('span','Current PUC only','station-only live-only'));
+ else if(m.mixed&&!bird.liveCount)line.append(element('span','Old PUC only','station-only old-only'));
+ else if(m.mixed){const s=element('span',undefined,'station-split-counts');s.append(stationDot('old'),element('span','Old '+n(bird.oldCount)+' '),stationDot('live'),element('span','Current '+n(bird.liveCount)));line.append(s);}
+ else line.append(element('span','Old PUC','station-only old-only'));
+ if(bird.firstHeard){const day=civilFromValue(bird.firstHeard);if(day)line.append(element('span','First heard '+displayCivilDate(day),'first-heard'));}
+ return line;
+}
+// All-time extras: the live station's per-day, per-species counts give first-heard dates and the lifetime timeline.
+const lifetimeQuery='query($period:InputDuration){ dailyDetectionCounts(stationIds:["22946"], period:$period){ date total counts { speciesId count } } }';
+async function loadLifetimeExtras(station,window,signal,version){
+ if(!station.merge||station.merge.unavailable||window.mode!=='all')return;
+ const payload=await requestJson({query:lifetimeQuery,variables:{period:window.period}},signal);
+ if(version!==generation)return;
+ const rows=payload&&payload.data&&payload.data.dailyDetectionCounts;
+ if(!Array.isArray(rows))throw new Error('Unexpected daily counts response.');
+ const first=new Map(),monthly=new Map();
+ for(const r of rows){
+  if(!r||typeof r.date!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(r.date))continue;
+  if(Number.isFinite(r.total))monthly.set(r.date.slice(0,7),(monthly.get(r.date.slice(0,7))||0)+r.total);
+  for(const c of Array.isArray(r.counts)?r.counts:[]){if(!c||c.speciesId==null||!(Number(c.count)>0))continue;const id=String(c.speciesId),f=first.get(id);if(!f||r.date<f)first.set(id,r.date);}
+ }
+ for(const b of station.topSpecies){if(!b.oldCount&&b.liveCount>0&&first.has(b.species.id))b.firstHeard=first.get(b.species.id);}
+ station.lifetime={live:monthly,old:oldMonthly(oldArchive)};
+}
+function monthRange(a,b){const out=[];let [y,m]=a.split('-').map(Number);const [by,bm]=b.split('-').map(Number);while(y<by||(y===by&&m<=bm)){out.push(y+'-'+String(m).padStart(2,'0'));m++;if(m>12){m=1;y++;}}return out;}
+// Monthly stacked bars, old PUC (amber) under current PUC (green), with a dashed marker where the stations switched.
+function renderTimeline(host,oldMap,liveMap,title){
+ if(!host)return;host.replaceChildren();
+ const keys=[...oldMap.keys(),...liveMap.keys()].sort();
+ if(!keys.length){host.hidden=true;return;}
+ host.hidden=false;
+ const months=monthRange(keys[0]<OLD_FIRST_DAY.slice(0,7)?keys[0]:OLD_FIRST_DAY.slice(0,7),easternDate(new Date()).slice(0,7));
+ const max=Math.max(1,...months.map(k=>(oldMap.get(k)||0)+(liveMap.get(k)||0)));
+ const scale=niceTicks(max),names=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+ const head=element('div',undefined,'tl-head');head.append(element('h3',title,'tl-title'));
+ const legend=element('span',undefined,'tl-legend');legend.append(stationDot('old'),element('span','Old PUC 4663 '),stationDot('live'),element('span','Current PUC 22946 '),element('span','┊ switch','tl-legend-switch'));head.append(legend);
+ const plot=element('div',undefined,'tl-plot'),bars=element('div',undefined,'tl-bars'),xs=element('div',undefined,'tl-x');
+ plot.append(element('span',scale.top.toLocaleString(),'tl-top'));
+ for(const k of months){
+  const o=oldMap.get(k)||0,l=liveMap.get(k)||0,[y,m]=k.split('-').map(Number);
+  const col=element('div',undefined,'tl-col');col.setAttribute('data-month',k);
+  col.title=names[m-1]+' '+y+': '+(o+l).toLocaleString()+' detections'+(o&&l?' (old '+o.toLocaleString()+', current '+l.toLocaleString()+')':o?' (old PUC)':l?' (current PUC)':'');
+  const tot=(o+l)/scale.top*100;
+  if(l){const s=element('div',undefined,'tl-seg live');s.style.height=(tot*l/(o+l))+'%';col.append(s);}
+  if(o){const s=element('div',undefined,'tl-seg old');s.style.height=(tot*o/(o+l))+'%';col.append(s);}
+  if(k===OLD_LAST_DAY.slice(0,7)){const mk=element('span',undefined,'tl-switch');mk.title='PUC switch: old PUC 4663 last heard '+displayCivilDate(OLD_LAST_DAY)+'; current PUC 22946 from '+displayCivilDate(earliestCivil());col.append(mk);}
+  bars.append(col);
+  xs.append(element('span',m===1||k===months[0]?names[m-1]+' '+String(y).slice(2):(months.length<=24||m%3===1?names[m-1].charAt(0):''),'tl-xlabel'));
+ }
+ plot.append(bars,xs);
+ host.append(head,plot,element('p','Dashed line: the old PUC 4663 went quiet after '+displayCivilDate(OLD_LAST_DAY)+'; the current PUC 22946 started '+displayCivilDate(earliestCivil())+'.','tl-note'));
+}
+function renderLifetimeTimeline(){
+ const host=$('lifetime-timeline');if(!host)return;
+ if(!current||!current.lifetime||!current.merge||current.merge.mode!=='all'){host.hidden=true;host.replaceChildren();return;}
+ renderTimeline(host,current.lifetime.old,current.lifetime.live,'Detections by month, both PUCs');
+}
+function mergeDays(live,old){
+ const map=new Map();
+ for(const d of live||[]){if(!d||typeof d.date!=='string'||!Number.isFinite(d.total))continue;const e=map.get(d.date)||{date:d.date,total:0,live:0,old:0};e.total+=d.total;e.live+=d.total;map.set(d.date,e);}
+ for(const d of old||[]){const e=map.get(d.date)||{date:d.date,total:0,live:0,old:0};e.total+=d.total;e.old+=d.total;map.set(d.date,e);}
+ return [...map.values()].sort((a,b)=>a.date.localeCompare(b.date));
+}
+function mergeOldRows(rows,old,arch){
+ const out=rows.map(r=>Object.assign({},r)),byId=new Map(out.map(r=>[r.species.id,r]));
+ for(const [id,o] of old){const r=byId.get(id);if(r)r.count+=o.count;else{const m=arch.meta.get(id);if(m){const nr={count:o.count,species:speciesFromMeta(m)};out.push(nr);byId.set(id,nr);}}}
+ return out;
 }
 
 let speciesActive=null,speciesBusy=false,speciesGeneration=0,speciesCursor=null,speciesHasMore=false,listScroll=0,todOffset=0,activeAudio=null,clipObjectUrls=[];
@@ -533,7 +775,7 @@ function shortRange(from,to){
  const a=shortMonthDay(from),b=shortMonthDay(to);
  return from.slice(0,4)===to.slice(0,4)?a+' – '+b+(from.slice(0,4)!==easternDate(new Date()).slice(0,4)?', '+from.slice(0,4):''):a+', '+from.slice(0,4)+' – '+b+', '+to.slice(0,4);
 }
-function trendWindows(kind,sub,now=new Date(),earliest=earliestCivil()){
+function trendWindows(kind,sub,now=new Date(),earliest=historyCivil()){
  const today=easternDate(now),year=today.slice(0,4),day=n=>civilShift(today,n);
  const ref=(from,to,minCount,extra)=>Object.assign({from,to,minCount},extra||{});
  let here,refs;
@@ -574,7 +816,7 @@ function trendNote(w){
  const h=w.here,r0=w.refs[0],hr=shortRange(h.from,h.to),rr=r0?' ('+shortRange(r0.from,r0.to)+')':'';
  if(k==='arrivals')text=s==='week'?'Heard at the station the past 7 days ('+hr+') but silent the 7 days before that'+rr+' — possibly newly arrived.':s==='month'?'Heard at the station the past 30 days ('+hr+') but silent the 30 days before that'+rr+'.':s==='year'?'Heard at the station for the first time this year — not in any of the prior 3 years.':'New arrivals you can expect over the next month, based on previous years.';
  else{const r=w.refs[0];text=s==='week'?'Heard the previous 7 days ('+shortRange(r.from,r.to)+') but silent the past 7 days ('+hr+') — possibly recently departed.':s==='month'?'Heard the previous 30 days ('+shortRange(r.from,r.to)+') but silent the past 7 days ('+hr+').':'Heard at the station the same week in any of the last 3 years (each ±7 days, with at least 20 detections in some year) but not in the past 7 days.';}
- if(w.clipped||(w.skipped&&!w.noHistory))text+=' Station history begins '+displayCivilDate(w.earliest)+', so the comparison only reaches back that far.';
+ if(w.clipped||(w.skipped&&!w.noHistory))text+=' History '+(w.earliest<earliestCivil()?'(the old PUC 4663, then the current PUC) ':'')+'begins '+displayCivilDate(w.earliest)+', so the comparison only reaches back that far.';
  return text;
 }
 function trendEmptyText(w){
@@ -607,7 +849,8 @@ async function fetchTrend(w,signal){
  const payload=await requestJson({query:'query('+defs.join(',')+'){ station(id:22946){ id '+fields.join(' ')+' } }',variables:vars},signal);
  const s=payload&&payload.data&&payload.data.station;
  if(!s||s.id!=='22946')throw new Error('Unexpected station response.');
- const lists=periods.map((p,i)=>validTrendRows(s['w'+i]));
+ let lists=periods.map((p,i)=>validTrendRows(s['w'+i]));
+ if(periods.some(overlapsOld)){const arch=await loadOldArchive().catch(()=>false);if(arch)lists=lists.map((rows,i)=>overlapsOld(periods[i])?mergeOldRows(rows,oldInPeriod(arch,periods[i]),arch):rows);}
  return {rows:computeTrend(w.kind,w.sub,lists[0],lists.slice(1),w.refs),periods:periods.length};
 }
 function renderTrendSubtabs(kind,sub){
@@ -1224,7 +1467,7 @@ function shortMonthDay(iso){
  return months[m-1]+' '+d;
 }
 function speciesArrival(days,now=new Date()){
- const start=earliestCivil();
+ const starts=[OLD_FIRST_DAY,earliestCivil()];
  const byYear=new Map();
  for(const d of days||[]){
   if(!d||typeof d.date!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(d.date)||!Number.isFinite(d.total))continue;
@@ -1240,7 +1483,7 @@ function speciesArrival(days,now=new Date()){
   const use=gt3.length?gt3:present;
   const first=use[0],peak=all.reduce((p,d)=>d.total>p.total?d:p),last=present.at(-1),total=use.reduce((s,d)=>s+d.total,0);
   const recent=all.some(d=>d.date>=cutoff&&d.total>0);
-  const verb=first.date===start?'first seen':'arrived';
+  const verb=starts.includes(first.date)?'first seen':'arrived';
   const tail=recent?'still present ('+total.toLocaleString()+' total)':'departed '+shortMonthDay(last&&last.date)+' ('+total.toLocaleString()+' total)';
   lines.push(y+' · '+verb+' '+shortMonthDay(first.date)+' · peaked '+shortMonthDay(peak.date)+' ('+peak.total.toLocaleString()+') · '+tail);
  }
@@ -1516,15 +1759,17 @@ function countValue(block){
  const n=block&&block.detections;
  return Number.isSafeInteger(n)&&n>=0?n:null;
 }
-function renderTotals(today,week,ytd,all){
+function renderTotals(today,week,ytd,all,split){
  const box=$('species-totals');if(!box)return;
  box.replaceChildren();
- for(const [label,n] of [['Today',today],['This week',week],['Year-to-date',ytd],['All time',all]]){
+ const rows=[['Today',today],['This week',week],['Year-to-date',ytd],['All time',all]];
+ if(split&&split.old>0){rows[3][0]='All time, both PUCs';rows.push(['Old PUC 4663',split.old],['Current PUC 22946',split.live]);}
+ for(const [label,n] of rows){
   const item=element('div'),l=element('span',label,'label'),v=element('span',n==null?'—':n.toLocaleString(),'value');
   item.append(l,v);box.append(item);
  }
 }
-function renderTodChart(payload){
+function renderTodChart(payload,oldH){
  const chart=$('tod-chart'),yAxis=$('tod-y'),grid=$('tod-grid'),xAxis=$('tod-x');
  if(!chart)return;
  const block=payload&&payload[0];
@@ -1541,11 +1786,13 @@ function renderTodChart(payload){
   parsed.push({key,count:c});
  }
  if(parsed.some(b=>b.key%1!==0))binWidth=.5;
+ const oldSum=Array.isArray(oldH)?oldH.reduce((a,n)=>a+(n>0?n:0),0):0;
+ if(oldSum>0){binWidth=1;const merged=hours.map((live,h)=>({key:h,count:live+(oldH[h]||0),live,old:oldH[h]||0}));parsed.length=0;parsed.push(...merged);for(let h=0;h<24;h++)hours[h]+=oldH[h]||0;}
  const endHour=todEndHour(hours);
  const axis=todXAxis(endHour);
  const max=Math.max(0,...parsed.map(b=>b.count));
  const scale=niceTicks(max);
- const total=block&&Number.isSafeInteger(block.count)?block.count:hours.reduce((s,n)=>s+n,0);
+ const liveTotal=block&&Number.isSafeInteger(block.count)?block.count:hours.reduce((s,n)=>s+n,0)-oldSum,total=liveTotal+oldSum;
  chart.replaceChildren();
  if(yAxis)yAxis.replaceChildren();
  if(grid)grid.replaceChildren();
@@ -1571,9 +1818,11 @@ function renderTodChart(payload){
   col.style.left=(b.key/endHour*100)+'%';
   col.style.width=(binWidth/endHour*100)+'%';
   col.setAttribute('data-start',String(b.key));
-  bar.style.height=Math.max(4,Math.round((b.count/scale.top)*1000)/10)+'%';
+  const pct=Math.max(4,Math.round((b.count/scale.top)*1000)/10);
+  bar.style.height=pct+'%';
   bar.title=hourBinLabel(b.key)+' · '+b.count;
-  col.append(bar);chart.append(col);
+  if(b.old>0){const ob=element('div',undefined,'tod-bar old');ob.style.height=(b.live>0?pct*b.old/b.count:pct)+'%';ob.title=hourBinLabel(b.key)+' · old PUC '+b.old+(b.live?' · current PUC '+b.live:'');col.append(ob);if(b.live>0){bar.style.height=(pct*b.live/b.count)+'%';bar.className+=' live-under';bar.title=ob.title;col.append(bar);}chart.append(col);}
+  else{col.append(bar);chart.append(col);}
  }
  if(xAxis){
   for(const h of axis){
@@ -1585,19 +1834,24 @@ function renderTodChart(payload){
    tick.append(mark,lab);xAxis.append(tick);
   }
  }
- if($('tod-total'))$('tod-total').textContent=total?total.toLocaleString()+' detection'+(total===1?'':'s'):'No detections in this period.';
+ if($('tod-total'))$('tod-total').textContent=total?total.toLocaleString()+' detection'+(total===1?'':'s')+(oldSum?(liveTotal?' (old PUC '+oldSum.toLocaleString()+', current PUC '+liveTotal.toLocaleString()+')':' (all from the old PUC)'):''):'No detections in this period.';
+ const note=$('tod-note');if(note){note.hidden=!oldSum;note.textContent=oldSum?'Amber is the old PUC 4663 (every detection, no score filter); green is the current PUC 22946 (score 7 or higher).':'';}
 }
-function renderCalendar(days){
+function renderCalendar(days,pick){
  const heat=$('cal-heat');if(!heat)return;
  heat.replaceChildren();
- const map=new Map();
+ calDays=days;
+ const map=new Map(),oldMap=new Map();
  let max=0;
  for(const d of days||[]){
   if(!d||typeof d.date!=='string'||!Number.isFinite(d.total))continue;
-  map.set(d.date,d.total);if(d.total>max)max=d.total;
+  map.set(d.date,d.total);if(d.old>0)oldMap.set(d.date,d.old);if(d.total>max)max=d.total;
  }
  const years=[...new Set([...map.keys()].map(d=>d.slice(0,4)))].sort();
- const year=years.at(-1)||String(new Date().getFullYear());
+ const year=pick&&years.includes(pick)?pick:(years.at(-1)||String(new Date().getFullYear()));
+ calYear=year;
+ max=0;for(const [d,c] of map)if(d.startsWith(year)&&c>max)max=c;
+ renderCalendarYears(years,year,oldMap.size>0);
  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
  const dim=[31, (Number(year)%4===0&&Number(year)%100!==0)||Number(year)%400===0?29:28,31,30,31,30,31,31,30,31,30,31];
  for(let m=1;m<=12;m++){
@@ -1610,17 +1864,25 @@ function renderCalendar(days){
    const iso=year+'-'+String(m).padStart(2,'0')+'-'+String(day).padStart(2,'0');
    const c=map.get(iso)||0;
    cell.setAttribute('data-count',String(c));
-   cell.title=displayCivilDate(iso)+' · '+c.toLocaleString();
+   const oc=oldMap.get(iso)||0;
+   cell.title=displayCivilDate(iso)+' · '+c.toLocaleString()+(oc?(oc===c?' · old PUC':' · old PUC '+oc.toLocaleString()):'');
    if(c>0&&max>0){
     const t=Math.min(1,Math.sqrt(c/max));
-    const light=226-Math.round(t*140),green=216-Math.round(t*80),blue=180-Math.round(t*110);
-    cell.style.background='rgb('+[Math.round(light),Math.round(green),Math.round(blue)].join(',')+')';
+    if(oc*2>c){cell.className+=' cal-old';cell.style.background='rgb('+[232-Math.round(t*100),214-Math.round(t*120),170-Math.round(t*150)].join(',')+')';}
+    else{const light=226-Math.round(t*140),green=216-Math.round(t*80),blue=180-Math.round(t*110);
+    cell.style.background='rgb('+[Math.round(light),Math.round(green),Math.round(blue)].join(',')+')';}
    }
+   if(oldMap.size&&(iso===OLD_LAST_DAY||iso===earliestCivil())){cell.className+=' cal-switch';cell.title+=iso===OLD_LAST_DAY?' · PUC switch: old PUC 4663 last detection':' · PUC switch: current PUC 22946 first detection';}
    grid.append(cell);
   }
   col.append(grid);heat.append(col);
  }
  if($('species-arrival'))$('species-arrival').textContent=speciesArrival(days);
+}
+function renderCalendarYears(years,year,hasOld){
+ const nav=$('cal-years'),legend=$('cal-legend');
+ if(nav){nav.replaceChildren();nav.hidden=years.length<2;if(years.length>1)for(const y of years.slice().reverse()){const a=element('button',y,'subtab'+(y===year?' active':''));a.type='button';a.setAttribute('aria-pressed',y===year?'true':'false');a.addEventListener('click',()=>renderCalendar(calDays,y));nav.append(a);}}
+ if(legend){legend.replaceChildren();legend.hidden=!hasOld;if(hasOld){const a=element('span');a.append(stationDot('old'),element('span','Old PUC 4663'));const b=element('span');b.append(stationDot('live'),element('span','Current PUC 22946'));legend.append(a,b,element('span','Outlined days: the PUC switch ('+displayCivilDate(OLD_LAST_DAY)+' last old detection, '+displayCivilDate(earliestCivil())+' first current detection)'));}}
 }
 function appendClips(nodes,replace){
  const list=$('species-clips');
@@ -1637,7 +1899,7 @@ function appendClips(nodes,replace){
   item.append(meta,player);list.append(item);added++;
  }
  const empty=$('species-clips-empty');
- if(replace&&added===0){empty.hidden=false;empty.textContent='No recordings at score 7.0 or higher.';}
+ if(replace&&added===0){empty.hidden=false;empty.textContent=speciesOldOnly?'No recordings from the current PUC. This species was only heard by the old PUC 4663.':'No recordings at score 7.0 or higher.';}
  else {empty.hidden=true;empty.textContent='';}
 }
 function updateTodNav(window){
@@ -1661,6 +1923,7 @@ async function loadSpeciesPage(id){
  speciesBusy=true;
  if($('species-status'))$('species-status').textContent='Loading species…';
  if($('species-error'))$('species-error').textContent='';
+ const archiveP=loadOldArchive().catch(()=>false);speciesOldOnly=false;
  const known=((current&&current.topSpecies)||[]).find(b=>b.species&&b.species.id===id);
  if(known)renderSpeciesHeader(known.species);
  else clearSpeciesBody();
@@ -1684,12 +1947,19 @@ async function loadSpeciesPage(id){
    if(Number.isFinite(t))earliestDetectionAt=payload.data.station.earliestDetectionAt;
   }
   renderSpeciesHeader(s);
+  const arch=await archiveP;
+  if(version!==speciesGeneration)return;
   updateTodNav(todWin);
-  renderTodChart((payload.data.station&&payload.data.station.timeOfDayDetectionCounts)||[]);
+  renderTodChart((payload.data.station&&payload.data.station.timeOfDayDetectionCounts)||[],arch&&(todMode==='all'||overlapsOld(todWin.period))?oldHours(arch,id,todMode==='all'?null:todWin.period):null);
   const days=payload.data.dailyDetectionCounts;
   if(!Array.isArray(days))throw new Error('Unexpected calendar response.');
-  renderCalendar(days);
-  renderTotals(countValue(payload.data.todayCounts),countValue(payload.data.weekCounts),countValue(payload.data.ytdCounts),countValue(payload.data.allCounts));
+  const merged=arch?mergeDays(days,oldDaily(arch,id)):days;
+  renderCalendar(merged);
+  if(arch){const om=new Map(),lm=new Map();for(const d of merged){if(d.old)om.set(d.date.slice(0,7),(om.get(d.date.slice(0,7))||0)+d.old);if(d.live)lm.set(d.date.slice(0,7),(lm.get(d.date.slice(0,7))||0)+d.live);}renderTimeline($('species-timeline'),om,lm,'Detections by month, both PUCs');}
+  else if($('species-timeline')){$('species-timeline').hidden=true;$('species-timeline').replaceChildren();}
+  const allLive=countValue(payload.data.allCounts),oldMeta=arch&&arch.meta.get(String(id)),oldTotal=oldMeta?oldMeta.detections:0;
+  speciesOldOnly=oldTotal>0&&!allLive;
+  renderTotals(countValue(payload.data.todayCounts),countValue(payload.data.weekCounts),countValue(payload.data.ytdCounts),allLive==null?null:allLive+oldTotal,arch?{old:oldTotal,live:allLive}:null);
   if($('species-status'))$('species-status').textContent='';
   await loadSpeciesClips(id,all,true,version,controller.signal);
  }catch(e){
@@ -1733,9 +2003,11 @@ async function reloadTod(){
  updateTodNav(todWin);
  if($('tod-total'))$('tod-total').textContent='Loading…';
  try{
+  const useOld=mode==='all'||overlapsOld(todWin.period),archiveP=useOld?loadOldArchive().catch(()=>false):Promise.resolve(null),sid=speciesActive;
   const payload=await requestJson({query:todOnlyQuery,variables:{id:speciesActive,tod:todWin.period}},new AbortController().signal);
+  const arch=await archiveP;
   if(version!==speciesGeneration)return;
-  renderTodChart((payload.data&&payload.data.station&&payload.data.station.timeOfDayDetectionCounts)||[]);
+  renderTodChart((payload.data&&payload.data.station&&payload.data.station.timeOfDayDetectionCounts)||[],arch?oldHours(arch,sid,mode==='all'?null:todWin.period):null);
  }catch(e){
   if(version!==speciesGeneration)return;
   if($('tod-total'))$('tod-total').textContent=e&&e.message||'Could not load the hour chart.';

@@ -257,3 +257,19 @@ aggregation, and readings arrive about every 36 seconds (~2,300/day,
 Windows or buckets with no readings show as gaps; out-of-range or missing
 values are ignored. Results are cached per period for 10 minutes; Refresh
 reloads, and a failed refresh keeps the last good charts.
+
+OLD PUC 4663 HISTORY (added 2026-11-14)
+
+The retired PUC 4663 ("Neuse River", May 29, 2024 – Oct 24, 2025) is merged in from a frozen
+static archive in data/station-4663/ (species-summary.json: per-species totals, first/last heard,
+photo/link metadata; hourly-counts.json: per-species, per-day, per-hour counts in Eastern time;
+BirdWeather-consistent variant, 160 species, 494,677 detections). Station 22946 stays live.
+The browser merges the two by species ID only when a period reaches back before Oct 25, 2025:
+All time (combined counts, per-station split, "Old PUC only" / "Current PUC only" badges,
+first heard, a monthly timeline colored by station with a dashed switch marker), stepping
+back with ◀ into 2024–2025, species pages (calendar years, monthly timeline, hour chart,
+totals), and Arrivals/Missing comparisons with earlier years. Today, 24 hours, week, month
+and year windows ending now don't touch the archive. Old-station hour buckets are counted
+when the bucket's start falls inside the window; old counts are all detections (no score filter).
+Recordings remain current-PUC only. Opening index.html from disk (file://) can't read the
+archive, so only the current PUC is shown there.
