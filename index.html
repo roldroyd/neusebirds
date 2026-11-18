@@ -2276,7 +2276,7 @@ function renderTodayStats(){
   most.onclick=()=>openSpecies(top.species.id);most.title='Open '+top.species.commonName;
  }else most.hidden=true;
  const note=[];
- if(sun)note.push(sun.source==='calculated'?'Sunrise and sunset calculated locally (offline).':'Sunrise and sunset from sunrise-sunset.org.');
+ if(sun&&sun.source==='calculated')note.push(sun.source==='calculated'?'Sunrise and sunset calculated locally (offline).':'');
  $('today-note').textContent=note.join(' ');
 }
 function renderHourly(){
