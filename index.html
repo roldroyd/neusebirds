@@ -573,8 +573,15 @@ function setSchedule(){
  const used=valid?minutes:lastMinutes;
  if(valid)lastMinutes=minutes;
  $('interval-error').textContent='';
- if($('auto').checked&&historyOffset===0)timer=setInterval(refresh,used*60000);
+ if($('auto').checked&&historyOffset===0&&!document.hidden)timer=setInterval(refresh,used*60000);
 }
+// Pause auto-refresh while the tab is hidden; catch up when it is shown again.
+let lastRefreshAt=Date.now();
+document.addEventListener('visibilitychange',()=>{
+ if(document.hidden){if(timer!==null){clearInterval(timer);timer=null;}return;}
+ if($('auto').checked&&historyOffset===0&&Date.now()-lastRefreshAt>=lastMinutes*60000)refresh();
+ setSchedule();
+});
 function commitMinutes(){
  sanitizeMinutes();
  const text=$('minutes').value,minutes=Number(text);
@@ -614,6 +621,7 @@ function compareBirds(a,b){
 }
 async function refresh(reuse=false){
  if(busy)return;
+ lastRefreshAt=Date.now();
  const version=generation,usingCache=reuse===true&&current&&currentWindow;
  const window=usingCache?currentWindow:periodWindow($('period').value,new Date(),historyOffset);
  busy=true;$('refresh').disabled=true;$('refresh').textContent='Refreshing…';$('status').textContent='';$('error').textContent='';
